@@ -1,13 +1,14 @@
 // Contact Form Modal — FuturMix
 (function() {
-  // Create modal HTML
-  var modalHTML = '<div class="modal-overlay" id="contactModal">' +
+  // Create modal HTML — hidden by default with inline style
+  var modalHTML = '' +
+    '<div id="contactModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center;">' +
     '<div class="modal">' +
     '<button class="modal-close" onclick="closeContactModal()">&times;</button>' +
-    '<div id="contactForm">' +
+    '<div id="contactFormContent">' +
     '<h2>Get in Touch</h2>' +
     '<p class="modal-subtitle">Tell us about your team and what you\'re looking to build. We\'ll get back to you within one business day.</p>' +
-    '<form action="https://formsubmit.co/admin@futurmix.ai" method="POST" onsubmit="handleFormSubmit(event)">' +
+    '<form id="contactFormEl" action="https://formsubmit.co/admin@futurmix.ai" method="POST">' +
     '<input type="hidden" name="_subject" value="FuturMix.one Lead Inquiry">' +
     '<input type="hidden" name="_captcha" value="false">' +
     '<input type="hidden" name="_template" value="table">' +
@@ -29,10 +30,10 @@
     '<label for="contact-interest">Interested In</label>' +
     '<select id="contact-interest" name="interest">' +
     '<option value="">Select an option</option>' +
-    '<option value="strategy">Strategy & Analysis Agents</option>' +
+    '<option value="strategy">Strategy &amp; Analysis Agents</option>' +
     '<option value="content">Content Production Agents</option>' +
-    '<option value="code">Code & Engineering Agents</option>' +
-    '<option value="research">Research & Due Diligence Agents</option>' +
+    '<option value="code">Code &amp; Engineering Agents</option>' +
+    '<option value="research">Research &amp; Due Diligence Agents</option>' +
     '<option value="enterprise">Enterprise Plan</option>' +
     '<option value="other">Other</option>' +
     '</select>' +
@@ -55,28 +56,32 @@
   // Inject modal into body
   document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-  // Wire up all CTA buttons to open modal instead of external links
-  var ctaSelectors = [
-    'a[href="mailto:admin@futurmix.ai"]',
-    'a.btn-primary[href="https://futurmix.ai"]',
-    'a.btn-secondary[href="https://futurmix.ai"]',
-    'a.nav-cta[href="https://futurmix.ai"]'
-  ];
-  document.querySelectorAll(ctaSelectors.join(',')).forEach(function(link) {
-    link.href = '#contact';
-    link.addEventListener('click', function(e) {
+  // Wire up form submission
+  var formEl = document.getElementById('contactFormEl');
+  if (formEl) {
+    formEl.addEventListener('submit', function(e) {
       e.preventDefault();
-      openContactModal();
+      handleFormSubmit(e);
     });
-  });
+  }
 
-  // Also wire up footer "Start Agent" links
-  document.querySelectorAll('.footer-col a[href="https://futurmix.ai"]').forEach(function(link) {
-    link.href = '#contact';
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      openContactModal();
-    });
+  // Wire up ALL links that should open the contact form
+  var allLinks = document.querySelectorAll('a');
+  allLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (!href) return;
+
+    // Match: mailto:admin@futurmix.ai, https://futurmix.ai (CTA buttons, nav, footer)
+    if (href === 'mailto:admin@futurmix.ai' ||
+        (href === 'https://futurmix.ai' && !link.closest('.footer-legal'))) {
+      link.setAttribute('href', '#contact');
+      link.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openContactModal();
+        return false;
+      };
+    }
   });
 
   // Close on overlay click
@@ -91,24 +96,30 @@
 })();
 
 function openContactModal() {
-  document.getElementById('contactModal').classList.add('active');
+  var modal = document.getElementById('contactModal');
+  modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   // Reset form state
-  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('contactFormContent').style.display = 'block';
   document.getElementById('contactSuccess').style.display = 'none';
-  var form = document.querySelector('#contactForm form');
+  var form = document.getElementById('contactFormEl');
   if (form) form.reset();
 }
 
 function closeContactModal() {
-  document.getElementById('contactModal').classList.remove('active');
+  var modal = document.getElementById('contactModal');
+  modal.style.display = 'none';
   document.body.style.overflow = '';
 }
 
 function handleFormSubmit(e) {
-  e.preventDefault();
   var form = e.target;
   var data = new FormData(form);
+  var submitBtn = form.querySelector('.form-submit');
+  if (submitBtn) {
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+  }
 
   fetch(form.action, {
     method: 'POST',
@@ -116,13 +127,15 @@ function handleFormSubmit(e) {
     headers: { 'Accept': 'application/json' }
   }).then(function(response) {
     if (response.ok) {
-      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('contactFormContent').style.display = 'none';
       document.getElementById('contactSuccess').style.display = 'block';
       setTimeout(function() { closeContactModal(); }, 3000);
     } else {
       alert('Something went wrong. Please try again or email admin@futurmix.ai directly.');
+      if (submitBtn) { submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }
     }
   }).catch(function() {
     alert('Network error. Please try again or email admin@futurmix.ai directly.');
+    if (submitBtn) { submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }
   });
 }
