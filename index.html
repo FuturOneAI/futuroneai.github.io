@@ -3,25 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FuturMix Agent — Enterprise AI for Strategy, Content, Code & Research</title>
+  <title>FuturMix Agent — Enterprise AI for Reasoning, Creative & Coding Tasks</title>
   <meta name="description" content="Production-grade AI agents for enterprise workflows. From strategy analysis to content production, code engineering to deep research — one continuous conversation from strategy to execution." />
   <meta name="keywords" content="enterprise AI agent, AI agent platform, production-grade AI, reasoning agent, coding agent, creative AI, FuturMix, AI workflow automation" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://futurmix.one" />
-  <meta property="og:title" content="FuturMix Agent — Enterprise AI for Strategy, Content, Code & Research" />
+  <meta property="og:title" content="FuturMix Agent — Enterprise AI for Reasoning, Creative & Coding Tasks" />
   <meta property="og:description" content="Production-grade AI agents that complete enterprise workflows end-to-end. 22+ models, 99.99% SLA, 248ms latency." />
   <meta property="og:image" content="https://futurmix.ai/og-banner.png" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@futurmix" />
-  <meta name="twitter:title" content="FuturMix Agent — Enterprise AI for Strategy, Content, Code & Research" />
+  <meta name="twitter:title" content="FuturMix Agent — Enterprise AI for Reasoning, Creative & Coding Tasks" />
   <meta name="twitter:description" content="Production-grade AI agents that complete enterprise workflows end-to-end." />
   <meta name="twitter:image" content="https://futurmix.ai/og-banner.png" />
-
-  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FuturMix",
+    "alternateName": "FuturMix Agent",
+    "url": "https://futurmix.ai",
+    "logo": "https://futurmix.ai/logo.png",
+    "description": "Enterprise AI agent company building production-grade agents for reasoning, creative, and coding tasks.",
+    "foundingDate": "2024",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1250 Lakeside Dr Apt 109",
+      "addressLocality": "Sunnyvale",
+      "addressRegion": "CA",
+      "postalCode": "94085",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://x.com/futurmix",
+      "https://github.com/FuturMix",
+      "https://dev.to/futurmix"
+    ]
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,549 +59,28 @@
     "author": {
       "@type": "Organization",
       "name": "FuturMix",
-      "url": "https://futurmix.ai",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
+      "url": "https://futurmix.ai"
     }
   }
   </script>
-
   <link rel="canonical" href="https://futurmix.one" />
   <link rel="icon" href="https://futurmix.ai/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-card: #161616;
-      --bg-card-hover: #1a1a1a;
-      --border: #222222;
-      --text-primary: #f0f0f0;
-      --text-secondary: #999999;
-      --text-muted: #666666;
-      --accent: #6366f1;
-      --accent-hover: #818cf8;
-      --accent-glow: rgba(99, 102, 241, 0.15);
-      --green: #22c55e;
-      --blue: #3b82f6;
-      --orange: #f59e0b;
-      --pink: #ec4899;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--accent); }
-
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text-primary); }
-
-    .nav-cta {
-      background: var(--accent) !important;
-      color: white !important;
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-weight: 600 !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--accent-hover) !important; }
-
-    /* Hero */
-    .hero {
-      padding: 160px 24px 100px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      background: var(--accent-glow);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--accent-hover);
-      margin-bottom: 32px;
-    }
-
-    .hero h1 {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -0.03em;
-    }
-
-    .hero h1 .gradient {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 20px;
-      color: var(--text-secondary);
-      max-width: 640px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--accent);
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 14px 32px;
-      background: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      transition: all 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card); }
-
-    /* Stats bar */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      padding: 48px 24px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      max-width: 800px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-    }
-
-    .stat { text-align: center; }
-    .stat-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-
-    /* Sections */
-    section {
-      padding: 100px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-header h2 {
-      font-size: clamp(28px, 3.5vw, 42px);
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .section-header p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    /* Use Case Cards */
-    .usecase-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-
-    .usecase-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-      transition: border-color 0.3s;
-    }
-
-    .usecase-card:hover { border-color: var(--text-muted); }
-
-    .usecase-card:nth-child(even) .usecase-content { order: 2; }
-    .usecase-card:nth-child(even) .usecase-visual { order: 1; }
-
-    .usecase-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .usecase-content h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-
-    .usecase-content .subtitle {
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-
-    .usecase-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .usecase-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .usecase-features li::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      margin-top: 7px;
-      flex-shrink: 0;
-    }
-
-    .usecase-visual {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .visual-line { margin-bottom: 4px; }
-    .visual-label { color: var(--text-muted); }
-    .visual-value { color: var(--text-primary); }
-    .visual-accent { color: var(--accent-hover); }
-    .visual-green { color: var(--green); }
-    .visual-orange { color: var(--orange); }
-    .visual-blue { color: var(--blue); }
-    .visual-pink { color: var(--pink); }
-
-    /* Strategy card */
-    .uc-strategy .usecase-icon { background: rgba(99, 102, 241, 0.15); }
-    .uc-strategy .usecase-features li::before { background: var(--accent); }
-
-    /* Content card */
-    .uc-content .usecase-icon { background: rgba(236, 72, 153, 0.15); }
-    .uc-content .usecase-features li::before { background: var(--pink); }
-
-    /* Code card */
-    .uc-code .usecase-icon { background: rgba(34, 197, 94, 0.15); }
-    .uc-code .usecase-features li::before { background: var(--green); }
-
-    /* Research card */
-    .uc-research .usecase-icon { background: rgba(59, 130, 246, 0.15); }
-    .uc-research .usecase-features li::before { background: var(--blue); }
-
-    /* How it works */
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .how-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px;
-      text-align: center;
-    }
-
-    .how-step {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--accent-glow);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--accent-hover);
-      margin: 0 auto 20px;
-      font-size: 16px;
-    }
-
-    .how-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .how-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Trust / Production grade */
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .trust-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px;
-    }
-
-    .trust-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .trust-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Comparison */
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--bg-card);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .comparison-table th, .comparison-table td {
-      padding: 16px 24px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
-    }
-
-    .comparison-table th {
-      background: var(--bg-secondary);
-      font-weight: 600;
-      color: var(--text-secondary);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .comparison-table td:first-child {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .comparison-table td { color: var(--text-secondary); }
-
-    .comparison-table tr:last-child td { border-bottom: none; }
-
-    .highlight-col {
-      background: var(--accent-glow) !important;
-      color: var(--text-primary) !important;
-      font-weight: 600 !important;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      text-align: center;
-      padding: 100px 24px;
-      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
-    }
-
-    .cta-section h2 {
-      font-size: clamp(28px, 3.5vw, 42px);
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .cta-section p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Footer */
-    footer {
-      padding: 48px 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--text-primary); }
-
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .usecase-card {
-        grid-template-columns: 1fr;
-        padding: 32px;
-      }
-      .usecase-card:nth-child(even) .usecase-content { order: 1; }
-      .usecase-card:nth-child(even) .usecase-visual { order: 2; }
-      .how-grid { grid-template-columns: 1fr; }
-      .trust-grid { grid-template-columns: 1fr; }
-      .stats { gap: 32px; }
-      .nav-links { display: none; }
-      .comparison-table { font-size: 12px; }
-      .comparison-table th, .comparison-table td { padding: 12px 16px; }
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate { animation: fadeInUp 0.6s ease forwards; }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo">Futur<span>Mix</span></a>
+    <a href="/" class="logo"><img src="logo.png" alt="FuturMix" style="height:28px;vertical-align:middle;margin-right:8px;">Futur<span>Mix</span></a>
     <div class="nav-links">
-      <a href="#use-cases">Use Cases</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#production-grade">Why FuturMix</a>
-      <a href="https://futurmix.ai" class="nav-cta">Get Started</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/how-it-works.html">How It Works</a>
+      <a href="/about.html">About</a>
+      <a href="https://futurmix.ai" class="nav-cta">Start Building</a>
     </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
   </div>
 </nav>
 
@@ -593,7 +91,7 @@
   <p>Production-grade AI agents for strategy, content, code, and research. One continuous conversation from assignment to deliverable.</p>
   <div class="hero-cta">
     <a href="https://futurmix.ai" class="btn-primary">Start Building</a>
-    <a href="#use-cases" class="btn-secondary">See Use Cases</a>
+    <a href="/use-cases.html" class="btn-secondary">See Use Cases</a>
   </div>
 </section>
 
@@ -617,251 +115,197 @@
   </div>
 </div>
 
-<!-- Use Cases -->
-<section id="use-cases">
+<!-- Use Cases Preview -->
+<div class="section-wrap">
   <div class="section-header">
     <h2>Built for real enterprise workflows</h2>
     <p>Not another chatbot wrapper. FuturMix agents handle multi-step workflows end-to-end across four core domains.</p>
   </div>
 
   <div class="usecase-grid">
-
-    <!-- Strategy & Analysis -->
-    <div class="usecase-card uc-strategy">
+    <!-- Strategy -->
+    <div class="usecase-card">
       <div class="usecase-content">
         <div class="usecase-icon">&#x1F3AF;</div>
-        <h3>Strategy & Analysis</h3>
-        <p class="subtitle">Synthesize data from 50+ sources into actionable recommendations. What used to take a team days now takes an agent hours.</p>
+        <h3>Strategy &amp; Analysis</h3>
+        <p class="subtitle">Synthesize data from 50+ sources into actionable recommendations. Due diligence, competitive analysis, and market research — in hours, not weeks.</p>
         <ul class="usecase-features">
-          <li>Automated due diligence reports across market data, financials, and competitive intelligence</li>
+          <li>Automated due diligence across market data, financials, and competitive intelligence</li>
           <li>Scenario planning across multiple market conditions simultaneously</li>
-          <li>Real-time competitive monitoring with anomaly detection</li>
           <li>Investment memo generation with confidence-scored recommendations</li>
-          <li>Cross-reference analysis across structured and unstructured data sources</li>
         </ul>
       </div>
       <div class="usecase-visual">
-        <div class="visual-line"><span class="visual-label">Agent:</span> <span class="visual-accent">Strategy Analysis</span></div>
-        <div class="visual-line"><span class="visual-label">Sources:</span> <span class="visual-value">52 data feeds connected</span></div>
-        <div class="visual-line"><span class="visual-label">Task:</span> <span class="visual-value">Q2 competitive landscape report</span></div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Market sizing data synthesized</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> 12 competitor profiles updated</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Pricing analysis completed</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Risk factors identified (3 high, 7 medium)</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Executive summary generated</div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-label">Confidence:</span> <span class="visual-green">94%</span> &nbsp; <span class="visual-label">Time:</span> <span class="visual-value">2h 14m</span></div>
+        <div class="visual-header">
+          <span class="label">Agent</span>
+          <span class="value">Strategy Analysis</span>
+        </div>
+        <div class="workflow-diagram">
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Data ingestion</strong> — 52 feeds connected</span>
+            <span class="step-meta">23s</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Market sizing</strong> — TAM/SAM/SOM calculated</span>
+            <span class="step-meta">4m</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Competitor profiles</strong> — 12 updated</span>
+            <span class="step-meta">8m</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Risk analysis</strong> — 3 high, 7 medium</span>
+            <span class="step-meta">12m</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon progress">&#x25CF;</div>
+            <span class="step-text"><strong>Executive summary</strong> — generating...</span>
+            <span class="step-meta"></span>
+          </div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="visual-footer">
+          <span>Confidence: 94%</span>
+          <span>ETA: 2h 14m total</span>
+        </div>
       </div>
     </div>
 
-    <!-- Content Production -->
-    <div class="usecase-card uc-content">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x270D;&#xFE0F;</div>
-        <h3>Content Production</h3>
-        <p class="subtitle">End-to-end content pipelines, not just first drafts. Research, write, edit, localize, and format in one continuous workflow.</p>
-        <ul class="usecase-features">
-          <li>Full pipeline: research &#x2192; draft &#x2192; edit &#x2192; format &#x2192; publish</li>
-          <li>Multi-language content adaptation with preserved technical accuracy</li>
-          <li>Style guide enforcement across distributed teams</li>
-          <li>Content repurposing: blog &#x2192; social &#x2192; email &#x2192; slides automatically</li>
-          <li>Brand voice consistency with configurable tone parameters</li>
-        </ul>
-      </div>
-      <div class="usecase-visual">
-        <div class="visual-line"><span class="visual-label">Agent:</span> <span class="visual-pink">Content Pipeline</span></div>
-        <div class="visual-line"><span class="visual-label">Input:</span> <span class="visual-value">Product launch brief</span></div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Research phase: 23 sources analyzed</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Blog post (2,400 words) &#x2192; approved</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Twitter thread (8 tweets) &#x2192; scheduled</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> LinkedIn article &#x2192; drafted</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Email newsletter &#x2192; formatted</div>
-        <div class="visual-line"><span class="visual-orange">&#x25CF;</span> Japanese localization &#x2192; in progress</div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-label">Style score:</span> <span class="visual-green">97%</span> match</div>
-      </div>
-    </div>
-
-    <!-- Code & Engineering -->
-    <div class="usecase-card uc-code">
+    <!-- Code -->
+    <div class="usecase-card">
       <div class="usecase-content">
         <div class="usecase-icon">&#x1F4BB;</div>
-        <h3>Code & Engineering</h3>
-        <p class="subtitle">Persistent engineering team members that handle the work nobody wants to do but everybody needs done. Maintenance, reviews, docs, and debugging.</p>
+        <h3>Code &amp; Engineering</h3>
+        <p class="subtitle">Persistent engineering team members that handle maintenance, reviews, documentation, and debugging — the work nobody wants to do but everybody needs done.</p>
         <ul class="usecase-features">
           <li>PR review against project conventions with automated inline comments</li>
-          <li>Debugging with full repository context across files and history</li>
-          <li>Legacy code refactoring with consistent patterns and test generation</li>
-          <li>Documentation generation from actual code behavior, not just comments</li>
-          <li>Dependency updates, security patches, and regression testing</li>
+          <li>Debugging with full repository context across files and git history</li>
+          <li>Legacy refactoring with consistent patterns and test generation</li>
         </ul>
       </div>
       <div class="usecase-visual">
-        <div class="visual-line"><span class="visual-label">Agent:</span> <span class="visual-green">Code Review</span></div>
-        <div class="visual-line"><span class="visual-label">PR:</span> <span class="visual-value">#1847 — Refactor auth middleware</span></div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> 14 files analyzed (2,340 lines changed)</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Convention check: passed</div>
-        <div class="visual-line"><span class="visual-orange">&#x26A0;</span> Security: JWT expiry not validated (L142)</div>
-        <div class="visual-line"><span class="visual-orange">&#x26A0;</span> Performance: N+1 query in /users (L89)</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Test coverage: 87% &#x2192; 91%</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Auto-fix PR created for 2 issues</div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-label">Verdict:</span> <span class="visual-orange">Approve with changes</span></div>
+        <div class="visual-header">
+          <span class="label">Agent</span>
+          <span class="value">Code Review</span>
+        </div>
+        <div class="workflow-diagram">
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Analyzing</strong> — PR #1847 (14 files, 2.3K lines)</span>
+            <span class="step-meta">18s</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Convention check</strong> — all patterns match</span>
+            <span class="step-meta">passed</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon" style="background:rgba(248,113,113,0.15);color:var(--red)">!</div>
+            <span class="step-text"><strong>Security</strong> — JWT expiry not validated (L142)</span>
+            <span class="step-meta">critical</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon progress">&#x26A0;</div>
+            <span class="step-text"><strong>Performance</strong> — N+1 query detected (L89)</span>
+            <span class="step-meta">warning</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Coverage</strong> — 87% &#8594; 91% (+4%)</span>
+            <span class="step-meta">improved</span>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon done">&#x2713;</div>
+            <span class="step-text"><strong>Auto-fix PR</strong> — created for 2 issues</span>
+            <span class="step-meta">ready</span>
+          </div>
+        </div>
+        <div class="visual-footer">
+          <span>Verdict: Approve with changes</span>
+          <span>2 auto-fixes applied</span>
+        </div>
       </div>
     </div>
-
-    <!-- Research & Due Diligence -->
-    <div class="usecase-card uc-research">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x1F50D;</div>
-        <h3>Research & Due Diligence</h3>
-        <p class="subtitle">Structured deep dives with citation tracking and confidence scores. Every claim traced to its source. Thoroughness over speed.</p>
-        <ul class="usecase-features">
-          <li>Legal document review with clause extraction and risk flagging</li>
-          <li>Compliance verification across regulatory frameworks</li>
-          <li>Academic literature surveys with methodology assessment</li>
-          <li>Patent landscape analysis with prior art identification</li>
-          <li>Contradiction detection across sources with confidence scoring</li>
-        </ul>
-      </div>
-      <div class="usecase-visual">
-        <div class="visual-line"><span class="visual-label">Agent:</span> <span class="visual-blue">Due Diligence</span></div>
-        <div class="visual-line"><span class="visual-label">Target:</span> <span class="visual-value">Series B candidate — HealthTech Co.</span></div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> 847 documents processed</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Financial model validated</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> IP portfolio: 12 patents, 3 pending</div>
-        <div class="visual-line"><span class="visual-orange">&#x26A0;</span> Regulatory risk: FDA 510(k) timeline unclear</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Team background checks: clean</div>
-        <div class="visual-line"><span class="visual-green">&#x2713;</span> Market sizing: $4.2B TAM (validated)</div>
-        <div class="visual-line">&nbsp;</div>
-        <div class="visual-line"><span class="visual-label">Citations:</span> <span class="visual-value">312</span> &nbsp; <span class="visual-label">Confidence:</span> <span class="visual-green">91%</span></div>
-      </div>
-    </div>
-
   </div>
-</section>
 
-<!-- How It Works -->
-<section id="how-it-works" style="background: var(--bg-secondary); max-width: 100%; padding-left: 24px; padding-right: 24px;">
-  <div style="max-width: 1200px; margin: 0 auto;">
+  <div style="text-align:center; margin-top:48px;">
+    <a href="/use-cases.html" class="btn-secondary btn-sm">View All Use Cases &#8594;</a>
+  </div>
+</div>
+
+<!-- How It Works (Brief) -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
     <div class="section-header">
       <h2>How FuturMix agents work</h2>
       <p>From task assignment to completed deliverable, in one continuous conversation.</p>
     </div>
-
     <div class="how-grid">
       <div class="how-card">
         <div class="how-step">1</div>
         <h3>Assign the task</h3>
-        <p>Describe what you need in natural language. The agent understands context, constraints, and success criteria. No prompt engineering required.</p>
+        <p>Describe what you need in natural language. The agent understands context, constraints, and success criteria.</p>
       </div>
       <div class="how-card">
         <div class="how-step">2</div>
         <h3>Agent executes</h3>
-        <p>The agent breaks down the workflow, selects optimal models for each step, and executes. If a model is unavailable, it fails over automatically.</p>
+        <p>The agent breaks down the workflow, selects optimal models for each step, and executes with automatic failover.</p>
       </div>
       <div class="how-card">
         <div class="how-step">3</div>
         <h3>Review the deliverable</h3>
-        <p>Get a completed output with confidence scores and citation trails. The agent flags uncertainty instead of hiding it. Iterate or approve.</p>
+        <p>Get a completed output with confidence scores and citation trails. The agent flags uncertainty instead of hiding it.</p>
       </div>
     </div>
+    <div style="text-align:center; margin-top:48px;">
+      <a href="/how-it-works.html" class="btn-secondary btn-sm">Learn More &#8594;</a>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- Production Grade -->
-<section id="production-grade">
+<div class="section-wrap">
   <div class="section-header">
     <h2>Production-grade, not demo-grade</h2>
     <p>The AI model is 20% of the problem. Infrastructure reliability is the other 80%.</p>
   </div>
-
   <div class="trust-grid">
     <div class="trust-card">
-      <h3>&#x1F6E1;&#xFE0F; 99.99% Uptime SLA</h3>
-      <p>Enterprise workflows can't tolerate downtime. Automatic model failover across 22+ models ensures your agent completes the task even when individual models have issues.</p>
+      <div class="trust-icon">&#x1F6E1;&#xFE0F;</div>
+      <h3>99.99% Uptime SLA</h3>
+      <p>Automatic model failover across 22+ models ensures your agent completes the task even when individual models have issues.</p>
     </div>
     <div class="trust-card">
-      <h3>&#x26A1; 248ms Average Latency</h3>
-      <p>Optimized inference pipeline with parallel execution for independent workflow steps. Interactive workflows feel responsive, not sluggish.</p>
+      <div class="trust-icon">&#x26A1;</div>
+      <h3>248ms Avg Latency</h3>
+      <p>Optimized inference pipeline with parallel execution for independent workflow steps. Interactive workflows feel responsive.</p>
     </div>
     <div class="trust-card">
-      <h3>&#x1F512; Zero Data Retention</h3>
-      <p>Enterprise data never persists beyond the request lifecycle. Audit logs track what happened without recording what was said. SOC 2 compliant architecture.</p>
+      <div class="trust-icon">&#x1F512;</div>
+      <h3>Zero Data Retention</h3>
+      <p>Enterprise data never persists beyond the request lifecycle. Audit logs track events without recording content.</p>
     </div>
     <div class="trust-card">
-      <h3>&#x1F504; Automatic Failover</h3>
-      <p>Task-aware model routing. When a model is slow or unavailable, the agent seamlessly switches to an equivalent model without losing context or progress.</p>
+      <div class="trust-icon">&#x1F504;</div>
+      <h3>Automatic Failover</h3>
+      <p>Task-aware model routing. When a model is unavailable, the agent switches to an equivalent without losing context.</p>
     </div>
     <div class="trust-card">
-      <h3>&#x1F4CA; Full Observability</h3>
-      <p>Per-request latency tracking, token usage monitoring, error rate dashboards, and cost attribution per agent and team. Know exactly what's happening.</p>
+      <div class="trust-icon">&#x1F4CA;</div>
+      <h3>Full Observability</h3>
+      <p>Per-request latency, token usage monitoring, error rate dashboards, and cost attribution per agent and team.</p>
     </div>
     <div class="trust-card">
-      <h3>&#x1F9E9; Multi-Model Orchestration</h3>
-      <p>Different tasks need different models. Agents select the optimal model for each workflow step based on task type, cost constraints, and real-time availability.</p>
+      <div class="trust-icon">&#x1F9E9;</div>
+      <h3>Multi-Model Orchestration</h3>
+      <p>Agents select the optimal model for each step based on task type, cost constraints, and real-time availability.</p>
     </div>
   </div>
-</section>
-
-<!-- Chatbot vs Agent comparison -->
-<section>
-  <div class="section-header">
-    <h2>Chatbots answer questions. Agents complete tasks.</h2>
-    <p>The fundamental difference is autonomy and workflow completion.</p>
-  </div>
-
-  <table class="comparison-table">
-    <thead>
-      <tr>
-        <th>Capability</th>
-        <th>Traditional Chatbot</th>
-        <th class="highlight-col">FuturMix Agent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Interaction model</td>
-        <td>Human prompts, AI responds</td>
-        <td class="highlight-col">Human assigns task, AI executes full workflow</td>
-      </tr>
-      <tr>
-        <td>Context</td>
-        <td>Single conversation window</td>
-        <td class="highlight-col">Multi-step, multi-source, persistent state</td>
-      </tr>
-      <tr>
-        <td>Output</td>
-        <td>Text response</td>
-        <td class="highlight-col">Completed deliverable with citations</td>
-      </tr>
-      <tr>
-        <td>Error handling</td>
-        <td>Returns error message</td>
-        <td class="highlight-col">Retries, fails over, degrades gracefully</td>
-      </tr>
-      <tr>
-        <td>Model flexibility</td>
-        <td>Single model, hardcoded</td>
-        <td class="highlight-col">22+ models, task-aware routing</td>
-      </tr>
-      <tr>
-        <td>Reliability</td>
-        <td>Best-effort</td>
-        <td class="highlight-col">99.99% SLA with automatic failover</td>
-      </tr>
-      <tr>
-        <td>Data handling</td>
-        <td>Varies by provider</td>
-        <td class="highlight-col">Zero data retention, audit logging</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+</div>
 
 <!-- CTA -->
 <section class="cta-section">
@@ -876,12 +320,46 @@
 <!-- Footer -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-copy">&copy; 2024-2026 FutureMix Limited. San Francisco, CA.</div>
-    <div class="footer-links">
-      <a href="https://futurmix.ai">futurmix.ai</a>
-      <a href="https://x.com/futurmix">X / Twitter</a>
-      <a href="https://github.com/FuturMix">GitHub</a>
-      <a href="https://dev.to/futurmix">Dev.to</a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="logo.png" alt="FuturMix" style="height:28px;vertical-align:middle;margin-right:8px;">Futur<span>Mix</span></a>
+        <p>FuturMix Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="https://futurmix.ai">Start Agent</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="https://dev.to/futurmix">Blog</a></li>
+          <li><a href="mailto:admin@futurmix.ai">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://x.com/futurmix">X / Twitter</a></li>
+          <li><a href="https://github.com/FuturMix">GitHub</a></li>
+          <li><a href="https://dev.to/futurmix">Dev.to</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturMix. All rights reserved.<br>Company Name: Future Intelligence LLC &nbsp;&nbsp;&nbsp;&nbsp; Address: 1250 Lakeside Dr Apt 109, Sunnyvale CA 94085</div>
+      <div class="footer-status">
+        <span class="status-dot"></span>
+        All systems operational
+      </div>
+      <div class="footer-legal">
+        <a href="https://futurmix.ai">Terms of Service</a>
+        <a href="https://futurmix.ai">Privacy Policy</a>
+      </div>
     </div>
   </div>
 </footer>

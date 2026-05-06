@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — FuturMix Agent</title>
+  <meta name="description" content="Learn how FuturMix agents work: multi-model orchestration, automatic failover, intelligent model selection, and production-grade reliability for enterprise AI workflows." />
+  <meta name="keywords" content="AI agent architecture, multi-model orchestration, automatic failover, model selection, FuturMix, AI workflow, enterprise AI" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/how-it-works.html" />
+  <meta property="og:title" content="How It Works — FuturMix Agent" />
+  <meta property="og:description" content="Multi-model orchestration with automatic failover. See how FuturMix agents select, execute, and deliver production-grade AI workflows." />
+  <meta property="og:image" content="https://futurmix.ai/og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@futurmix" />
+  <meta name="twitter:title" content="How It Works — FuturMix Agent" />
+  <meta name="twitter:description" content="Multi-model orchestration with automatic failover. See how FuturMix agents deliver production-grade AI workflows." />
+  <meta name="twitter:image" content="https://futurmix.ai/og-banner.png" />
+  <link rel="canonical" href="https://futurmix.one/how-it-works.html" />
+  <link rel="icon" href="https://futurmix.ai/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Architecture Pipeline Diagram */
+    .architecture-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 32px;
+      margin-top: 48px;
+    }
+
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      padding: 16px 0;
+    }
+
+    .pipeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      min-width: 140px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: pipelineFadeIn 0.5s ease forwards;
+      transition: border-color 0.3s;
+    }
+
+    .pipeline-step:hover {
+      border-color: var(--accent);
+    }
+
+    .pipeline-step:nth-child(1) { animation-delay: 0.1s; }
+    .pipeline-step:nth-child(2) { animation-delay: 0.3s; }
+    .pipeline-step:nth-child(3) { animation-delay: 0.5s; }
+    .pipeline-step:nth-child(4) { animation-delay: 0.7s; }
+    .pipeline-step:nth-child(5) { animation-delay: 0.9s; }
+    .pipeline-step:nth-child(6) { animation-delay: 1.1s; }
+
+    @keyframes pipelineFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pipeline-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(202, 98, 63, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .pipeline-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .pipeline-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .pipeline-arrow {
+      font-size: 20px;
+      color: var(--accent);
+      padding: 0 8px;
+      flex-shrink: 0;
+      opacity: 0;
+      animation: pipelineFadeIn 0.3s ease forwards;
+    }
+
+    .pipeline-arrow:nth-of-type(2) { animation-delay: 0.2s; }
+    .pipeline-arrow:nth-of-type(4) { animation-delay: 0.4s; }
+    .pipeline-arrow:nth-of-type(6) { animation-delay: 0.6s; }
+    .pipeline-arrow:nth-of-type(8) { animation-delay: 0.8s; }
+    .pipeline-arrow:nth-of-type(10) { animation-delay: 1.0s; }
+
+    /* Model Selection Table */
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .model-table th,
+    .model-table td {
+      padding: 16px 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .model-table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .model-table td:first-child {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .model-table td { color: var(--text-secondary); }
+    .model-table tr:last-child td { border-bottom: none; }
+
+    .tier-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .tier-top {
+      background: rgba(202, 98, 63, 0.15);
+      color: var(--accent-light);
+      border: 1px solid rgba(202, 98, 63, 0.3);
+    }
+
+    .tier-mid {
+      background: rgba(96, 165, 250, 0.15);
+      color: var(--blue);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .tier-fast {
+      background: rgba(74, 222, 128, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+
+    /* Animated progress dots for pipeline */
+    .pipeline-active-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @media (max-width: 900px) {
+      .pipeline {
+        flex-direction: column;
+        gap: 0;
+      }
+      .pipeline-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+      }
+      .pipeline-step {
+        min-width: 220px;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .architecture-visual {
+        padding: 24px 16px;
+      }
+      .model-table th,
+      .model-table td {
+        padding: 12px 14px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="logo.png" alt="FuturMix" style="height:28px;vertical-align:middle;margin-right:8px;">Futur<span>Mix</span></a>
+    <div class="nav-links">
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/how-it-works.html" class="active">How It Works</a>
+      <a href="/about.html">About</a>
+      <a href="https://futurmix.ai" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>How FuturMix Agents Work</h1>
+  <p>From natural-language task assignment to completed deliverable. Multi-model orchestration, automatic failover, and intelligent routing under the hood.</p>
+</div>
+
+<!-- 3-Step Overview -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Three steps from task to deliverable</h2>
+      <p>No setup wizards, no pipeline configuration. Describe what you need and the agent handles the rest.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-step">1</div>
+        <h3>Assign</h3>
+        <p>Describe your task in natural language. The agent understands context, constraints, quality bar, and success criteria from the conversation.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-step">2</div>
+        <h3>Execute</h3>
+        <p>The agent decomposes the workflow, selects optimal models for each sub-task, runs steps in parallel where possible, and handles errors automatically.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-step">3</div>
+        <h3>Review</h3>
+        <p>Receive a completed deliverable with confidence scores, citation trails, and flagged uncertainties. Iterate in the same conversation if needed.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Architecture Section -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>Multi-model orchestration architecture</h2>
+    <p>Every task flows through an intelligent pipeline that selects, executes, and validates across 22+ models in real time.</p>
+  </div>
+
+  <div class="architecture-visual">
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x1F4E5;</div>
+        <div class="pipeline-label">Task Input</div>
+        <div class="pipeline-desc">Parse intent, constraints, and quality requirements</div>
+      </div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x1F9E0;</div>
+        <div class="pipeline-label">Model Selection</div>
+        <div class="pipeline-desc">Route sub-tasks to optimal model tiers</div>
+      </div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x26A1;</div>
+        <div class="pipeline-label">Parallel Execution</div>
+        <div class="pipeline-desc">Run independent steps concurrently</div>
+      </div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x1F527;</div>
+        <div class="pipeline-label">Result Assembly</div>
+        <div class="pipeline-desc">Merge outputs into coherent deliverable</div>
+      </div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x2705;</div>
+        <div class="pipeline-label">Quality Check</div>
+        <div class="pipeline-desc">Validate accuracy, flag uncertainty</div>
+      </div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#x1F4E4;</div>
+        <div class="pipeline-label">Output</div>
+        <div class="pipeline-desc">Deliver with confidence scores and citations</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed workflow visual -->
+  <div style="margin-top:48px;">
+    <div class="usecase-visual" style="max-width:700px; margin:0 auto;">
+      <div class="visual-header">
+        <span class="label">Pipeline</span>
+        <span class="value">Multi-Model Orchestration</span>
+      </div>
+      <div class="workflow-diagram">
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Task parsing</strong> &mdash; intent classified, 3 sub-tasks identified</span>
+          <span class="step-meta">120ms</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Model routing</strong> &mdash; Claude for reasoning, GPT-4o for drafting</span>
+          <span class="step-meta">45ms</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Parallel execution</strong> &mdash; 2 of 3 sub-tasks ran concurrently</span>
+          <span class="step-meta">8.2s</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Result assembly</strong> &mdash; outputs merged, conflicts resolved</span>
+          <span class="step-meta">1.4s</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Quality validation</strong> &mdash; confidence 96%, no flags</span>
+          <span class="step-meta">0.8s</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Delivered</strong> &mdash; full report with 12 citations</span>
+          <span class="step-meta">done</span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 2.5s ease forwards 0.3s;"></div></div>
+      <div class="visual-footer">
+        <span>Total latency: 10.6s</span>
+        <span>Models used: 3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Model Selection Strategy -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Intelligent model selection</h2>
+      <p>The agent matches each sub-task to the right model tier based on task type, cost constraints, and real-time availability.</p>
+    </div>
+
+    <table class="model-table">
+      <thead>
+        <tr>
+          <th>Task Type</th>
+          <th>Model Tier</th>
+          <th>Selection Rationale</th>
+          <th>Example Models</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Strategy analysis</td>
+          <td><span class="tier-badge tier-top">Top-tier reasoning</span></td>
+          <td>Requires deep chain-of-thought, multi-step logic, and nuanced judgment across complex data</td>
+          <td>Claude Opus, o1, Gemini Ultra</td>
+        </tr>
+        <tr>
+          <td>Content drafting</td>
+          <td><span class="tier-badge tier-mid">Mid-tier instruction</span></td>
+          <td>Strong instruction following with natural language fluency at lower cost per token</td>
+          <td>Claude Sonnet, GPT-4o, Gemini Pro</td>
+        </tr>
+        <tr>
+          <td>Code generation</td>
+          <td><span class="tier-badge tier-top">Top-tier coding</span></td>
+          <td>Needs precise syntax, edge-case handling, and awareness of language-specific patterns</td>
+          <td>Claude Opus, GPT-4o, DeepSeek V3</td>
+        </tr>
+        <tr>
+          <td>Classification</td>
+          <td><span class="tier-badge tier-fast">Fast &amp; cheap</span></td>
+          <td>Simple categorization tasks where speed and cost matter more than reasoning depth</td>
+          <td>Claude Haiku, GPT-4o mini, Gemini Flash</td>
+        </tr>
+        <tr>
+          <td>Data extraction</td>
+          <td><span class="tier-badge tier-fast">Fast &amp; cheap</span></td>
+          <td>Structured parsing from known formats requires speed, not deep reasoning</td>
+          <td>Claude Haiku, GPT-4o mini</td>
+        </tr>
+        <tr>
+          <td>Deep research</td>
+          <td><span class="tier-badge tier-top">Top-tier reasoning</span></td>
+          <td>Synthesizing across many sources requires extended context and careful attribution</td>
+          <td>Claude Opus, Gemini Ultra, o1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Failover & Reliability -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>Failover &amp; reliability</h2>
+    <p>Production systems need more than a good model. They need infrastructure that never drops a task.</p>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F504;</div>
+      <h3>Automatic Failover</h3>
+      <p>When a model returns an error or times out, the agent automatically retries with an equivalent model from another provider. No context is lost, no manual intervention required. Failover decisions happen in under 200ms.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F512;</div>
+      <h3>Zero Data Retention</h3>
+      <p>Enterprise data never persists beyond the request lifecycle. No prompts, no completions, no intermediate results are stored. Audit logs track metadata (timestamps, token counts, model used) without recording content.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F6E1;&#xFE0F;</div>
+      <h3>Graceful Degradation</h3>
+      <p>If a top-tier model is unavailable, the agent downgrades to the next-best tier and flags the substitution. You always get a result, and you always know when quality was traded for availability.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F4B0;</div>
+      <h3>Cost Optimization</h3>
+      <p>The agent routes simple sub-tasks to cheaper models automatically. Classification and extraction steps use fast models at 10-50x lower cost while reserving top-tier capacity for steps that actually need it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Comparison: Chatbot vs Agent -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Chatbot vs. FuturMix Agent</h2>
+      <p>Chatbots answer questions. Agents complete workflows. Here is how they differ.</p>
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Typical Chatbot</th>
+          <th class="highlight-col">FuturMix Agent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Task scope</td>
+          <td>Single question/answer</td>
+          <td class="highlight-col">Multi-step workflows with sub-task decomposition</td>
+        </tr>
+        <tr>
+          <td>Model usage</td>
+          <td>One model, one call</td>
+          <td class="highlight-col">22+ models, task-aware routing per step</td>
+        </tr>
+        <tr>
+          <td>Error handling</td>
+          <td>Returns error to user</td>
+          <td class="highlight-col">Automatic failover with zero context loss</td>
+        </tr>
+        <tr>
+          <td>Output quality</td>
+          <td>Depends on prompt quality</td>
+          <td class="highlight-col">Built-in quality validation and confidence scoring</td>
+        </tr>
+        <tr>
+          <td>Context window</td>
+          <td>Single conversation</td>
+          <td class="highlight-col">Persistent context across workflow steps</td>
+        </tr>
+        <tr>
+          <td>Cost control</td>
+          <td>Same model for everything</td>
+          <td class="highlight-col">Tier-matched routing, cheap models for simple tasks</td>
+        </tr>
+        <tr>
+          <td>Transparency</td>
+          <td>Black box output</td>
+          <td class="highlight-col">Confidence scores, citation trails, flagged uncertainties</td>
+        </tr>
+        <tr>
+          <td>Reliability</td>
+          <td>Single point of failure</td>
+          <td class="highlight-col">99.99% SLA with multi-provider redundancy</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>See it in action</h2>
+  <p>Start with the free tier. Assign your first task in under two minutes.</p>
+  <div class="hero-cta">
+    <a href="https://futurmix.ai" class="btn-primary">Start Building Free</a>
+    <a href="mailto:admin@futurmix.ai" class="btn-secondary">Contact Sales</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="logo.png" alt="FuturMix" style="height:28px;vertical-align:middle;margin-right:8px;">Futur<span>Mix</span></a>
+        <p>FuturMix Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="https://futurmix.ai">Start Agent</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="https://dev.to/futurmix">Blog</a></li>
+          <li><a href="mailto:admin@futurmix.ai">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://x.com/futurmix">X / Twitter</a></li>
+          <li><a href="https://github.com/FuturMix">GitHub</a></li>
+          <li><a href="https://dev.to/futurmix">Dev.to</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturMix. All rights reserved.<br>Company Name: Future Intelligence LLC &nbsp;&nbsp;&nbsp;&nbsp; Address: 1250 Lakeside Dr Apt 109, Sunnyvale CA 94085</div>
+      <div class="footer-status">
+        <span class="status-dot"></span>
+        All systems operational
+      </div>
+      <div class="footer-legal">
+        <a href="https://futurmix.ai">Terms of Service</a>
+        <a href="https://futurmix.ai">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
