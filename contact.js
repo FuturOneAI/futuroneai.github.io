@@ -1,4 +1,4 @@
-// Contact Form Modal — FuturMix
+// Contact Form Modal — FuturOne
 (function() {
   // Create modal HTML — hidden by default with inline style
   var modalHTML = '' +
@@ -9,7 +9,7 @@
     '<h2>Get in Touch</h2>' +
     '<p class="modal-subtitle">Tell us about your team and what you\'re looking to build. We\'ll get back to you within one business day.</p>' +
     '<form id="contactFormEl" action="https://formsubmit.co/hello@futurmix.one" method="POST">' +
-    '<input type="hidden" name="_subject" value="FuturMix.one Lead Inquiry">' +
+    '<input type="hidden" name="_subject" value="FuturOne Lead Inquiry">' +
     '<input type="hidden" name="_captcha" value="false">' +
     '<input type="hidden" name="_template" value="table">' +
     '<input type="hidden" name="_next" value="' + window.location.href + '">' +
