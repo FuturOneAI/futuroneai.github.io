@@ -1,23 +1,23 @@
 /* FuturMix Agent — Product Site Styles */
-/* Color scheme: black + orange */
+/* Color scheme: deep navy + teal */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg-primary: #16161A;
-  --bg-secondary: #1C1C21;
-  --bg-card: #1E1E24;
-  --bg-card-hover: #24242B;
-  --border: #2A2A32;
-  --border-hover: #3A3A44;
-  --text-primary: #FAF9F5;
-  --text-secondary: #B3B0A2;
-  --text-muted: #6E6D65;
-  --accent: #CA623F;
-  --accent-hover: #D97B56;
-  --accent-light: #E09570;
-  --accent-glow: rgba(202, 98, 63, 0.12);
-  --accent-glow-strong: rgba(202, 98, 63, 0.25);
+  --bg-primary: #07111F;
+  --bg-secondary: #0B1728;
+  --bg-card: #0E1B2D;
+  --bg-card-hover: #13243A;
+  --border: #1E3348;
+  --border-hover: #2B5570;
+  --text-primary: #F6FBFF;
+  --text-secondary: #A9BED1;
+  --text-muted: #6E879E;
+  --accent: #38D8C8;
+  --accent-hover: #63E6DA;
+  --accent-light: #C7F9CC;
+  --accent-glow: rgba(56, 216, 200, 0.12);
+  --accent-glow-strong: rgba(56, 216, 200, 0.25);
   --green: #4ADE80;
   --blue: #60A5FA;
   --red: #F87171;
@@ -44,7 +44,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 100;
-  background: rgba(22, 22, 26, 0.85);
+  background: rgba(7, 17, 31, 0.86);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -66,8 +66,17 @@ nav {
   color: var(--text-primary);
   text-decoration: none;
   letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
 }
 .logo span { color: var(--accent); }
+.logo-mark {
+  height: 28px;
+  width: 28px;
+  vertical-align: middle;
+  margin-right: 9px;
+  border-radius: 8px;
+}
 
 .nav-links { display: flex; gap: 28px; align-items: center; }
 .nav-links a {
@@ -143,7 +152,7 @@ nav {
   display: inline-block;
   padding: 6px 16px;
   background: var(--accent-glow);
-  border: 1px solid rgba(202, 98, 63, 0.3);
+  border: 1px solid rgba(56, 216, 200, 0.3);
   border-radius: 100px;
   font-size: 13px;
   font-weight: 600;
@@ -161,7 +170,7 @@ nav {
 }
 
 .hero h1 .gradient {
-  background: linear-gradient(135deg, #CA623F, #E09570, #D97B56);
+  background: linear-gradient(135deg, #38D8C8, #C7F9CC, #6EA8FE);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -344,8 +353,8 @@ nav {
   gap: 14px;
   padding: 10px 16px;
   border-radius: 8px;
-  background: rgba(202, 98, 63, 0.05);
-  border: 1px solid rgba(202, 98, 63, 0.1);
+  background: rgba(56, 216, 200, 0.05);
+  border: 1px solid rgba(56, 216, 200, 0.1);
   font-size: 13px;
   opacity: 0;
   transform: translateX(-15px);
@@ -450,7 +459,7 @@ nav {
   height: 44px;
   border-radius: 50%;
   background: var(--accent-glow);
-  border: 1px solid rgba(202, 98, 63, 0.3);
+  border: 1px solid rgba(56, 216, 200, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -482,7 +491,7 @@ nav {
 /* ---- INDUSTRY ANALYSIS ---- */
 .industry-section {
   background:
-    radial-gradient(circle at 20% 10%, rgba(202, 98, 63, 0.12), transparent 32%),
+    radial-gradient(circle at 20% 10%, rgba(56, 216, 200, 0.12), transparent 32%),
     linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
 }
 
@@ -502,7 +511,7 @@ nav {
 }
 
 .industry-card:hover {
-  border-color: rgba(202, 98, 63, 0.45);
+  border-color: rgba(56, 216, 200, 0.45);
   transform: translateY(-2px);
 }
 
