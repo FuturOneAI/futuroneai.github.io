@@ -71,8 +71,9 @@
     var href = link.getAttribute('href');
     if (!href) return;
 
-    // Match local CTA anchors. External links are intentionally not used for primary conversion.
-    if (href === 'mailto:hello@futurmix.one' || href === '#contact') {
+    // Match local CTA anchors. Primary conversion stays on futurmix.one.
+    if (href === '#contact' ||
+        href.indexOf('mailto:hello@futurmix.one') === 0) {
       link.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
