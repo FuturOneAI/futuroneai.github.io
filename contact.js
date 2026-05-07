@@ -8,7 +8,7 @@
     '<div id="contactFormContent">' +
     '<h2>Get in Touch</h2>' +
     '<p class="modal-subtitle">Tell us about your team and what you\'re looking to build. We\'ll get back to you within one business day.</p>' +
-    '<form id="contactFormEl" action="https://formsubmit.co/admin@futurmix.ai" method="POST">' +
+    '<form id="contactFormEl" action="https://formsubmit.co/hello@futurmix.one" method="POST">' +
     '<input type="hidden" name="_subject" value="FuturMix.one Lead Inquiry">' +
     '<input type="hidden" name="_captcha" value="false">' +
     '<input type="hidden" name="_template" value="table">' +
@@ -71,10 +71,8 @@
     var href = link.getAttribute('href');
     if (!href) return;
 
-    // Match: mailto:admin@futurmix.ai, https://futurmix.ai (CTA buttons, nav, footer)
-    if (href === 'mailto:admin@futurmix.ai' ||
-        (href === 'https://futurmix.ai' && !link.closest('.footer-legal'))) {
-      link.setAttribute('href', '#contact');
+    // Match local CTA anchors. External links are intentionally not used for primary conversion.
+    if (href === 'mailto:hello@futurmix.one' || href === '#contact') {
       link.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -131,11 +129,11 @@ function handleFormSubmit(e) {
       document.getElementById('contactSuccess').style.display = 'block';
       setTimeout(function() { closeContactModal(); }, 3000);
     } else {
-      alert('Something went wrong. Please try again or email admin@futurmix.ai directly.');
+      alert('Something went wrong. Please try again or email hello@futurmix.one directly.');
       if (submitBtn) { submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }
     }
   }).catch(function() {
-    alert('Network error. Please try again or email admin@futurmix.ai directly.');
+    alert('Network error. Please try again or email hello@futurmix.one directly.');
     if (submitBtn) { submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }
   });
 }
