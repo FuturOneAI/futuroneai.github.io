@@ -35,6 +35,30 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do FuturOne agents execute workflows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FuturOne agents use intelligent task orchestration: they decompose a business task into sub-steps, select the optimal execution approach for each step, run independent steps in parallel, and recover automatically from failures. The result is a completed deliverable, not a raw model response."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does FuturOne use its own AI models?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FuturOne focuses on building the agent execution layer — task planning, workflow orchestration, automatic recovery, and quality assurance. The agent selects the best available approach for each task step based on requirements like reasoning depth, speed, and domain expertise. FuturOne is an agent company, not a model provider or API gateway."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="canonical" href="https://futurmix.one/how-it-works.html" />
   <link rel="icon" href="/one-logo.svg" />
   <link rel="stylesheet" href="styles.css?v=20260507-blue" />
