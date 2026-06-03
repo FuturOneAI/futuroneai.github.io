@@ -1054,3 +1054,35 @@ footer {
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
+
+
+/* Testimonials */
+.testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+.testimonial-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+.testimonial-quote { font-size: 15px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px; font-style: italic; }
+.testimonial-quote::before { content: "\201C"; font-size: 32px; color: var(--accent); line-height: 0; vertical-align: -12px; margin-right: 4px; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #0A0A12; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.author-info { display: flex; flex-direction: column; }
+.author-info strong { color: var(--text-primary); font-size: 14px; }
+.author-info span { color: var(--text-muted); font-size: 12px; }
+@media (max-width: 768px) { .testimonial-grid { grid-template-columns: 1fr; } }
+
+/* Results */
+.results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+.result-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; }
+.result-number { font-size: 42px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+.result-label { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+.result-detail { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+@media (max-width: 768px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .results-grid { grid-template-columns: 1fr; } .result-number { font-size: 32px; } }
+
+/* Updates */
+.updates-list { max-width: 800px; margin: 0 auto; }
+.update-item { display: flex; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.update-date { font-size: 13px; color: var(--accent); font-weight: 600; min-width: 90px; flex-shrink: 0; }
+.update-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.update-item:last-child { border-bottom: none; }
+
+/* Footer team line */
+.footer-team { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
