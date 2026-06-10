@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Documentation — Runs, Event Streams &amp; Webhooks | FuturOne</title>
+  <meta name="description" content="FuturOne API reference: create agent runs with POST /v1/runs, poll status, stream run events over resumable SSE, and receive signed webhooks. Scoped Bearer API keys, Python and Node SDKs, zero-retention by design." />
+  <meta name="keywords" content="FuturOne API, AI agent API, agent runs API, server-sent events, SSE event stream, Last-Event-ID, webhook signature verification, HMAC-SHA256 webhooks, scoped API keys, Python AI agent SDK, Node AI agent SDK, enterprise AI API, zero data retention API" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/docs.html" />
+  <meta property="og:title" content="API Documentation — Runs, Event Streams &amp; Webhooks | FuturOne" />
+  <meta property="og:description" content="Create agent runs, stream events over resumable SSE, and receive signed webhooks. Scoped Bearer keys, Python and Node SDKs, zero retention by design." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="API Documentation — Runs, Event Streams &amp; Webhooks | FuturOne" />
+  <meta name="twitter:description" content="Create agent runs, stream events over resumable SSE, and receive signed webhooks. Scoped Bearer keys, Python and Node SDKs, zero retention by design." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "FuturOne API Documentation",
+    "description": "API reference for the FuturOne agent platform: creating runs, polling status, streaming run events over resumable SSE, signed webhooks, scoped API keys, and the Python and Node SDKs.",
+    "url": "https://futurmix.one/docs.html",
+    "author": { "@type": "Organization", "name": "FuturOne", "url": "https://futurmix.one" },
+    "publisher": { "@type": "Organization", "name": "FuturOne", "url": "https://futurmix.one" },
+    "isPartOf": { "@type": "WebSite", "name": "FuturOne", "url": "https://futurmix.one" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
+      { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://futurmix.one/docs.html" }
+    ]
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/docs.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- Docs layout ---- */
+    .docs-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 24px 96px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 56px;
+      align-items: start;
+    }
+    .docs-sidenav {
+      position: sticky;
+      top: 96px;
+      font-size: 13.5px;
+    }
+    .docs-sidenav .sn-group {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin: 22px 0 8px;
+    }
+    .docs-sidenav .sn-group:first-child { margin-top: 0; }
+    .docs-sidenav a {
+      display: block;
+      color: var(--text-secondary);
+      padding: 5px 10px;
+      border-left: 2px solid var(--border);
+      line-height: 1.45;
+    }
+    .docs-sidenav a:hover { color: var(--accent); border-left-color: var(--accent); }
+
+    .docs-content { min-width: 0; }
+    .docs-content section { margin-bottom: 64px; scroll-margin-top: 88px; }
+    .docs-content section:last-child { margin-bottom: 0; }
+    .docs-content h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .docs-content section:first-child h2 { border-top: none; padding-top: 0; }
+    .docs-content h3 { font-size: 18px; font-weight: 600; margin: 30px 0 10px; }
+    .docs-content p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; }
+    .docs-content ul { margin: 0 0 14px 20px; }
+    .docs-content li { font-size: 14.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 6px; }
+    .docs-content code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      color: var(--accent-light);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 6px;
+      white-space: nowrap;
+    }
+
+    /* ---- Beta notice ---- */
+    .beta-callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 40px;
+    }
+    .beta-callout p { margin: 0; font-size: 14px; }
+    .beta-callout strong { color: var(--text-primary); }
+
+    /* ---- Endpoint headers ---- */
+    .endpoint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 22px 0 14px;
+    }
+    .endpoint .path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      color: var(--text-primary);
+      word-break: break-all;
+    }
+    .method {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .method-post { background: rgba(74, 222, 128, 0.15); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.3); }
+    .method-get { background: rgba(96, 165, 250, 0.15); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.3); }
+
+    /* ---- Code blocks ---- */
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 14px 0 22px;
+      overflow: hidden;
+    }
+    .code-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 16px 18px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+    .code-block .cmt { color: var(--text-muted); }
+    .code-block .str { color: var(--accent-light); }
+    .code-block .kw { color: var(--blue); }
+    .code-block .lit { color: var(--yellow); }
+
+    /* ---- Parameter / reference tables ---- */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 14px 0 22px;
+    }
+    .param-table th, .param-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      vertical-align: top;
+    }
+    .param-table th {
+      background: var(--bg-card-hover);
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .param-table td { color: var(--text-secondary); line-height: 1.6; }
+    .param-table tr:last-child td { border-bottom: none; }
+    .param-table td:first-child code { white-space: nowrap; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 980px) {
+      .docs-layout { grid-template-columns: 1fr; gap: 0; }
+      .docs-sidenav { display: none; }
+    }
+    @media (max-width: 720px) {
+      .param-table th, .param-table td { padding: 10px 10px; font-size: 12.5px; }
+      .docs-content h2 { font-size: 22px; }
+      .code-block pre { font-size: 11.5px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>Documentation</h1>
+  <p>Everything in the FuturOne dashboard is built on the same public API: create a run, stream its events, receive a signed webhook when it completes. Three endpoints, two SDKs, no hidden surface.</p>
+</div>
+
+<div class="docs-layout">
+
+  <!-- Side navigation -->
+  <aside class="docs-sidenav" aria-label="Documentation sections">
+    <div class="sn-group">Getting started</div>
+    <a href="#overview">Overview</a>
+    <a href="#quickstart">Quickstart</a>
+    <a href="#authentication">Authentication</a>
+    <div class="sn-group">API reference</div>
+    <a href="#create-run">Create a run</a>
+    <a href="#get-run">Retrieve a run</a>
+    <a href="#stream-events">Stream run events</a>
+    <a href="#webhooks">Webhooks</a>
+    <a href="#errors">Errors</a>
+    <div class="sn-group">Platform</div>
+    <a href="#connections">Connections &amp; scoping</a>
+    <a href="#data-handling">Data handling</a>
+    <a href="#sdks">SDKs</a>
+  </aside>
+
+  <!-- Main content -->
+  <div class="docs-content">
+
+    <div class="beta-callout">
+      <p><strong>API access is in private beta</strong> on Team plans and above; the dashboard requires no API access at all. <a href="#contact">Request access</a> to get a workspace key, or see <a href="/pricing.html">pricing</a> for plan details. Breaking changes during the beta are announced in the <a href="/changelog.html">changelog</a> with a migration window.</p>
+    </div>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>FuturOne agents complete workflows, not chat turns — so the API is built around <strong>runs</strong>, not messages. You submit a task in natural language, the platform plans, executes, and verifies it, and you get back a finished deliverable with confidence scores and a content-free audit trail. How that pipeline works is covered in <a href="/how-it-works.html">How It Works</a>; this page covers how to drive it programmatically.</p>
+      <p>All endpoints live under a single base URL and speak JSON over TLS&nbsp;1.3:</p>
+      <div class="code-block">
+        <div class="code-head"><span>Base URL</span></div>
+        <pre>https://api.futurmix.one/v1</pre>
+      </div>
+      <p>The whole surface is three endpoints plus webhooks:</p>
+      <table class="param-table">
+        <thead>
+          <tr><th>Endpoint</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>POST /v1/runs</code></td><td>Create an agent run from a natural-language task brief</td></tr>
+          <tr><td><code>GET /v1/runs/{id}</code></td><td>Retrieve a run's status, confidence, and metadata</td></tr>
+          <tr><td><code>GET /v1/runs/{id}/events</code></td><td>Stream the run's event log in real time over SSE</td></tr>
+          <tr><td>Webhooks</td><td>Signed HTTP callbacks on run completion, escalation, or failure</td></tr>
+        </tbody>
+      </table>
+      <p>To see exactly what comes over the events stream before writing a line of code, the <a href="/demo.html">live demo</a> replays recorded event streams from four production runs in your browser.</p>
+    </section>
+
+    <section id="quickstart">
+      <h2>Quickstart</h2>
+      <p>Install an SDK, export your API key, and submit a task. Both SDKs are deliberately thin wrappers — everything they do is expressible against the raw API.</p>
+      <div class="code-block">
+        <div class="code-head"><span>Shell</span></div>
+        <pre>pip install futurone        <span class="cmt"># Python</span>
+npm i @futurone/sdk         <span class="cmt"># Node</span>
+
+export FUTURONE_API_KEY=<span class="str">"fo_live_..."</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-head"><span>Python</span></div>
+        <pre><span class="kw">from</span> futurone <span class="kw">import</span> FuturOne
+
+client = FuturOne()  <span class="cmt"># reads FUTURONE_API_KEY</span>
+
+run = client.runs.create(
+    agent=<span class="str">"research"</span>,
+    task=<span class="str">"Source-verified market sizing for warehouse robotics in the EU, 2024-2028. Cite every claim."</span>,
+)
+
+<span class="kw">for</span> event <span class="kw">in</span> client.runs.events(run.id):
+    <span class="kw">print</span>(event.type, event.data)</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-head"><span>Node</span></div>
+        <pre><span class="kw">import</span> FuturOne <span class="kw">from</span> <span class="str">"@futurone/sdk"</span>;
+
+<span class="kw">const</span> client = <span class="kw">new</span> FuturOne(); <span class="cmt">// reads FUTURONE_API_KEY</span>
+
+<span class="kw">const</span> run = <span class="kw">await</span> client.runs.create({
+  agent: <span class="str">"coding"</span>,
+  task: <span class="str">"Review the open PR in acme/payments-api: conventions, security, performance, coverage."</span>,
+});
+
+<span class="kw">for await</span> (<span class="kw">const</span> event <span class="kw">of</span> client.runs.events(run.id)) {
+  console.log(event.type, event.data);
+}</pre>
+      </div>
+      <p>The events iterator wraps the SSE stream, reconnects automatically, and resumes from the last processed event — see <a href="#stream-events">Stream run events</a> for the underlying protocol.</p>
+    </section>
+
+    <section id="authentication">
+      <h2>Authentication</h2>
+      <p>Every request carries a Bearer API key:</p>
+      <div class="code-block">
+        <div class="code-head"><span>HTTP header</span></div>
+        <pre>Authorization: Bearer fo_live_...</pre>
+      </div>
+      <p>Keys are created and rotated in the dashboard under <em>Workspace → API keys</em>. Keys can be <strong>scoped per project and per capability</strong> — create runs, read runs, manage webhooks — instead of granting workspace-wide access. We recommend one scoped key per integration: a CI key that can only create and read runs cannot reconfigure your webhooks. Older unscoped keys keep working but are flagged in the dashboard with a one-click migration path.</p>
+      <ul>
+        <li>Keys are workspace credentials. Keep them server-side; never embed them in client-side code or mobile apps.</li>
+        <li>Requests with a missing or invalid key return <code>401</code>; requests outside a key's scope return <code>403</code> with the missing capability named in the error body.</li>
+        <li>Key usage is recorded in the audit event log — actor, action, timestamp, resource ID, never payload content.</li>
+      </ul>
+    </section>
+
+    <section id="create-run">
+      <h2>Create a run</h2>
+      <div class="endpoint"><span class="method method-post">POST</span><span class="path">/v1/runs</span></div>
+      <p>Creates an agent run. The task brief is natural language — the same brief you would give in the dashboard. The planner extracts context, constraints, and success criteria from it; you do not configure a pipeline.</p>
+      <table class="param-table">
+        <thead>
+          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>agent</code></td><td>string, required</td><td>Agent domain: <code>coding</code>, <code>strategy</code>, <code>content</code>, or <code>research</code></td></tr>
+          <tr><td><code>task</code></td><td>string, required</td><td>Natural-language task brief, including any constraints and the quality bar you expect</td></tr>
+          <tr><td><code>connections</code></td><td>array, optional</td><td>IDs of workspace connections the run may use (e.g. a GitHub App installation). Omit to run without external systems</td></tr>
+          <tr><td><code>webhook_url</code></td><td>string, optional</td><td>HTTPS endpoint to notify on completion, escalation, or failure; overrides the workspace default for this run</td></tr>
+          <tr><td><code>metadata</code></td><td>object, optional</td><td>Up to 16 key-value pairs echoed back on the run object and in webhook payloads — useful for correlating with your own systems</td></tr>
+        </tbody>
+      </table>
+      <div class="code-block">
+        <div class="code-head"><span>Request</span></div>
+        <pre>curl https://api.futurmix.one/v1/runs \
+  -H <span class="str">"Authorization: Bearer fo_live_..."</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{
+    "agent": "research",
+    "task": "Source-verified market sizing for warehouse robotics in the EU, 2024-2028. Cite every claim.",
+    "webhook_url": "https://example.com/hooks/futurone",
+    "metadata": { "ticket": "RES-1042" }
+  }'</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-head"><span>Response &middot; 201 Created</span></div>
+        <pre>{
+  <span class="str">"id"</span>: <span class="str">"fo_run_7c2d91"</span>,
+  <span class="str">"object"</span>: <span class="str">"run"</span>,
+  <span class="str">"agent"</span>: <span class="str">"research"</span>,
+  <span class="str">"status"</span>: <span class="str">"queued"</span>,
+  <span class="str">"confidence"</span>: <span class="lit">null</span>,
+  <span class="str">"created_at"</span>: <span class="str">"2026-06-09T14:22:31Z"</span>,
+  <span class="str">"completed_at"</span>: <span class="lit">null</span>,
+  <span class="str">"metadata"</span>: { <span class="str">"ticket"</span>: <span class="str">"RES-1042"</span> }
+}</pre>
+      </div>
+      <h3>Run lifecycle</h3>
+      <p>A run moves through <code>queued</code> &rarr; <code>planning</code> &rarr; <code>running</code> and terminates in exactly one of three states:</p>
+      <table class="param-table">
+        <thead>
+          <tr><th>Terminal status</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>completed</code></td><td>Verification passed at or above the workspace confidence threshold; the deliverable is final</td></tr>
+          <tr><td><code>escalated</code></td><td>Verification scored below threshold; the run is in the human review queue with the verifier's reasoning attached — never delivered as final</td></tr>
+          <tr><td><code>failed</code></td><td>The run could not finish after retries and failover; the error event explains why, and failed runs are not billed</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="get-run">
+      <h2>Retrieve a run</h2>
+      <div class="endpoint"><span class="method method-get">GET</span><span class="path">/v1/runs/{id}</span></div>
+      <p>Returns the current run object. Plain polling works fine for short runs and for networks that drop long-lived connections; for live progress, prefer the <a href="#stream-events">events stream</a>.</p>
+      <div class="code-block">
+        <div class="code-head"><span>Response &middot; 200 OK</span></div>
+        <pre>{
+  <span class="str">"id"</span>: <span class="str">"fo_run_7c2d91"</span>,
+  <span class="str">"object"</span>: <span class="str">"run"</span>,
+  <span class="str">"agent"</span>: <span class="str">"research"</span>,
+  <span class="str">"status"</span>: <span class="str">"completed"</span>,
+  <span class="str">"confidence"</span>: <span class="lit">0.94</span>,
+  <span class="str">"steps_completed"</span>: <span class="lit">6</span>,
+  <span class="str">"artifacts"</span>: [
+    { <span class="str">"type"</span>: <span class="str">"report"</span>, <span class="str">"label"</span>: <span class="str">"Market sizing report"</span>, <span class="str">"citations"</span>: <span class="lit">12</span> }
+  ],
+  <span class="str">"created_at"</span>: <span class="str">"2026-06-09T14:22:31Z"</span>,
+  <span class="str">"completed_at"</span>: <span class="str">"2026-06-09T14:26:08Z"</span>,
+  <span class="str">"metadata"</span>: { <span class="str">"ticket"</span>: <span class="str">"RES-1042"</span> }
+}</pre>
+      </div>
+      <p><code>confidence</code> is the verifier's 0&ndash;1 score, populated when verification finishes. Artifact content is delivered on the events stream and in the run's delivery channel during the run lifecycle — see <a href="#data-handling">Data handling</a> for what we do and do not keep afterward.</p>
+    </section>
+
+    <section id="stream-events">
+      <h2>Stream run events</h2>
+      <div class="endpoint"><span class="method method-get">GET</span><span class="path">/v1/runs/{id}/events</span></div>
+      <p>Streams the run's event log as <strong>server-sent events</strong> (<code>text/event-stream</code>). This is the same stream the dashboard renders, and the same recorded streams the <a href="/demo.html">live demo</a> replays — plan, tool calls, findings, verification, delivery.</p>
+      <div class="code-block">
+        <div class="code-head"><span>Request</span></div>
+        <pre>curl -N https://api.futurmix.one/v1/runs/fo_run_7c2d91/events \
+  -H <span class="str">"Authorization: Bearer fo_live_..."</span> \
+  -H <span class="str">"Accept: text/event-stream"</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-head"><span>Stream</span></div>
+        <pre>id: 14
+event: step_start
+data: {<span class="str">"step"</span>:<span class="str">"s3"</span>}
+
+id: 15
+event: tool_call
+data: {<span class="str">"step"</span>:<span class="str">"s3"</span>,<span class="str">"tool"</span>:<span class="str">"web.search"</span>,<span class="str">"args"</span>:{<span class="str">"query"</span>:<span class="str">"EU warehouse robotics installed base 2024"</span>}}
+
+: heartbeat
+
+id: 16
+event: step_done
+data: {<span class="str">"step"</span>:<span class="str">"s3"</span>,<span class="str">"took"</span>:<span class="str">"6.1s"</span>}</pre>
+      </div>
+      <h3>Event types</h3>
+      <table class="param-table">
+        <thead>
+          <tr><th>Event</th><th>Payload</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>status</code></td><td>Agent narration line — what the run is doing right now</td></tr>
+          <tr><td><code>plan</code></td><td>The step graph the planner produced: step IDs, labels, dependencies</td></tr>
+          <tr><td><code>step_start</code> / <code>step_done</code></td><td>Step lifecycle, with wall-time on completion</td></tr>
+          <tr><td><code>tool_call</code> / <code>tool_result</code></td><td>Sandboxed tool invocations and their results, with latency</td></tr>
+          <tr><td><code>finding</code></td><td>A graded finding — severity, title, detail — as the agent surfaces it</td></tr>
+          <tr><td><code>artifact</code></td><td>A deliverable section or attachment as it is produced</td></tr>
+          <tr><td><code>run_done</code></td><td>Terminal summary: final status, confidence, verification results</td></tr>
+        </tbody>
+      </table>
+      <h3>Reliability behavior</h3>
+      <ul>
+        <li><strong>Heartbeats.</strong> The stream sends a comment-frame heartbeat every 15 seconds and sets <code>X-Accel-Buffering: no</code>, so proxies and corporate middleboxes don't buffer or silently collect idle connections on long runs.</li>
+        <li><strong>Resumption.</strong> Every event carries a monotonic <code>id</code>. Reconnect with <code>Last-Event-ID</code> and the stream resumes from the last event you processed — no replays, no gaps. The SDKs do this automatically as of <code>futurone</code> 0.9 and <code>@futurone/sdk</code> 0.11.</li>
+        <li><strong>Fallback.</strong> If your network still drops long-lived connections, poll <code>GET /v1/runs/{id}</code> instead; status and confidence are always consistent with the stream.</li>
+      </ul>
+    </section>
+
+    <section id="webhooks">
+      <h2>Webhooks</h2>
+      <p>For fire-and-forget integrations, register a webhook endpoint (workspace-wide in the dashboard, or per run via <code>webhook_url</code>). FuturOne POSTs a JSON notification when a run reaches a terminal state:</p>
+      <table class="param-table">
+        <thead>
+          <tr><th>Event</th><th>Sent when</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>run.completed</code></td><td>Verification passed; the deliverable is final</td></tr>
+          <tr><td><code>run.escalated</code></td><td>The run entered the human review queue</td></tr>
+          <tr><td><code>run.failed</code></td><td>The run terminated after exhausting retries and failover</td></tr>
+        </tbody>
+      </table>
+      <p>Payloads are thin by design — run ID, terminal status, confidence, and your <code>metadata</code>, never artifact content. Your handler fetches what it needs with its own credentials, which keeps webhook delivery consistent with zero retention and keeps your endpoint out of your data-security audit scope.</p>
+      <h3>Verifying signatures</h3>
+      <p>Every delivery is signed with HMAC-SHA256 in the <code>X-FuturOne-Signature</code> header, using the signing secret shown when you create the endpoint. Verify before trusting:</p>
+      <div class="code-block">
+        <div class="code-head"><span>Python</span></div>
+        <pre><span class="kw">import</span> hashlib, hmac
+
+<span class="kw">def</span> verify(payload: <span class="kw">bytes</span>, signature: <span class="kw">str</span>, secret: <span class="kw">str</span>) -&gt; <span class="kw">bool</span>:
+    expected = hmac.new(secret.encode(), payload, hashlib.sha256).hexdigest()
+    <span class="kw">return</span> hmac.compare_digest(expected, signature)</pre>
+      </div>
+      <h3>Retries and the dead-letter queue</h3>
+      <p>Any non-2xx response (or a timeout) triggers retries: up to <strong>8 attempts over roughly six hours</strong> with exponential backoff and jitter. Deliveries that exhaust their retries land in a per-workspace <strong>dead-letter queue</strong>, inspectable and replayable from the dashboard for 7 days. Respond <code>200</code> quickly and process asynchronously — slow handlers are the most common cause of spurious retries.</p>
+    </section>
+
+    <section id="errors">
+      <h2>Errors</h2>
+      <p>Errors use conventional HTTP status codes and a consistent body:</p>
+      <div class="code-block">
+        <div class="code-head"><span>Error body</span></div>
+        <pre>{
+  <span class="str">"error"</span>: {
+    <span class="str">"type"</span>: <span class="str">"permission_error"</span>,
+    <span class="str">"message"</span>: <span class="str">"This key is scoped to read runs; creating runs requires the runs:create capability."</span>
+  }
+}</pre>
+      </div>
+      <table class="param-table">
+        <thead>
+          <tr><th>Status</th><th>Type</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>400</code></td><td><code>invalid_request</code></td><td>Malformed body or missing required field; the message names the field</td></tr>
+          <tr><td><code>401</code></td><td><code>authentication_error</code></td><td>Missing, malformed, or revoked API key</td></tr>
+          <tr><td><code>403</code></td><td><code>permission_error</code></td><td>Valid key, but the request is outside its project or capability scope</td></tr>
+          <tr><td><code>404</code></td><td><code>not_found</code></td><td>No such run in this workspace</td></tr>
+          <tr><td><code>429</code></td><td><code>rate_limited</code></td><td>Workspace rate limit reached; honor the <code>Retry-After</code> header. Beta limits are set per workspace and shown in the dashboard</td></tr>
+          <tr><td><code>5xx</code></td><td><code>server_error</code></td><td>Something failed on our side; safe to retry with backoff. Current availability is on the <a href="/status.html">status page</a></td></tr>
+        </tbody>
+      </table>
+      <p>The SDKs raise typed exceptions for each error type and retry <code>429</code> and <code>5xx</code> responses with backoff automatically.</p>
+    </section>
+
+    <section id="connections">
+      <h2>Connections &amp; permission scoping</h2>
+      <p>Runs that touch external systems — repositories, document stores, internal tools — do so through <strong>workspace connections</strong>, configured once in the dashboard and referenced by ID in <code>POST /v1/runs</code>. Connections follow least privilege end to end:</p>
+      <ul>
+        <li><strong>GitHub.</strong> A first-party GitHub App, installed on selected repositories only. Permissions are read on contents and write on pull requests and checks — nothing else. PR review runs can trigger automatically on <code>ready_for_review</code>, no API call required.</li>
+        <li><strong>Enterprise connectors.</strong> Document stores and internal systems connect with credentials scoped to the specific resources you select, never workspace-wide access.</li>
+        <li><strong>Short-lived credentials.</strong> Inside a run, the sandboxed tool layer receives scoped, short-lived credentials per step; nothing persists between runs.</li>
+        <li><strong>Audit trail.</strong> Every agent action against a connected system lands in the audit log as an event — actor, action, timestamp, resource ID — never content. Audit events export as JSON Lines.</li>
+      </ul>
+      <p>See <a href="/use-cases.html">Use Cases</a> for how teams wire connections into real workflows, and <a href="/security.html">Security</a> for the full trust architecture.</p>
+    </section>
+
+    <section id="data-handling">
+      <h2>Data handling</h2>
+      <p>FuturOne is zero-retention: task content, documents, and intermediate results exist only for the request lifecycle, in transient encrypted buffers (TLS&nbsp;1.3 in transit, AES-256 at rest). What persists is operational metadata — step timings, routing decisions, check results, audit events — which is why the event log is safe to keep and the content is not there to leak.</p>
+      <p>Practically, that means your integration should <strong>consume artifacts as they are delivered</strong> — on the events stream, or fetched on webhook notification — and store them in your own systems. Once a run's lifecycle ends, its content is gone from ours. The full policy, including subprocessors and compliance posture, is on the <a href="/security.html">security page</a>.</p>
+    </section>
+
+    <section id="sdks">
+      <h2>SDKs</h2>
+      <table class="param-table">
+        <thead>
+          <tr><th>SDK</th><th>Install</th><th>Current</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Python</td><td><code>pip install futurone</code></td><td><code>futurone</code> 0.9</td></tr>
+          <tr><td>Node / TypeScript</td><td><code>npm i @futurone/sdk</code></td><td><code>@futurone/sdk</code> 0.11</td></tr>
+        </tbody>
+      </table>
+      <p>Both provide typed run creation, automatic status polling with backoff, and an events iterator that wraps the SSE stream with automatic reconnection and <code>Last-Event-ID</code> resumption. They are deliberately thin: everything they do is expressible against the public API, so nothing locks you in. Release notes ship in the <a href="/changelog.html">changelog</a>.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to create your first run?</h2>
+  <p>Request API access on a Team plan, or watch the <a href="/demo.html">live demo</a> replay these event streams first — no signup required.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Request API Access</a>
+    <a href="/demo.html" class="btn-secondary">Open the Live Demo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

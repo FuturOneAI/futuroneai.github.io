@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero retention is an architecture decision, not a policy promise — FuturOne Engineering</title>
+  <meta name="description" content="A retention policy is a promise about a system that stores data by default. We built a system with nothing to delete: request-lifecycle-only data, transient encrypted buffers, audit events without content — and the honest tradeoffs it costs us." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://futurmix.one/blog/zero-retention-enterprise-ai.html" />
+  <meta property="og:title" content="Zero retention is an architecture decision, not a policy promise" />
+  <meta property="og:description" content="We built a system with nothing to delete — and it collapsed enterprise security review from months to about two weeks. Here is how, and what it costs us." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta property="article:published_time" content="2026-03-19" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zero retention is an architecture decision, not a policy promise" />
+  <meta name="twitter:description" content="We built a system with nothing to delete — and it collapsed enterprise security review from months to about two weeks." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Zero retention is an architecture decision, not a policy promise",
+    "description": "A retention policy is a promise about a system that stores data by default. We built a system with nothing to delete: request-lifecycle-only data, transient encrypted buffers, and audit events without content.",
+    "url": "https://futurmix.one/blog/zero-retention-enterprise-ai.html",
+    "mainEntityOfPage": "https://futurmix.one/blog/zero-retention-enterprise-ai.html",
+    "datePublished": "2026-03-19",
+    "dateModified": "2026-03-19",
+    "author": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://futurmix.one/one-logo.svg"
+      }
+    },
+    "image": "https://futurmix.one/one-og-banner.png"
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/blog/zero-retention-enterprise-ai.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="/styles.css?v=20260610" />
+  <style>
+    .post-wrap { max-width: 760px; margin: 0 auto; padding: 140px 24px 32px; }
+    .post-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+    .post-wrap h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .post-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--text-muted); font-size: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+    .post-meta .byline { color: var(--text-secondary); font-weight: 600; }
+    .post-meta .sep { color: var(--border-hover); }
+    .post-body p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 20px; }
+    .post-body h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text-primary); }
+    .post-body h3 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; color: var(--text-primary); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 22px; color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
+    .post-body li { margin-bottom: 10px; }
+    .post-body strong { color: var(--text-primary); }
+    .post-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; overflow-x: auto; font-size: 13px; line-height: 1.65; margin: 0 0 22px; color: var(--text-secondary); }
+    .post-body pre code { font-family: 'SF Mono', Menlo, Consolas, monospace; background: none; border: none; padding: 0; }
+    .post-body p code, .post-body li code { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13.5px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--accent-light); }
+    .post-callout { border-left: 3px solid var(--accent); background: var(--accent-glow); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 0 0 22px; }
+    .post-callout p { font-size: 15px; margin: 0; }
+    .post-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; text-align: center; margin: 52px 0 8px; }
+    .post-cta h2 { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .post-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 22px; line-height: 1.6; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 28px auto 88px; padding: 0 24px; }
+    .post-nav a { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.2s; }
+    .post-nav a:hover { border-color: var(--border-hover); }
+    .post-nav .dir { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .post-nav .t { font-size: 14.5px; font-weight: 600; color: var(--text-primary); line-height: 1.45; }
+    .post-nav a.next { text-align: right; }
+    @media (max-width: 980px) {
+      .post-wrap { padding-top: 120px; }
+    }
+    @media (max-width: 720px) {
+      .post-body pre { font-size: 12px; padding: 14px 16px; }
+      .post-nav { grid-template-columns: 1fr; }
+      .post-nav a.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<article class="post-wrap">
+  <div class="post-kicker">Infrastructure</div>
+  <h1>Zero retention is an architecture decision, not a policy promise</h1>
+  <div class="post-meta">
+    <span class="byline">FuturOne Engineering</span>
+    <span class="sep">&middot;</span>
+    <span>March 19, 2026</span>
+    <span class="sep">&middot;</span>
+    <span>6 min read</span>
+  </div>
+
+  <div class="post-body">
+
+    <p>Most vendors in this space offer a retention <em>policy</em>: data is stored by default, and the vendor promises to delete it after thirty days, or on request, or to exclude it from training. A policy is a promise about a system that retains. It depends on configuration staying correct, on every engineer respecting it, on no backup falling through the cracks, and on the promise surviving the next acquisition.</p>
+
+    <p>We made the opposite choice. FuturOne has no durable store for customer content. There is nothing to delete, because nothing was kept — nothing to leak from storage, nothing to subpoena from storage, nothing to quietly train on. That is a property of the architecture, not a paragraph in our terms. This post explains how it actually works, why it cut our customers' security reviews from months to about two weeks, and what it honestly costs us.</p>
+
+    <h2>Content exists only inside the request lifecycle</h2>
+
+    <p>During a run, customer content — code, documents, financials, whatever the workflow touches — lives in exactly two places: the memory of the worker executing the current step, and the inference requests sent to model providers. Between steps, intermediate artifacts are held in transient buffers: encrypted with AES-256 under per-run keys that exist only in an in-memory keyring, never written to durable storage, and destroyed when the run completes. If a run hangs, the buffers expire at the run's hard timeout regardless. Key destruction is the deletion mechanism — once the per-run key is gone, whatever bytes briefly existed are noise.</p>
+
+    <p>What never happens: no content-bearing database rows, no object storage writes, no payloads in logs, no "cache for quality improvement." Deliverables are returned to you over the API or pushed to systems you control (your repo, your webhook endpoint); we do not keep a copy.</p>
+
+    <h2>Audit events without content</h2>
+
+    <p>Enterprises rightly refuse to trade auditability for privacy, so the real engineering work was building observability that is useful without payloads. Every run emits an append-only stream of audit events: actor, action, step types, timing, token counts, tool names, outcome codes — and a salted SHA-256 hash of each artifact, so customers can verify that what they received is what the agent produced, without us holding the artifact itself.</p>
+
+    <pre><code>{
+  "event": "run.step.completed",
+  "run_id": "run_4kq9z31",
+  "step": "verify_sources",
+  "duration_ms": 4180,
+  "tokens": { "in": 9412, "out": 1206 },
+  "artifact_sha256": "9c1f8e44…",
+  "content": null            // by construction, not by configuration
+}</code></pre>
+
+    <p>Keeping content out of logs is a discipline problem as much as a design problem, so we enforce it structurally: the internal logging API accepts typed event objects, not strings, which makes "just log the payload while debugging" a compile error rather than a code review catch. A CI check greps for payload types crossing the logging boundary, and we periodically audit log sinks for anything that looks like content. Boring, repetitive, load-bearing.</p>
+
+    <p>The chain matters too. Inference runs against Anthropic, OpenAI, and Google under zero-retention enterprise terms; transient compute runs on AWS; Cloudflare handles the edge. Your zero retention is only as strong as your weakest subprocessor, which is why the <a href="/security.html">security page</a> names them.</p>
+
+    <h2>What this does to enterprise security review</h2>
+
+    <p>The standard security review for a tool that touches source code and financial documents is a 200-question questionnaire, a data-flow workshop, and a months-long negotiation over retention schedules, deletion SLAs, and breach scope. The slow part is rarely encryption ciphers — it is every question downstream of "so where does our data live, and for how long?"</p>
+
+    <p>Zero retention collapses those questions instead of answering them. Retention schedule: there is none. Deletion SLA: deletion is the end of every request, automatically. Breach scope for stored content: there is no stored content. Data residency for content at rest: no content is at rest. Entire questionnaire sections become "N/A — see architecture," and the data-flow diagram fits on one page.</p>
+
+    <div class="post-callout">
+      <p>Across our enterprise deals, security review now averages about two weeks from first call to signoff — against the three-to-six months that is typical for tools in this category. One customer's counsel put it simply: there was nothing to negotiate on data handling.</p>
+    </div>
+
+    <p>We did not build zero retention as a sales tactic, but it has become one of the most measurable things about our pipeline.</p>
+
+    <h2>What it costs us — the honest part</h2>
+
+    <p>Anyone who tells you zero retention is free is selling something. It cost us real product surface and a permanent engineering tax, and you should weigh both.</p>
+
+    <h3>No conversation history features</h3>
+    <p>We cannot offer "pick up that analysis from last month" backed by stored context, because we did not store the context. Every run starts from inputs you provide or systems you control — your repository, your document store, your data feeds. Competitors demo memory features we will not build this way. For recurring workflows we lean on <a href="/changelog.html">artifact diffing</a> against the previous deliverable you re-supply, which covers most of the real use case — but not all of it, and we will not pretend otherwise.</p>
+
+    <h3>Debugging without payloads is genuinely harder</h3>
+    <p>When a run misbehaves, our engineers see shape, not substance: step durations, token counts, tool outcomes, error codes. We reproduce issues with synthetic fixtures that match the metadata signature of the failure. When that is not enough, customers can re-run with a debug flag <em>they</em> control, which shares content for the lifetime of that support session only — explicit, scoped, and off by default. Our observability had to get unusually good at inferring failure modes from metadata, and it took quarters to get there.</p>
+
+    <h3>Support cannot "just look at your run"</h3>
+    <p>There is no replay button on our side. Support works from your description, the audit event stream, and reproduction — slower for everyone on a bad day, and we accept that.</p>
+
+    <h3>Some features are structurally impossible</h3>
+    <p>Cross-customer caching of content, personalization learned from your documents, fine-tuning on customer data: cannot be built without breaking the property. We consider the last one a feature of the architecture rather than a limitation, but it is fair to call it a constraint.</p>
+
+    <h2>Why we would choose it again</h2>
+
+    <p>The asymmetry is what convinced us. The upside of storing customer content is incremental product convenience. The downside is carrying a liability that compounds with every customer and every month of retained data — one breach of stored enterprise content would cost more trust than every history feature ever built. Add the measurable sales velocity, and the decision has aged well: in eighteen months, no customer has asked us to start retaining their data, and several chose us because we cannot.</p>
+
+    <p>Zero retention is not a checkbox we toggled. It is load-bearing in how the product is built, reviewed, and sold — which is exactly why a policy promise cannot substitute for it.</p>
+
+  </div>
+
+  <div class="post-cta">
+    <h2>See it without sharing anything</h2>
+    <p>The live demo runs on the same zero-retention architecture described above — watch a full agent run before you send us a single byte of your data.</p>
+    <a href="/demo.html" class="btn-primary">Watch a Run</a>
+  </div>
+</article>
+
+<div class="post-nav">
+  <a href="/blog/agents-vs-chatbots-architecture.html">
+    <div class="dir">&#8592; Previous post</div>
+    <div class="t">Agents vs. chatbots: it is an architecture, not a feature</div>
+  </a>
+  <a class="next" href="/blog/evaluating-agent-output-quality.html">
+    <div class="dir">Next post &#8594;</div>
+    <div class="t">How we measure whether an agent's work is actually good</div>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/contact.js?v=20260610"></script>
+</body>
+</html>

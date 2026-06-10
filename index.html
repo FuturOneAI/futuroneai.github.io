@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>FuturOne — Enterprise AI Agent for Coding, Reasoning & Workflow Automation</title>
+  <title>FuturOne — Enterprise AI Agent for Coding, Reasoning &amp; Workflow Automation</title>
   <meta name="description" content="FuturOne is an enterprise AI agent company — not an API gateway or model proxy. We build production-grade AI agents that complete multi-step business workflows: coding agents for PR review and debugging, reasoning agents for strategy analysis, content agents for production pipelines, and research agents for due diligence." />
   <meta name="keywords" content="enterprise AI agent, AI coding agent, AI reasoning agent, AI workflow automation, code review agent, automated code review, AI strategy analysis, AI content production, AI due diligence, AI research agent, enterprise AI platform, AI task automation, FuturOne, production-grade AI agent, AI agent for finance, AI agent for engineering teams, AI agent for legal compliance, AI agent for education, autonomous AI agent, multi-step AI workflow, AI agent vs chatbot, best enterprise AI agent 2026, AI agent platform comparison, AI PR review agent, AI debugging agent, AI contract review" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://futurmix.one" />
-  <meta property="og:title" content="FuturOne — Enterprise AI Agent for Coding, Reasoning & Workflow Automation" />
+  <meta property="og:url" content="https://futurmix.one/" />
+  <meta property="og:title" content="FuturOne — Enterprise AI Agent for Coding, Reasoning &amp; Workflow Automation" />
   <meta property="og:description" content="Enterprise AI agents for coding, reasoning, finance, education, legal, content, and business workflows. Coding, strategy analysis, content production, and deep research — in one continuous conversation." />
   <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="FuturOne — Enterprise AI Agent for Coding, Reasoning & Workflow Automation" />
+  <meta name="twitter:title" content="FuturOne — Enterprise AI Agent for Coding, Reasoning &amp; Workflow Automation" />
   <meta name="twitter:description" content="AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research." />
   <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
   <script type="application/ld+json">
@@ -133,7 +130,7 @@
         "name": "Is FuturOne production-ready for enterprise use?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. FuturOne is built for production enterprise deployments with 99.99% uptime SLA, 248ms average latency, zero data retention architecture, automatic failover, and full observability dashboards. Enterprise data never persists beyond the request lifecycle, and audit logs track operational events without recording content."
+          "text": "Yes. FuturOne is built for production enterprise deployments with 99.99% uptime SLA, 248ms average latency, zero data retention architecture, automatic failover, and full observability dashboards. Enterprise data never persists beyond the request lifecycle, and audit logs track operational events without recording content. Current SLA performance is published on the FuturOne status page (futurmix.one/status.html), and compliance details are documented in the security overview (futurmix.one/security.html)."
         }
       }
     ]
@@ -148,20 +145,184 @@
     ]
   }
   </script>
-  <link rel="canonical" href="https://futurmix.one" />
+  <link rel="canonical" href="https://futurmix.one/" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- Page-specific: home ---- */
+
+    /* Watch an agent work — console replay */
+    .console-section { padding-top: 32px; padding-bottom: 80px; }
+    .console-section .section-header { margin-bottom: 40px; }
+    .console-card {
+      max-width: 840px;
+      margin: 0 auto;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+    .console-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .tb-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; opacity: 0.85; }
+    .console-title {
+      margin-left: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .console-env {
+      margin-left: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .console-body {
+      padding: 22px 24px 26px;
+      min-height: 322px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      transition: opacity 0.5s ease;
+    }
+    .cl {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 4px 0;
+    }
+    .cl-prompt { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .cl-cmd { color: var(--text-primary); word-break: break-word; }
+    .cl-caret {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      margin-left: 2px;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      animation: caretBlink 0.85s steps(1) infinite;
+    }
+    @keyframes caretBlink { 50% { opacity: 0; } }
+    .cl-icon {
+      width: 18px;
+      flex-shrink: 0;
+      text-align: center;
+      font-weight: 700;
+    }
+    .cl-icon.ok { color: var(--green); }
+    .cl-icon.crit { color: var(--red); }
+    .cl-icon.warn { color: var(--yellow); }
+    .cl-icon.dim { color: var(--text-muted); font-weight: 400; }
+    .cl-icon.pend { color: var(--blue); animation: clPulse 0.8s ease-in-out infinite; }
+    @keyframes clPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .cl-text { color: var(--text-secondary); word-break: break-word; }
+    .cl.cl-resolved .cl-text { color: var(--text-primary); }
+    .cl-meta {
+      margin-left: auto;
+      padding-left: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .console-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+    .console-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cl-caret, .cl-icon.pend, .status-dot { animation: none; }
+    }
+
+    /* Customer wordmark strip */
+    .wordmark-strip { padding: 44px 24px 12px; text-align: center; }
+    .wordmark-strip .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 26px;
+    }
+    .wordmarks {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 52px;
+      flex-wrap: wrap;
+      opacity: 0.55;
+      color: var(--text-secondary);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .wm { white-space: nowrap; }
+    .wm-meridian { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; }
+    .wm-northcliff { font-size: 14px; font-weight: 500; letter-spacing: 0.22em; font-family: Georgia, 'Times New Roman', serif; }
+    .wm-halberd { font-size: 18px; font-weight: 700; font-style: italic; letter-spacing: -0.01em; }
+    .wm-corepoint { font-size: 17px; font-weight: 600; letter-spacing: 0.05em; text-transform: lowercase; }
+    .wm-atlas { font-size: 14px; font-weight: 400; letter-spacing: 0.24em; }
+
+    /* Testimonial case-study links */
+    .case-link {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Responsive (page-specific) */
+    @media (max-width: 980px) {
+      .console-body { min-height: 348px; }
+      .wordmarks { gap: 36px; }
+    }
+    @media (max-width: 720px) {
+      .console-body { padding: 18px 16px 22px; font-size: 12px; min-height: 400px; }
+      .console-env { display: none; }
+      .cl-meta { display: none; }
+      .wordmarks { gap: 22px 30px; }
+      .console-section { padding-bottom: 56px; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
       <a href="/use-cases.html">Use Cases</a>
-      <a href="/how-it-works.html">How It Works</a>
-      <a href="/about.html">About</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -174,10 +335,34 @@
   <h1>AI agents that <span class="gradient">complete workflows</span>, not just answer questions</h1>
   <p>Production-grade AI agents for strategy, content, code, and research. One continuous conversation from assignment to deliverable.</p>
   <div class="hero-cta">
-    <a href="#contact" class="btn-primary">Start Building</a>
-    <a href="/use-cases.html" class="btn-secondary">See Use Cases</a>
+    <a href="/demo.html" class="btn-primary">Try the live demo</a>
+    <a href="#contact" class="btn-secondary">Start Building</a>
   </div>
 </section>
+
+<!-- Watch an agent work -->
+<div class="section-wrap console-section">
+  <div class="section-header">
+    <h2>Watch an agent work</h2>
+    <p>A condensed replay of one code-review run from a production workspace. The agent reads the full diff, checks conventions, flags security and performance issues, and opens auto-fix PRs — unattended.</p>
+  </div>
+  <div class="console-card">
+    <div class="console-titlebar" aria-hidden="true">
+      <span class="tb-dot" style="background:var(--red)"></span>
+      <span class="tb-dot" style="background:var(--yellow)"></span>
+      <span class="tb-dot" style="background:var(--green)"></span>
+      <span class="console-title">futurone &middot; code-review &middot; acme/payments-api</span>
+      <span class="console-env">api.futurmix.one/v1</span>
+    </div>
+    <p class="sr-only">Replay of a FuturOne code-review run: the agent reads a 14-file pull request, passes the convention check, flags a critical JWT expiry validation gap and an N+1 query, raises test coverage from 87% to 91%, and opens two auto-fix pull requests with a verdict of approve with changes.</p>
+    <div class="console-body" id="console-lines" aria-hidden="true"></div>
+  </div>
+  <div class="console-cta">
+    <a href="/demo.html" class="btn-primary">Open the live demo</a>
+    <a href="/pricing.html" class="btn-secondary">See pricing</a>
+  </div>
+  <p class="console-note">The live demo runs the same scenarios interactively — no account required.</p>
+</div>
 
 <!-- Stats -->
 <div class="stats">
@@ -196,6 +381,18 @@
   <div class="stat">
     <div class="stat-value">0</div>
     <div class="stat-label">Data Retained</div>
+  </div>
+</div>
+
+<!-- Customer wordmarks -->
+<div class="wordmark-strip">
+  <div class="label">Teams running FuturOne agents in production</div>
+  <div class="wordmarks">
+    <span class="wm wm-meridian">Meridian Pay</span>
+    <span class="wm wm-northcliff">NORTHCLIFF CAPITAL</span>
+    <span class="wm wm-halberd">Halberd Systems</span>
+    <span class="wm wm-corepoint">corepoint health</span>
+    <span class="wm wm-atlas">ATLAS UNIVERSITY</span>
   </div>
 </div>
 
@@ -334,7 +531,7 @@
           </div>
           <div class="workflow-step">
             <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Auto-fix PR</strong> — created for 2 issues</span>
+            <span class="step-text"><strong>Auto-fix PRs</strong> — #1849 + #1850 opened</span>
             <span class="step-meta">ready</span>
           </div>
         </div>
@@ -490,6 +687,7 @@
           <span>VP, Investment Operations — Series B Fintech</span>
         </div>
       </div>
+      <a class="case-link" href="/customers.html">Read the case study &#8594;</a>
     </div>
     <div class="testimonial-card">
       <div class="testimonial-quote">"Our engineering team handles 40+ PRs per week. The code review agent catches convention drift and security patterns that humans miss at volume. We still review everything, but the first pass is dramatically better."</div>
@@ -500,6 +698,7 @@
           <span>Engineering Lead — Enterprise SaaS (120 engineers)</span>
         </div>
       </div>
+      <a class="case-link" href="/customers.html">Read the case study &#8594;</a>
     </div>
     <div class="testimonial-card">
       <div class="testimonial-quote">"The zero-retention architecture was the deciding factor. Our legal team approved the pilot in two weeks instead of the usual six months because there was nothing to negotiate on data handling."</div>
@@ -510,6 +709,7 @@
           <span>CTO — Regulated Financial Services</span>
         </div>
       </div>
+      <a class="case-link" href="/customers.html">Read the case study &#8594;</a>
     </div>
   </div>
 </div>
@@ -538,7 +738,7 @@
     </details>
     <details class="faq-item">
       <summary>Is FuturOne production-ready for enterprise use?</summary>
-      <p>Yes. FuturOne is built for production enterprise deployments with 99.99% uptime SLA, 248ms average latency, zero data retention, automatic failover, and full observability. Enterprise data never persists beyond the request lifecycle.</p>
+      <p>Yes. FuturOne is built for production enterprise deployments with 99.99% uptime SLA, 248ms average latency, zero data retention, automatic failover, and full observability. Enterprise data never persists beyond the request lifecycle. Current SLA performance is published on our <a href="/status.html">status page</a>, and compliance details are documented in the <a href="/security.html">security overview</a>.</p>
     </details>
   </div>
 </div>
@@ -550,6 +750,10 @@
     <h2>Recent updates</h2>
   </div>
   <div class="updates-list">
+    <div class="update-item">
+      <span class="update-date">Jun 2026</span>
+      <span class="update-text">Usage analytics &amp; cost attribution dashboard now in the workspace</span>
+    </div>
     <div class="update-item">
       <span class="update-date">May 2026</span>
       <span class="update-text">Released multi-step research agent with source verification and confidence scoring</span>
@@ -571,6 +775,9 @@
       <span class="update-text">Launched FuturOne Agent platform — coding, strategy, content, and research workflows</span>
     </div>
   </div>
+  <div style="text-align:center; margin-top:36px;">
+    <a href="/changelog.html" class="btn-secondary btn-sm">Full changelog &#8594;</a>
+  </div>
 </div>
 
 <!-- CTA -->
@@ -588,22 +795,28 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
         <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -613,16 +826,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -631,6 +844,87 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
+<script>
+(function () {
+  var host = document.getElementById('console-lines');
+  if (!host) return;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CMD = 'futurone runs create --agent code-review --repo acme/payments-api --pr 1847';
+  var STEPS = [
+    { text: 'fo_run_8f3a21 created · queued · model routing: auto', cls: 'dim', icon: '›', meta: '', hold: 700 },
+    { text: 'Reading diff — 14 files, 2.3K lines, repo context loaded', cls: 'ok', icon: '✓', meta: '1.2s', hold: 950 },
+    { text: 'Convention check — naming, error handling, logging all match', cls: 'ok', icon: '✓', meta: 'passed', hold: 1000 },
+    { text: 'Security — JWT expiry not validated (src/auth/verify.ts:142)', cls: 'crit', icon: '!', meta: 'critical', hold: 1100 },
+    { text: 'Performance — N+1 query in listUserSessions (src/api/sessions.ts:89)', cls: 'warn', icon: '⚠', meta: 'warning', hold: 1050 },
+    { text: 'Test generation — coverage 87% → 91%', cls: 'ok', icon: '✓', meta: '+12 tests', hold: 1000 },
+    { text: 'Auto-fix PRs #1849, #1850 opened · verdict: approve with changes', cls: 'ok', icon: '✓', meta: '4m 02s', hold: 1200 }
+  ];
+  function span(className, text) {
+    var s = document.createElement('span');
+    s.className = className;
+    if (text) s.textContent = text;
+    return s;
+  }
+  function makeLine(cls, icon, text, meta) {
+    var row = document.createElement('div');
+    row.className = 'cl' + (cls === 'ok' || cls === 'crit' || cls === 'warn' ? ' cl-resolved' : '');
+    row.appendChild(span('cl-icon ' + cls, icon));
+    row.appendChild(span('cl-text', text));
+    if (meta) row.appendChild(span('cl-meta', meta));
+    return row;
+  }
+  function makeCmd(text, withCaret) {
+    var row = document.createElement('div');
+    row.className = 'cl';
+    row.appendChild(span('cl-prompt', '$'));
+    row.appendChild(span('cl-cmd', text));
+    if (withCaret) row.appendChild(span('cl-caret', ''));
+    return row;
+  }
+  if (reduced) {
+    host.appendChild(makeCmd(CMD, false));
+    STEPS.forEach(function (s) { host.appendChild(makeLine(s.cls, s.icon, s.text, s.meta)); });
+    return;
+  }
+  function run() {
+    while (host.firstChild) host.removeChild(host.firstChild);
+    host.style.opacity = '1';
+    var cmdRow = makeCmd('', true);
+    host.appendChild(cmdRow);
+    var cmdSpan = cmdRow.querySelector('.cl-cmd');
+    var i = 0;
+    (function type() {
+      if (i <= CMD.length) {
+        cmdSpan.textContent = CMD.slice(0, i);
+        i += 2;
+        setTimeout(type, 26);
+      } else {
+        cmdSpan.textContent = CMD;
+        var caret = cmdRow.querySelector('.cl-caret');
+        if (caret) caret.parentNode.removeChild(caret);
+        setTimeout(function () { next(0); }, 400);
+      }
+    })();
+    function next(idx) {
+      if (idx >= STEPS.length) {
+        setTimeout(function () {
+          host.style.opacity = '0';
+          setTimeout(run, 650);
+        }, 2800);
+        return;
+      }
+      var s = STEPS[idx];
+      var pending = makeLine('pend', '◌', s.text, '');
+      host.appendChild(pending);
+      setTimeout(function () {
+        host.replaceChild(makeLine(s.cls, s.icon, s.text, s.meta), pending);
+        next(idx + 1);
+      }, s.hold);
+    }
+  }
+  run();
+})();
+</script>
 </body>
 </html>

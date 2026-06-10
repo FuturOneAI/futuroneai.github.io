@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Demo — Replay Recorded Agent Runs | FuturOne</title>
+  <meta name="description" content="Watch FuturOne agents complete real work. Replay four recorded production runs — code review, due diligence, contract review, and market research — with the full plan, tool calls, findings, deliverable, and per-step cost attribution. No account required." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/demo.html" />
+  <meta property="og:title" content="Live Demo — Replay Recorded Agent Runs | FuturOne" />
+  <meta property="og:description" content="Four recorded production runs, replayed interactively: plans, tool calls, findings, deliverables, and per-step cost attribution. No account required." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Live Demo — Replay Recorded Agent Runs | FuturOne" />
+  <meta name="twitter:description" content="Watch FuturOne agents complete real work — code review, due diligence, contract review, and market research — end to end." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <link rel="canonical" href="https://futurmix.one/demo.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "FuturOne Live Demo",
+    "url": "https://futurmix.one/demo.html",
+    "description": "Interactive replays of four recorded FuturOne production runs: code review, due diligence, contract review, and market research. Each replay shows the agent's plan, tool calls, findings, final deliverable, and per-step cost attribution.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the demo calling a model live?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Each scenario is a recorded production run from May–June 2026, replayed in your browser. The plan, tool calls, findings, deliverable, and cost table are exactly what the agent produced in the original run — nothing is generated on the fly, so what you see is what the platform actually did."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is the replay so fast?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Replay timing is compressed. The original wall-clock per step is preserved in the plan timings and the cost panel — the due-diligence run, for example, took 4.1 hours end to end. The replay condenses idle and long-running stretches so you can watch a full run in about a minute."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the parameter field change?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The parameter you type is substituted into the recorded transcript — the brief, tool arguments, and deliverable — so you can see how a run is parameterized. It does not re-execute the run; outputs stay those of the original recording."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is anything I type stored?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The demo runs entirely in your browser — the parameter field never leaves the page, and no analytics are attached to it. The platform itself follows the same principle: zero data retention, with request data living only for the lifecycle of the run."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I run this on my own repository or data room?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — that is the product. The Developer tier is free and includes 20 runs per month; you can create a run with one API call (POST /v1/runs) or from the dashboard. Use the Start Building button to request access."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    :root { --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .demo-header { padding-bottom: 36px; }
+    .demo-header .demo-sub { font-size: 14px; color: var(--text-muted); margin-top: 14px; }
+    .demo-main { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+    .jump-anchors span { display: block; position: relative; top: -90px; visibility: hidden; height: 0; }
+
+    /* ---- scenario picker ---- */
+    .scn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+    .scn-card {
+      text-align: left; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px; cursor: pointer; color: var(--text-primary);
+      font-family: inherit; display: flex; flex-direction: column; gap: 7px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .scn-card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+    .scn-card[aria-pressed="true"] {
+      border-color: var(--accent); background: var(--bg-card-hover);
+      box-shadow: 0 0 0 1px var(--accent), 0 8px 28px var(--accent-glow);
+    }
+    .scn-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent-light);
+    }
+    .scn-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+    .scn-blurb { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; flex: 1; }
+    .scn-param { font-size: 12px; font-family: var(--mono); color: var(--text-secondary); }
+    .scn-param i { font-style: normal; font-family: 'Inter', -apple-system, sans-serif; color: var(--text-muted); }
+
+    /* ---- console layout ---- */
+    .demo-layout { display: grid; grid-template-columns: minmax(0, 1fr) 312px; gap: 18px; align-items: start; }
+    .console-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .console-head {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 14px 18px; border-bottom: 1px solid var(--border); background: var(--bg-card);
+    }
+    .console-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    #consoleName { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+    #recordedNote { font-size: 11.5px; font-family: var(--mono); color: var(--text-muted); }
+    .status-pill {
+      margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 12px;
+      border-radius: 100px; border: 1px solid var(--border); color: var(--text-muted);
+      font-family: var(--mono);
+    }
+    .status-pill.running { color: var(--yellow); border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.08); }
+    .status-pill.complete { color: var(--green); border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.08); }
+
+    .brief-box { padding: 14px 18px; border-bottom: 1px solid var(--border); background: var(--bg-primary); }
+    .panel-lbl {
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    #briefText { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; }
+    .brief-param {
+      background: var(--accent-glow); color: var(--accent-light);
+      padding: 0 5px; border-radius: 4px; font-weight: 600;
+    }
+
+    .param-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+    #paramLabel { font-size: 13px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+    #paramInput {
+      flex: 1; min-width: 180px; background: var(--bg-primary); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text-primary); font-family: var(--mono); font-size: 13px;
+      padding: 8px 12px; transition: border-color 0.2s;
+    }
+    #paramInput:focus { outline: none; border-color: var(--accent); }
+    #paramInput:disabled { opacity: 0.55; }
+    #paramHint { width: 100%; font-size: 11.5px; color: var(--text-muted); }
+
+    .controls-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+    #runBtn {
+      background: var(--accent); color: var(--bg-primary); border: none; cursor: pointer;
+      font-family: inherit; font-size: 14px; font-weight: 700; padding: 9px 22px;
+      border-radius: 8px; transition: background 0.2s;
+    }
+    #runBtn:hover { background: var(--accent-hover); }
+    #runBtn.pulse { animation: runPulse 2s ease-in-out infinite; }
+    @keyframes runPulse {
+      0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow-strong); }
+      50% { box-shadow: 0 0 0 8px rgba(56, 216, 200, 0); }
+    }
+    .speed-group { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .speed-group button {
+      background: transparent; border: none; cursor: pointer; font-family: var(--mono);
+      font-size: 12px; color: var(--text-muted); padding: 7px 12px; transition: background 0.2s, color 0.2s;
+    }
+    .speed-group button + button { border-left: 1px solid var(--border); }
+    .speed-group button[aria-pressed="true"] { background: var(--accent-glow); color: var(--accent-light); }
+    #elapsed { font-family: var(--mono); font-size: 13px; color: var(--accent-light); min-width: 62px; }
+    .progress-track { flex: 1; min-width: 100px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    #progressFill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 2px; transition: width 0.15s linear; }
+
+    /* ---- feed ---- */
+    .feed-wrap { position: relative; }
+    #feedScroll { height: 460px; overflow-y: auto; padding: 16px 18px; background: var(--bg-primary); }
+    #feed { font-size: 13px; line-height: 1.55; }
+    .fl { margin: 8px 0; color: var(--text-secondary); }
+    .fl-prefix { color: var(--accent); margin-right: 8px; }
+    .fl-idle { color: var(--text-muted); font-family: var(--mono); font-size: 12.5px; }
+    .fl-plan { color: var(--text-primary); font-weight: 600; }
+    .fl-step { margin-top: 20px; color: var(--text-primary); font-weight: 600; }
+    .fl-stepno {
+      font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--accent-light); background: var(--accent-glow); border-radius: 4px;
+      padding: 2px 8px; margin-right: 10px; white-space: nowrap;
+    }
+    .fl-artifact .fl-prefix, .fl-artifact { color: var(--green); }
+    .fl-artifact { font-weight: 600; }
+    .fl-done { color: var(--text-primary); font-weight: 700; margin-top: 14px; }
+    .cursor {
+      display: inline-block; width: 8px; height: 13px; background: var(--accent);
+      margin-left: 6px; vertical-align: -2px; animation: blink 1.1s steps(1) infinite;
+    }
+    .typing::after { content: '\258B'; color: var(--accent); animation: blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .tool-block { border: 1px solid var(--border); border-radius: 10px; margin: 10px 0; background: var(--bg-card); overflow: hidden; }
+    .tool-block.running { border-color: rgba(251, 191, 36, 0.35); }
+    .tool-head {
+      display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+      background: transparent; border: none; cursor: pointer; padding: 8px 13px;
+      color: var(--text-primary); font-family: var(--mono); font-size: 12.5px;
+    }
+    .tb-chev { color: var(--text-muted); font-size: 11px; transition: transform 0.15s; }
+    .tool-block.collapsed .tb-chev { transform: rotate(-90deg); }
+    .tb-name { color: var(--accent-light); font-weight: 600; }
+    .tb-state { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: var(--text-muted); }
+    .tb-spin {
+      width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border);
+      border-top-color: var(--yellow); animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .tb-lat { font-family: var(--mono); font-size: 11px; color: var(--green); }
+    .tool-body { border-top: 1px solid var(--border); padding: 10px 13px; }
+    .tool-block.collapsed .tool-body { display: none; }
+    .tb-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 8px 0 4px; }
+    .tb-lbl:first-child { margin-top: 0; }
+    .tb-json {
+      font-family: var(--mono); font-size: 11.5px; line-height: 1.6; color: var(--text-secondary);
+      white-space: pre-wrap; word-break: break-word; margin: 0;
+    }
+    .j-k { color: var(--blue); }
+    .j-s { color: var(--accent-light); }
+    .j-n { color: var(--yellow); }
+    .j-b { color: var(--red); }
+
+    .finding { border: 1px solid var(--border); border-left-width: 3px; border-radius: 8px; background: var(--bg-card); padding: 10px 14px; margin: 10px 0; }
+    .finding.crit { border-left-color: var(--red); }
+    .finding.warn { border-left-color: var(--yellow); }
+    .finding.info { border-left-color: var(--blue); }
+    .finding.pass { border-left-color: var(--green); }
+    .f-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .f-head strong { font-size: 13.5px; letter-spacing: -0.01em; }
+    .f-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 5px 0 0; }
+
+    .sev {
+      display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 9px;
+      border-radius: 100px; white-space: nowrap;
+    }
+    .sev.crit { color: var(--red); background: rgba(248, 113, 113, 0.12); }
+    .sev.warn { color: var(--yellow); background: rgba(251, 191, 36, 0.12); }
+    .sev.info { color: var(--blue); background: rgba(96, 165, 250, 0.12); }
+    .sev.pass { color: var(--green); background: rgba(74, 222, 128, 0.12); }
+
+    .resume-btn {
+      position: absolute; bottom: 14px; right: 22px; cursor: pointer;
+      background: var(--bg-card); border: 1px solid var(--accent); color: var(--accent-light);
+      font-family: inherit; font-size: 12px; font-weight: 600; padding: 6px 14px;
+      border-radius: 100px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+    .resume-btn:hover { background: var(--bg-card-hover); }
+
+    /* ---- side panels ---- */
+    .demo-side { display: flex; flex-direction: column; gap: 18px; }
+    .side-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .side-card h2 {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    #planEmpty { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .plan-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; }
+    .plan-step { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-secondary); padding: 6px 8px; border-radius: 7px; }
+    .ps-ic { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; margin-top: 3px; position: relative; }
+    .plan-step.pending { opacity: 0.6; }
+    .plan-step.active { background: var(--accent-glow); color: var(--text-primary); opacity: 1; }
+    .plan-step.active .ps-ic { border-color: var(--border); border-top-color: var(--accent); animation: spin 0.9s linear infinite; }
+    .plan-step.done { opacity: 1; }
+    .plan-step.done .ps-ic { border-color: var(--green); background: rgba(74, 222, 128, 0.15); }
+    .plan-step.done .ps-ic::after {
+      content: '\2713'; position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 9px; color: var(--green); font-weight: 700;
+    }
+    .ps-label { flex: 1; line-height: 1.45; }
+    .ps-chip { font-family: var(--mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; margin-top: 1px; }
+    #findingsTally { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tally-none { font-size: 13px; color: var(--text-muted); }
+    .side-note { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .side-note a { color: var(--accent); }
+
+    /* ---- artifact panel ---- */
+    .artifact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; margin-top: 18px; overflow: hidden; }
+    .art-head { display: flex; align-items: center; border-bottom: 1px solid var(--border); background: var(--bg-secondary); padding-right: 16px; flex-wrap: wrap; }
+    .art-tabs { display: flex; }
+    .art-tabs button {
+      background: none; border: none; cursor: pointer; font-family: inherit;
+      font-size: 13.5px; font-weight: 600; color: var(--text-muted);
+      padding: 13px 18px; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+    }
+    .art-tabs button:hover { color: var(--text-secondary); }
+    .art-tabs button.on { color: var(--text-primary); border-bottom-color: var(--accent); }
+    #artStatus { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+    #artStatus.art-ready { color: var(--green); }
+    .art-panel { padding: 26px 28px; min-height: 180px; }
+    .art-empty { font-size: 13.5px; color: var(--text-muted); text-align: center; padding: 44px 16px; }
+    .art-panel code {
+      font-family: var(--mono); font-size: 12px; color: var(--accent-light);
+      background: var(--bg-secondary); border-radius: 4px; padding: 1px 5px;
+    }
+
+    .trace-pre { font-family: var(--mono); font-size: 12px; line-height: 1.75; overflow-x: auto; margin: 0; }
+    .tl { display: block; white-space: pre; color: var(--text-secondary); }
+    .tl i { font-style: normal; color: var(--text-muted); margin-right: 10px; }
+
+    .art-scroll { overflow-x: auto; margin: 12px 0; }
+    .art-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .art-table th {
+      text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--text-muted); padding: 8px 12px;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .art-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; line-height: 1.55; }
+    .art-table td.num { text-align: right; font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+    .art-table tr:last-child td { border-bottom: none; }
+    .cost-total td { color: var(--text-primary); font-weight: 700; border-top: 1px solid var(--border-hover); }
+    .art-foot { font-size: 12px; color: var(--text-muted); line-height: 1.65; margin-top: 16px; }
+
+    .art-kicker { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-light); }
+    .art-title { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin: 6px 0 4px; }
+    .art-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; }
+    .art-sec { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin: 26px 0 8px; }
+    .art-p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 8px 0; }
+    .tg { color: var(--green); } .tr { color: var(--red); }
+    sup.fn { color: var(--blue); font-size: 10px; font-family: var(--mono); }
+
+    .verdict-box, .reco-box {
+      border: 1px solid var(--border); border-radius: 10px; background: var(--bg-secondary);
+      padding: 14px 16px; margin: 14px 0;
+    }
+    .verdict-box p, .reco-box p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin: 8px 0 0; }
+    .verdict-chip {
+      display: inline-block; background: var(--accent); color: var(--bg-primary);
+      font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 100px;
+    }
+    .reco-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .reco-conf { font-family: var(--mono); font-size: 12.5px; color: var(--green); font-weight: 600; }
+
+    .diff { font-family: var(--mono); font-size: 12px; line-height: 1.65; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; padding: 10px 0; margin: 0; min-width: 520px; }
+    .dl { display: block; padding: 0 14px; white-space: pre-wrap; color: var(--text-secondary); }
+    .dl i { display: inline-block; width: 32px; text-align: right; margin-right: 14px; font-style: normal; color: var(--text-muted); user-select: none; }
+    .dl.hunk { color: var(--blue); background: rgba(96, 165, 250, 0.07); }
+    .dl.add { background: rgba(74, 222, 128, 0.07); }
+    .dl.del { background: rgba(248, 113, 113, 0.07); }
+
+    .line-comment { border-left: 3px solid var(--border); background: var(--bg-secondary); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0 18px; }
+    .line-comment p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin: 4px 0 0; }
+    .lc-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+    .line-comment.crit { border-left-color: var(--red); } .line-comment.crit .lc-tag { color: var(--red); }
+    .line-comment.warn { border-left-color: var(--yellow); } .line-comment.warn .lc-tag { color: var(--yellow); }
+    .line-comment.pass { border-left-color: var(--green); } .line-comment.pass .lc-tag { color: var(--green); }
+
+    .fix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+    .fix-card { border: 1px solid var(--border); background: var(--bg-secondary); border-radius: 10px; padding: 13px 15px; }
+    .fix-no { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent-light); }
+    .fix-t { font-size: 13px; color: var(--text-primary); font-weight: 600; margin: 4px 0; line-height: 1.45; }
+    .fix-s { font-size: 12px; color: var(--text-muted); }
+
+    .risk-card { display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-secondary); padding: 12px 15px; margin: 10px 0; }
+    .risk-card.high { border-left: 3px solid var(--red); }
+    .risk-card strong { font-size: 13.5px; }
+    .risk-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 3px 0 0; }
+    .risk-card .sev { margin-top: 2px; }
+    .risk-mediums { font-size: 13px; }
+
+    .art-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+    .art-stat { border: 1px solid var(--border); background: var(--bg-secondary); border-radius: 10px; padding: 14px; text-align: center; }
+    .as-v { display: block; font-size: 22px; font-weight: 800; color: var(--accent-light); letter-spacing: -0.02em; }
+    .as-l { font-size: 12px; color: var(--text-muted); }
+
+    .src-list { margin: 10px 0 0 20px; padding: 0; font-size: 13px; color: var(--text-secondary); }
+    .src-list li { margin: 6px 0; line-height: 1.55; }
+    .src-list .sev { margin-left: 8px; }
+
+    /* ---- explainer / FAQ ---- */
+    .explain-section { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .demo-faq { max-width: 800px; margin: 0 auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor, .typing::after, #runBtn.pulse { animation: none; }
+      .tb-spin, .plan-step.active .ps-ic { animation: none; }
+    }
+    @media (max-width: 980px) {
+      .scn-grid { grid-template-columns: 1fr 1fr; }
+      .demo-layout { grid-template-columns: 1fr; }
+      .demo-side { flex-direction: row; flex-wrap: wrap; }
+      .demo-side .side-card { flex: 1 1 260px; }
+      #feedScroll { height: 420px; }
+    }
+    @media (max-width: 720px) {
+      .scn-grid { grid-template-columns: 1fr; }
+      .demo-side { flex-direction: column; }
+      .fix-grid { grid-template-columns: 1fr; }
+      .art-stats { grid-template-columns: 1fr; }
+      .art-panel { padding: 18px 16px; }
+      #feedScroll { height: 380px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<header class="page-header demo-header">
+  <div class="hero-badge">Live demo &middot; recorded production runs</div>
+  <h1>Watch an agent <span class="gradient">complete real work</span></h1>
+  <p>Four recorded runs from production workspaces, replayed in your browser — the plan, every tool call, every finding, the final deliverable, and what each step cost. No account required.</p>
+  <p class="demo-sub">Replay timing is compressed; original wall-clock per step is preserved in the plan and cost panels. Customer identifiers are replaced.</p>
+</header>
+
+<main class="demo-main">
+  <div class="jump-anchors" aria-hidden="true">
+    <span id="code-review"></span>
+    <span id="due-diligence"></span>
+    <span id="contract-review"></span>
+    <span id="market-research"></span>
+  </div>
+
+  <noscript>
+    <p style="text-align:center; color:var(--text-secondary); padding:24px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card); margin-bottom:20px;">
+      The interactive replay requires JavaScript. With scripts disabled you can still read
+      <a href="/use-cases.html">the use-case walkthroughs</a> or
+      <a href="/how-it-works.html">how the platform executes runs</a>.
+    </p>
+  </noscript>
+
+  <section aria-label="Choose a scenario">
+    <div class="scn-grid" id="scnGrid"></div>
+  </section>
+
+  <section aria-label="Run console" class="demo-layout">
+    <div class="console-card">
+      <div class="console-head">
+        <div class="console-id">
+          <span id="consoleName">Code Review</span>
+          <span id="recordedNote">Recorded production run &middot; replay compressed</span>
+        </div>
+        <span class="status-pill idle" id="statusPill">idle</span>
+      </div>
+
+      <div class="brief-box">
+        <div class="panel-lbl">Brief</div>
+        <p id="briefText">Select a scenario to load its recorded brief.</p>
+      </div>
+
+      <div class="param-row">
+        <label for="paramInput" id="paramLabel">Parameter</label>
+        <input type="text" id="paramInput" maxlength="60" autocomplete="off" spellcheck="false" />
+        <span id="paramHint">Substituted into the recorded run</span>
+      </div>
+
+      <div class="controls-row">
+        <button type="button" id="runBtn" class="pulse">Run &#9656;</button>
+        <div class="speed-group" id="speedGroup" role="group" aria-label="Replay speed">
+          <button type="button" data-speed="1" aria-pressed="true">1&times;</button>
+          <button type="button" data-speed="2" aria-pressed="false">2&times;</button>
+          <button type="button" data-speed="4" aria-pressed="false">4&times;</button>
+        </div>
+        <span id="elapsed">00:00.0</span>
+        <div class="progress-track" aria-hidden="true"><div id="progressFill"></div></div>
+      </div>
+
+      <div class="feed-wrap">
+        <div id="feedScroll" tabindex="0" aria-label="Run event feed">
+          <div id="feed">
+            <div class="fl fl-idle"><span class="fl-prefix" aria-hidden="true">&#9656;</span>fo_agent ready &middot; press Run to replay the recorded execution<span class="cursor" aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <button type="button" class="resume-btn" id="resumeBtn" hidden>&#8595; Resume auto-scroll</button>
+      </div>
+    </div>
+
+    <aside class="demo-side">
+      <div class="side-card">
+        <h2>Plan</h2>
+        <div id="planEmpty">The agent drafts its own plan when the run starts — each step checks off with its original wall-clock timing.</div>
+        <ol class="plan-list" id="planList"></ol>
+      </div>
+      <div class="side-card">
+        <h2>Findings</h2>
+        <div id="findingsTally"><span class="tally-none">No findings yet</span></div>
+      </div>
+      <div class="side-card">
+        <p class="side-note">Every run streams these same events over <code style="font-family:var(--mono); font-size:11px;">GET /v1/runs/{id}/events</code> — what you see here is the recorded stream, replayed. See <a href="/docs.html">the docs</a> for the event schema and <a href="/how-it-works.html">how it works</a> for the execution model.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="artifact-card" aria-label="Run artifacts">
+    <div class="art-head">
+      <div class="art-tabs" id="artTabs" role="tablist" aria-label="Artifact views">
+        <button type="button" data-tab="deliverable" class="on" aria-selected="true">Deliverable</button>
+        <button type="button" data-tab="trace" aria-selected="false">Trace</button>
+        <button type="button" data-tab="cost" aria-selected="false">Cost</button>
+      </div>
+      <span id="artStatus">waiting for run</span>
+    </div>
+    <div class="art-panel" id="artDeliverable">
+      <div class="art-empty">The deliverable appears here when the run completes.</div>
+    </div>
+    <div class="art-panel" id="artTrace" hidden>
+      <div class="art-empty">A flat, timestamped event log fills in as the run executes.</div>
+    </div>
+    <div class="art-panel" id="artCost" hidden>
+      <div class="art-empty">Per-step model, token, and cost attribution appears when the run completes.</div>
+    </div>
+  </section>
+
+  <div id="liveStatus" class="sr-only" role="status" aria-live="polite"></div>
+</main>
+
+<!-- What you're watching -->
+<div class="section-full explain-section">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>What you&rsquo;re watching</h2>
+      <p>Nothing on this page is mocked up for marketing. These are real runs, with the boring parts sped up.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">&#9210;</div>
+        <h3>Recorded, not generated</h3>
+        <p>Each scenario is a production run recorded in May&ndash;June 2026. The plan, tool calls, findings, and deliverable are exactly what the agent produced — the replay never improvises.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#9197;</div>
+        <h3>Compressed replay</h3>
+        <p>Long-running steps are condensed so a full run plays in about a minute. Original wall-clock per step is preserved in the plan timings and the cost panel — the due-diligence run took 4.1h end to end.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#9000;</div>
+        <h3>Your parameter, substituted</h3>
+        <p>The field above each run is substituted into the recorded transcript — brief, tool arguments, deliverable — so you can see how runs are parameterized. It stays in your browser and is never sent anywhere.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#128274;</div>
+        <h3>Zero retention, demo included</h3>
+        <p>The platform keeps request data only for the lifecycle of a run, and this page holds itself to the same standard: no demo telemetry, no account, no cookies. Details on the <a href="/security.html">security page</a>.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#128202;</div>
+        <h3>Cost attribution per step</h3>
+        <p>The Cost tab shows the per-step model routing, token counts, and spend from the original run — the same attribution the June 2026 analytics dashboard gives every production workspace.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#129517;</div>
+        <h3>Model-agnostic routing</h3>
+        <p>Steps route across frontier models — Claude Opus 4.8, Claude Sonnet 4.6, Claude Haiku 4.5, GPT-5.1, Gemini 3 Pro — picked per step by the orchestrator. The routing policy is covered in <a href="/how-it-works.html">how it works</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">248ms</div>
+    <div class="stat-label">Avg orchestration latency</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">91%</div>
+    <div class="stat-label">Deliverables accepted without major revision</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">4.2h</div>
+    <div class="stat-label">Avg due-diligence cycle</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">99.99%</div>
+    <div class="stat-label">Uptime SLA</div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>Demo questions</h2>
+    <p>Short answers about what this page is and isn&rsquo;t.</p>
+  </div>
+  <div class="faq-list demo-faq">
+    <details class="faq-item">
+      <summary>Is the demo calling a model live?</summary>
+      <p>No. Each scenario is a recorded production run from May&ndash;June 2026, replayed in your browser. The plan, tool calls, findings, deliverable, and cost table are exactly what the agent produced in the original run — nothing is generated on the fly, so what you see is what the platform actually did.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Why is the replay so fast?</summary>
+      <p>Replay timing is compressed. The original wall-clock per step is preserved in the plan timings and the cost panel — the due-diligence run, for example, took 4.1 hours end to end. The replay condenses idle and long-running stretches so you can watch a full run in about a minute, or faster at 2&times; and 4&times;.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What does the parameter field change?</summary>
+      <p>The parameter you type is substituted into the recorded transcript — the brief, tool arguments, and deliverable — so you can see how a run is parameterized. It does not re-execute the run; outputs stay those of the original recording.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is anything I type stored?</summary>
+      <p>No. The demo runs entirely in your browser — the parameter field never leaves the page, and no analytics are attached to it. The platform itself follows the same principle: zero data retention, with request data living only for the lifecycle of the run. The <a href="/blog/zero-retention-enterprise-ai.html">zero-retention post</a> covers how that works in production.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I run this on my own repository or data room?</summary>
+      <p>Yes — that is the product. The Developer tier is free and includes 20 runs per month; create a run with one call to <code style="font-family:var(--mono); font-size:13px;">POST /v1/runs</code> or from the dashboard. See <a href="/pricing.html">pricing</a> for tiers and <a href="/docs.html">the docs</a> for the five-minute quickstart.</p>
+    </details>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Run it on your own workflows</h2>
+  <p>The free Developer tier includes 20 runs a month — enough to point an agent at a real PR or a real document set and judge the output yourself.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Start Building</a>
+    <a href="/pricing.html" class="btn-secondary">See pricing</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="contact.js?v=20260610"></script>
+<script src="demo-scenarios.js?v=20260610"></script>
+<script src="demo.js?v=20260610"></script>
+</body>
+</html>

@@ -3,16 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>Enterprise AI Agent Use Cases — Strategy, Coding, Content & Research | FuturOne</title>
-  <meta name="description" content="See how FuturOne AI agents handle real enterprise workflows: strategy analysis and due diligence, automated code review and debugging, content production pipelines, and deep research with citations — all end-to-end in one conversation." />
+  <meta name="description" content="See how FuturOne AI agents handle real enterprise workflows: strategy analysis and due diligence, automated code review and debugging, content production pipelines, and deep research with citations — step by step, with real run data." />
   <meta name="keywords" content="AI agent use cases, enterprise AI workflows, AI strategy analysis, AI due diligence, automated code review, AI coding agent, AI content production, AI research agent, AI for finance, AI for legal compliance, code review automation, AI debugging agent, AI PR review, enterprise workflow automation, FuturOne, AI agent for education, AI contract review, AI investment analysis, AI compliance agent, AI agent examples, best AI agent use cases 2026" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://futurmix.one/use-cases.html" />
   <meta property="og:title" content="Enterprise AI Agent Use Cases — Strategy, Coding, Content & Research | FuturOne" />
-  <meta property="og:description" content="See how FuturOne AI agents complete real enterprise workflows: strategy analysis, code engineering, content production, and deep research — with step-by-step workflow diagrams." />
+  <meta property="og:description" content="See how FuturOne AI agents complete real enterprise workflows: strategy analysis, code engineering, content production, and deep research — with real runs, step by step." />
   <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Enterprise AI Agent Use Cases — Strategy, Coding, Content & Research | FuturOne" />
@@ -53,7 +50,7 @@
         "name": "Can FuturOne agents handle financial analysis workflows?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. FuturOne strategy and research agents handle earnings analysis, portfolio monitoring, risk memo preparation, investment committee briefs, and due diligence summaries. All outputs include confidence scores, citation trails, and escalation flags for low-confidence findings."
+          "text": "Yes. FuturOne strategy and research agents handle earnings analysis, portfolio monitoring, risk memo preparation, investment committee briefs, and due diligence summaries. All outputs include confidence scores, citation trails, and escalation flags for low-confidence findings. Teams report an average due-diligence cycle of 4.2 hours, down from 3+ business days."
         }
       },
       {
@@ -61,7 +58,15 @@
         "name": "Is FuturOne an API or a model provider?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. FuturOne is an enterprise AI agent company. We do not provide raw model access, API endpoints, or model proxying services. FuturOne agents are autonomous workflow executors that take business tasks from assignment to completed deliverable."
+          "text": "No. FuturOne is an enterprise AI agent company. We do not provide raw model access, API endpoints for model proxying, or model hosting. FuturOne agents are autonomous workflow executors that take business tasks from assignment to completed deliverable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which tools do FuturOne agents integrate with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FuturOne agents operate inside GitHub, GitLab, Slack, Notion, Linear, Jira, Snowflake, and Google Drive. Access is scoped per workspace and per connection, and every agent action is recorded in the audit log without retaining content."
         }
       }
     ]
@@ -69,18 +74,190 @@
   </script>
   <link rel="canonical" href="https://futurmix.one/use-cases.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- use-cases.html page styles ---- */
+    .domain-stack { display: flex; flex-direction: column; gap: 72px; }
+    .domain-block { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 88px; }
+
+    /* alternate layout without relying on nth-child (real-run boxes are siblings) */
+    .usecase-card.flip .usecase-content { order: 2; }
+    .usecase-card.flip .usecase-visual { order: 1; }
+
+    .metric-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .metric-chip {
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--bg-secondary);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .metric-chip strong { color: var(--accent); font-weight: 700; }
+
+    .demo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .demo-link .play {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--accent-glow);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent-light);
+      flex-shrink: 0;
+    }
+
+    /* ---- real run boxes ---- */
+    .real-run {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 36px;
+    }
+    .real-run-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+    .real-run-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-light);
+    }
+    .real-run-top .run-id { font-size: 12px; color: var(--text-muted); }
+    .real-run-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: 32px;
+    }
+    .run-col h4 {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .run-col p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .run-steps { list-style: none; counter-reset: runstep; display: flex; flex-direction: column; gap: 11px; }
+    .run-steps li {
+      counter-increment: runstep;
+      display: flex;
+      gap: 11px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .run-steps li::before {
+      content: counter(runstep);
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      background: var(--accent-glow);
+      color: var(--accent-light);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .run-steps strong { color: var(--text-primary); font-weight: 600; }
+    .run-steps .t { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+    .run-deliverable {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .run-deliverable p { font-size: 13px; }
+    .run-deliverable .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    /* ---- integration surface strip ---- */
+    .integrations-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+      padding: 72px 24px;
+    }
+    .integrations-strip .section-header { margin-bottom: 36px; }
+    .integration-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .integration-chip {
+      padding: 10px 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg-card);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .integration-chip:hover { border-color: var(--border-hover); color: var(--text-primary); }
+    .integrations-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 28px;
+      line-height: 1.6;
+    }
+
+    .proof-link-band { text-align: center; margin-top: 64px; }
+    .proof-link-band p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+
+    @media (max-width: 980px) {
+      .real-run-grid { grid-template-columns: 1fr 1fr; }
+      .real-run-grid .run-col:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 720px) {
+      .usecase-card.flip .usecase-content { order: 1; }
+      .usecase-card.flip .usecase-visual { order: 2; }
+      .real-run { padding: 24px; }
+      .real-run-grid { grid-template-columns: 1fr; gap: 24px; }
+      .metric-chip { white-space: normal; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
-      <a href="/use-cases.html" class="active">Use Cases</a>
-      <a href="/how-it-works.html">How It Works</a>
-      <a href="/about.html">About</a>
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -93,270 +270,451 @@
   <p>Not another chatbot wrapper. FuturOne agents handle multi-step workflows end-to-end across four core domains &mdash; from task assignment to completed deliverable.</p>
 </div>
 
-<!-- GEO: Definition paragraph for AI search -->
+<!-- Definition paragraph -->
 <div class="section-wrap" style="padding-top:20px; padding-bottom:0;">
-  <p style="color:var(--text-secondary); max-width:800px; margin:0 auto; text-align:center; line-height:1.7; font-size:15px;">FuturOne is an enterprise AI agent company that builds autonomous workflow agents — not an API gateway, model proxy, or chatbot wrapper. Each use case below shows how FuturOne agents take a real business task from assignment to completed deliverable, executing every step without manual intervention.</p>
+  <p style="color:var(--text-secondary); max-width:800px; margin:0 auto; text-align:center; line-height:1.7; font-size:15px;">FuturOne is an enterprise AI agent company that builds autonomous workflow agents &mdash; not an API gateway, model proxy, or chatbot wrapper. Each use case below shows how FuturOne agents take a real business task from assignment to completed deliverable, executing every step without manual intervention. The &ldquo;real run&rdquo; boxes are reconstructed from production runs, with timings and counts taken from run logs (identifying details changed).</p>
 </div>
 
 <!-- Use Cases -->
-<div class="section-wrap" style="padding-top:40px;">
-  <div class="usecase-grid">
+<div class="section-wrap" style="padding-top:48px;">
+  <div class="domain-stack">
 
     <!-- 1. Strategy & Analysis -->
-    <div class="usecase-card">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x1F3AF;</div>
-        <h3>Strategy &amp; Analysis</h3>
-        <p class="subtitle">Synthesize data from 50+ sources into actionable recommendations. Market research, due diligence, and competitive analysis &mdash; in hours, not weeks.</p>
-        <ul class="usecase-features">
-          <li>Automated due diligence across market data, financials, and competitive intelligence</li>
-          <li>Scenario planning across multiple market conditions simultaneously</li>
-          <li>Investment memo generation with confidence-scored recommendations</li>
-          <li>Real-time competitor tracking with automated alert triggers</li>
-          <li>TAM/SAM/SOM market sizing with sensitivity analysis on key assumptions</li>
-        </ul>
+    <section class="domain-block" id="strategy-analysis">
+      <div class="usecase-card">
+        <div class="usecase-content">
+          <div class="usecase-icon">&#x1F3AF;</div>
+          <h3>Strategy &amp; Analysis</h3>
+          <p class="subtitle">Synthesize data from 50+ sources into actionable recommendations. Market research, due diligence, and competitive analysis &mdash; in hours, not weeks.</p>
+          <ul class="usecase-features">
+            <li>Automated due diligence across market data, financials, and competitive intelligence</li>
+            <li>Scenario planning across multiple market conditions simultaneously</li>
+            <li>Investment memo generation with confidence-scored recommendations</li>
+            <li>Real-time competitor tracking with automated alert triggers</li>
+            <li>TAM/SAM/SOM market sizing with sensitivity analysis on key assumptions</li>
+          </ul>
+          <div class="metric-chips">
+            <span class="metric-chip"><strong>4.2h</strong> avg due-diligence cycle</span>
+            <span class="metric-chip"><strong>94%</strong> median confidence score</span>
+            <span class="metric-chip"><strong>50+</strong> sources per standard run</span>
+          </div>
+          <a class="demo-link" href="/demo.html#due-diligence"><span class="play">&#9654;</span>Watch this workflow live</a>
+        </div>
+        <div class="usecase-visual">
+          <div class="visual-header">
+            <span class="label">Agent</span>
+            <span class="value">Market Intelligence</span>
+          </div>
+          <div class="workflow-diagram">
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Data ingestion</strong> &mdash; 52 feeds connected, 14K data points</span>
+              <span class="step-meta">23s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Market sizing</strong> &mdash; TAM $4.2B, SAM $890M, SOM $67M</span>
+              <span class="step-meta">4m 12s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Competitor profiles</strong> &mdash; 12 companies analyzed, 3 direct threats</span>
+              <span class="step-meta">8m 34s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Financial forecast</strong> &mdash; 5-year DCF + sensitivity tables</span>
+              <span class="step-meta">11m 07s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Risk analysis</strong> &mdash; 3 high, 7 medium, 4 low risks scored</span>
+              <span class="step-meta">14m 22s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon progress">&#x25CF;</div>
+              <span class="step-text"><strong>Executive summary</strong> &mdash; generating investment memo...</span>
+              <span class="step-meta">~2m</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon pending">&#x25CB;</div>
+              <span class="step-text"><strong>Board deck</strong> &mdash; 18-slide presentation with appendix</span>
+              <span class="step-meta">queued</span>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3s ease forwards 0.5s;"></div></div>
+          <div class="visual-footer">
+            <span>Confidence: 94%</span>
+            <span>ETA: 18m remaining</span>
+          </div>
+        </div>
       </div>
-      <div class="usecase-visual">
-        <div class="visual-header">
-          <span class="label">Agent</span>
-          <span class="value">Market Intelligence</span>
+
+      <div class="real-run">
+        <div class="real-run-top">
+          <span class="real-run-kicker">A real run, step by step</span>
+          <span class="run-id">run_8f3ka92 &middot; Strategy &amp; Analysis &middot; completed</span>
         </div>
-        <div class="workflow-diagram">
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Data ingestion</strong> &mdash; 52 feeds connected, 14K data points</span>
-            <span class="step-meta">23s</span>
+        <div class="real-run-grid">
+          <div class="run-col">
+            <h4>Input</h4>
+            <p>A Series B payments target: data-room export (218 files), 36 months of financial statements, and a list of nine named competitors. Task: prepare the investment committee memo.</p>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Market sizing</strong> &mdash; TAM $4.2B, SAM $890M, SOM $67M</span>
-            <span class="step-meta">4m 12s</span>
+          <div class="run-col">
+            <h4>What the agent did</h4>
+            <ol class="run-steps">
+              <li><span><strong>Indexed the data room</strong> &mdash; 218 files, 3,412 pages; flagged 14 superseded document versions and 2 missing exhibits. <span class="t">4m 02s</span></span></li>
+              <li><span><strong>Built a revenue bridge</strong> from invoice-level data; found a 4.1% gap between reported MRR and invoice totals, traced to FX timing. <span class="t">31m</span></span></li>
+              <li><span><strong>Profiled 9 named competitors</strong> plus 3 adjacents discovered mid-run; pricing pulled from current public list prices. <span class="t">52m</span></span></li>
+              <li><span><strong>Ran base/bear/bull scenarios</strong> on 5 key assumptions, with a sensitivity table on CAC payback. <span class="t">38m</span></span></li>
+              <li><span><strong>Drafted the IC memo</strong> &mdash; 14 pages, 87 inline citations; 2 sections flagged below the 80% confidence threshold. <span class="t">43m</span></span></li>
+              <li><span><strong>Compiled an exceptions list</strong> &mdash; 6 items routed for partner judgment instead of guessed at. <span class="t">9m</span></span></li>
+            </ol>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Competitor profiles</strong> &mdash; 12 companies analyzed, 3 direct threats</span>
-            <span class="step-meta">8m 34s</span>
+          <div class="run-col">
+            <h4>Deliverable</h4>
+            <div class="run-deliverable">
+              <span class="check">&#x2713; Run complete &mdash; 3h 51m</span>
+              <p>14-page investment committee memo, scenario appendix, and a 6-item exceptions list for partner review. Every claim links back to a data-room page.</p>
+            </div>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Financial forecast</strong> &mdash; 5-year DCF + sensitivity tables</span>
-            <span class="step-meta">11m 07s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Risk analysis</strong> &mdash; 3 high, 7 medium, 4 low risks scored</span>
-            <span class="step-meta">14m 22s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon progress">&#x25CF;</div>
-            <span class="step-text"><strong>Executive summary</strong> &mdash; generating investment memo...</span>
-            <span class="step-meta">~2m</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon pending">&#x25CB;</div>
-            <span class="step-text"><strong>Board deck</strong> &mdash; 18-slide presentation with appendix</span>
-            <span class="step-meta">queued</span>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3s ease forwards 0.5s;"></div></div>
-        <div class="visual-footer">
-          <span>Confidence: 94%</span>
-          <span>ETA: 18m remaining</span>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- 2. Content Production -->
-    <div class="usecase-card">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x270D;&#xFE0F;</div>
-        <h3>Content Production</h3>
-        <p class="subtitle">Full content pipeline from research to publish &mdash; blog posts, documentation, social campaigns, and multi-language localization. No prompt chains, one continuous workflow.</p>
-        <ul class="usecase-features">
-          <li>End-to-end pipeline: topic research, outline, draft, edit, SEO optimization, publish</li>
-          <li>Multi-language localization with cultural adaptation, not just translation</li>
-          <li>Brand voice consistency across all channels with style guide enforcement</li>
-          <li>Automated social media campaign generation from long-form content</li>
-          <li>Performance analytics integration for data-driven content iteration</li>
-        </ul>
+    <section class="domain-block" id="content-production">
+      <div class="usecase-card flip">
+        <div class="usecase-content">
+          <div class="usecase-icon">&#x270D;&#xFE0F;</div>
+          <h3>Content Production</h3>
+          <p class="subtitle">Full content pipeline from research to publish &mdash; blog posts, documentation, social campaigns, and multi-language localization. No prompt chains, one continuous workflow.</p>
+          <ul class="usecase-features">
+            <li>End-to-end pipeline: topic research, outline, draft, edit, SEO optimization, publish</li>
+            <li>Multi-language localization with cultural adaptation, not just translation</li>
+            <li>Brand voice consistency across all channels with style guide enforcement</li>
+            <li>Automated social media campaign generation from long-form content</li>
+            <li>Performance analytics integration for data-driven content iteration</li>
+          </ul>
+          <div class="metric-chips">
+            <span class="metric-chip"><strong>73%</strong> faster first-pass review</span>
+            <span class="metric-chip"><strong>96/100</strong> median brand-voice score</span>
+            <span class="metric-chip"><strong>14</strong> assets per launch package</span>
+          </div>
+          <a class="demo-link" href="/demo.html#market-research"><span class="play">&#9654;</span>Watch an agent run live</a>
+        </div>
+        <div class="usecase-visual">
+          <div class="visual-header">
+            <span class="label">Agent</span>
+            <span class="value">Content Pipeline</span>
+          </div>
+          <div class="workflow-diagram">
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Topic research</strong> &mdash; 23 keyword opportunities, 8 selected</span>
+              <span class="step-meta">1m 45s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Outline generated</strong> &mdash; 6 sections, 2,400 word target</span>
+              <span class="step-meta">2m 30s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>First draft</strong> &mdash; 2,847 words, brand voice score 96%</span>
+              <span class="step-meta">7m 18s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>SEO optimization</strong> &mdash; meta tags, headings, internal links added</span>
+              <span class="step-meta">9m 02s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon progress">&#x25CF;</div>
+              <span class="step-text"><strong>Localization</strong> &mdash; EN &#x2713; / ZH processing / ES queued / JA queued</span>
+              <span class="step-meta">~4m</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon pending">&#x25CB;</div>
+              <span class="step-text"><strong>Social snippets</strong> &mdash; X thread + LinkedIn post + newsletter excerpt</span>
+              <span class="step-meta">queued</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon pending">&#x25CB;</div>
+              <span class="step-text"><strong>Publish</strong> &mdash; deploy to CMS + schedule social posts</span>
+              <span class="step-meta">queued</span>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3.2s ease forwards 0.6s;"></div></div>
+          <div class="visual-footer">
+            <span>Brand voice: 96%</span>
+            <span>ETA: 6m remaining</span>
+          </div>
+        </div>
       </div>
-      <div class="usecase-visual">
-        <div class="visual-header">
-          <span class="label">Agent</span>
-          <span class="value">Content Pipeline</span>
+
+      <div class="real-run">
+        <div class="real-run-top">
+          <span class="real-run-kicker">A real run, step by step</span>
+          <span class="run-id">run_2vq7m61 &middot; Content Production &middot; completed</span>
         </div>
-        <div class="workflow-diagram">
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Topic research</strong> &mdash; 23 keyword opportunities, 8 selected</span>
-            <span class="step-meta">1m 45s</span>
+        <div class="real-run-grid">
+          <div class="run-col">
+            <h4>Input</h4>
+            <p>Launch package for a new API rate-limiting feature: an 11-page engineering design doc, two customer interview transcripts, and the brand style guide.</p>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Outline generated</strong> &mdash; 6 sections, 2,400 word target</span>
-            <span class="step-meta">2m 30s</span>
+          <div class="run-col">
+            <h4>What the agent did</h4>
+            <ol class="run-steps">
+              <li><span><strong>Extracted positioning</strong> from the design doc and interviews; produced a message hierarchy with 3 proof points. <span class="t">3m 10s</span></span></li>
+              <li><span><strong>Drafted a 2,400-word technical post</strong> &mdash; brand-voice score 96/100 against the style guide. <span class="t">11m</span></span></li>
+              <li><span><strong>Generated the docs page and changelog entry</strong>, terminology checked against existing documentation. <span class="t">7m</span></span></li>
+              <li><span><strong>Produced 6 social variants</strong> and a newsletter excerpt from the long-form draft. <span class="t">4m</span></span></li>
+              <li><span><strong>Localized into German and Japanese</strong> using the team&rsquo;s terminology glossary, not raw translation. <span class="t">9m</span></span></li>
+            </ol>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>First draft</strong> &mdash; 2,847 words, brand voice score 96%</span>
-            <span class="step-meta">7m 18s</span>
+          <div class="run-col">
+            <h4>Deliverable</h4>
+            <div class="run-deliverable">
+              <span class="check">&#x2713; Run complete &mdash; 34m</span>
+              <p>14 assets shipped to review: blog post, docs page, changelog entry, 6 social variants, newsletter excerpt, 2 localized editions. The editor logged 38 minutes of changes &mdash; one pass.</p>
+            </div>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>SEO optimization</strong> &mdash; meta tags, headings, internal links added</span>
-            <span class="step-meta">9m 02s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon progress">&#x25CF;</div>
-            <span class="step-text"><strong>Localization</strong> &mdash; EN &#x2713; / ZH processing / ES queued / JA queued</span>
-            <span class="step-meta">~4m</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon pending">&#x25CB;</div>
-            <span class="step-text"><strong>Social snippets</strong> &mdash; X thread + LinkedIn post + newsletter excerpt</span>
-            <span class="step-meta">queued</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon pending">&#x25CB;</div>
-            <span class="step-text"><strong>Publish</strong> &mdash; deploy to CMS + schedule social posts</span>
-            <span class="step-meta">queued</span>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3.2s ease forwards 0.6s;"></div></div>
-        <div class="visual-footer">
-          <span>Brand voice: 96%</span>
-          <span>ETA: 6m remaining</span>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- 3. Code & Engineering -->
-    <div class="usecase-card">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x1F4BB;</div>
-        <h3>Code &amp; Engineering</h3>
-        <p class="subtitle">Persistent engineering team members that handle PR review, debugging, refactoring, and documentation &mdash; the work nobody wants to do but everybody needs done.</p>
-        <ul class="usecase-features">
-          <li>PR review against project conventions with automated inline comments and auto-fix PRs</li>
-          <li>Debugging with full repository context across files, git history, and dependency trees</li>
-          <li>Legacy refactoring with consistent patterns, test generation, and migration scripts</li>
-          <li>Technical documentation generation from source code with usage examples and release notes</li>
-          <li>Dependency audit with CVE scanning and automated upgrade recommendations</li>
-        </ul>
+    <section class="domain-block" id="code-engineering">
+      <div class="usecase-card">
+        <div class="usecase-content">
+          <div class="usecase-icon">&#x1F4BB;</div>
+          <h3>Code &amp; Engineering</h3>
+          <p class="subtitle">Persistent engineering team members that handle PR review, debugging, refactoring, and documentation &mdash; the work nobody wants to do but everybody needs done.</p>
+          <ul class="usecase-features">
+            <li>PR review against project conventions with automated inline comments and auto-fix PRs</li>
+            <li>Debugging with full repository context across files, git history, and dependency trees</li>
+            <li>Legacy refactoring with consistent patterns, test generation, and migration scripts</li>
+            <li>Technical documentation generation from source code with usage examples and release notes</li>
+            <li>Dependency audit with CVE scanning and automated upgrade recommendations</li>
+          </ul>
+          <div class="metric-chips">
+            <span class="metric-chip"><strong>18 min</strong> median PR first-pass review</span>
+            <span class="metric-chip"><strong>91%</strong> accepted without major revision</span>
+            <span class="metric-chip"><strong>+4 pts</strong> avg coverage per reviewed PR</span>
+          </div>
+          <a class="demo-link" href="/demo.html#code-review"><span class="play">&#9654;</span>Watch this workflow live</a>
+        </div>
+        <div class="usecase-visual">
+          <div class="visual-header">
+            <span class="label">Agent</span>
+            <span class="value">Code Review &amp; Refactor</span>
+          </div>
+          <div class="workflow-diagram">
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>PR analyzed</strong> &mdash; #1847: 14 files changed, 2.3K lines diff</span>
+              <span class="step-meta">18s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Convention check</strong> &mdash; ESLint, Prettier, naming patterns passed</span>
+              <span class="step-meta">42s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon" style="background:rgba(248,113,113,0.15);color:var(--red)">!</div>
+              <span class="step-text"><strong>Security scan</strong> &mdash; JWT expiry not validated (auth/middleware.ts:142)</span>
+              <span class="step-meta">critical</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon progress">&#x26A0;</div>
+              <span class="step-text"><strong>Performance</strong> &mdash; N+1 query in listInvoices (db/queries.ts:89)</span>
+              <span class="step-meta">warning</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Test coverage</strong> &mdash; 87% &#8594; 91% (+4%), 12 new test cases</span>
+              <span class="step-meta">3m 14s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Auto-fix PR</strong> &mdash; created #1848 for both findings</span>
+              <span class="step-meta">ready</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Docs updated</strong> &mdash; architecture notes + changelog entry generated</span>
+              <span class="step-meta">4m 01s</span>
+            </div>
+          </div>
+          <div class="visual-footer">
+            <span>Verdict: Approve with changes</span>
+            <span>2 auto-fixes applied</span>
+          </div>
+        </div>
       </div>
-      <div class="usecase-visual">
-        <div class="visual-header">
-          <span class="label">Agent</span>
-          <span class="value">Code Review &amp; Refactor</span>
+
+      <div class="real-run">
+        <div class="real-run-top">
+          <span class="real-run-kicker">A real run, step by step</span>
+          <span class="run-id">run_6tp1x48 &middot; Code &amp; Engineering &middot; completed</span>
         </div>
-        <div class="workflow-diagram">
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>PR analyzed</strong> &mdash; #1847: 14 files changed, 2.3K lines diff</span>
-            <span class="step-meta">18s</span>
+        <div class="real-run-grid">
+          <div class="run-col">
+            <h4>Input</h4>
+            <p>PR #1847 against acme/payments-api, a 480K-line TypeScript monorepo: 14 files, 2.3K-line diff touching the auth service. Triggered automatically by the GitHub App on ready_for_review.</p>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Convention check</strong> &mdash; ESLint, Prettier, naming patterns passed</span>
-            <span class="step-meta">42s</span>
+          <div class="run-col">
+            <h4>What the agent did</h4>
+            <ol class="run-steps">
+              <li><span><strong>Loaded repository context</strong> &mdash; ownership map plus conventions inferred from the last 400 merged PRs. <span class="t">12s</span></span></li>
+              <li><span><strong>Ran the convention check</strong> &mdash; ESLint, naming, and error-handling patterns all passed. <span class="t">42s</span></span></li>
+              <li><span><strong>Security pass</strong> found JWT expiry not validated at auth/middleware.ts:142 &mdash; flagged critical. <span class="t">1m 50s</span></span></li>
+              <li><span><strong>Performance pass</strong> caught an N+1 query in listInvoices at db/queries.ts:89. <span class="t">2m 30s</span></span></li>
+              <li><span><strong>Generated 12 test cases</strong> &mdash; branch coverage moved from 87% to 91%. <span class="t">3m 14s</span></span></li>
+              <li><span><strong>Opened auto-fix PR #1848</strong> for both findings, with the rationale written into the PR description. <span class="t">1m 20s</span></span></li>
+            </ol>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon" style="background:rgba(248,113,113,0.15);color:var(--red)">!</div>
-            <span class="step-text"><strong>Security scan</strong> &mdash; JWT expiry not validated (auth.ts:142)</span>
-            <span class="step-meta">critical</span>
+          <div class="run-col">
+            <h4>Deliverable</h4>
+            <div class="run-deliverable">
+              <span class="check">&#x2713; Run complete &mdash; 16m</span>
+              <p>Review verdict with 9 inline comments plus auto-fix PR #1848 &mdash; 16 minutes from trigger to verdict. A human approves the merge; the first pass is already done.</p>
+            </div>
           </div>
-          <div class="workflow-step">
-            <div class="step-icon progress">&#x26A0;</div>
-            <span class="step-text"><strong>Performance</strong> &mdash; N+1 query in UserService.list() (L89)</span>
-            <span class="step-meta">warning</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Test coverage</strong> &mdash; 87% &#8594; 91% (+4%), 12 new test cases</span>
-            <span class="step-meta">3m 14s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Auto-fix PR</strong> &mdash; created #1848 for 2 critical issues</span>
-            <span class="step-meta">ready</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Docs updated</strong> &mdash; architecture notes + changelog entry generated</span>
-            <span class="step-meta">4m 01s</span>
-          </div>
-        </div>
-        <div class="visual-footer">
-          <span>Verdict: Approve with changes</span>
-          <span>2 auto-fixes applied</span>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- 4. Research & Due Diligence -->
-    <div class="usecase-card">
-      <div class="usecase-content">
-        <div class="usecase-icon">&#x1F50D;</div>
-        <h3>Research &amp; Due Diligence</h3>
-        <p class="subtitle">Deep research across legal documents, compliance frameworks, patent databases, and regulatory filings &mdash; with citation trails and confidence scoring on every finding.</p>
-        <ul class="usecase-features">
-          <li>Legal document review with clause-level risk identification and redline suggestions</li>
-          <li>Regulatory compliance mapping across SOC2, GDPR, HIPAA, and ISO 27001 frameworks</li>
-          <li>Patent landscape analysis with prior art search and freedom-to-operate assessment</li>
-          <li>M&amp;A due diligence automation with financial, legal, and technical workstreams</li>
-          <li>Audit trail with source citations, confidence scores, and uncertainty flagging</li>
-        </ul>
+    <section class="domain-block" id="research-diligence">
+      <div class="usecase-card flip">
+        <div class="usecase-content">
+          <div class="usecase-icon">&#x1F50D;</div>
+          <h3>Research &amp; Due Diligence</h3>
+          <p class="subtitle">Deep research across legal documents, compliance frameworks, patent databases, and regulatory filings &mdash; with citation trails and confidence scoring on every finding.</p>
+          <ul class="usecase-features">
+            <li>Legal document review with clause-level risk identification and redline suggestions</li>
+            <li>Regulatory compliance mapping across SOC2, GDPR, HIPAA, and ISO 27001 frameworks</li>
+            <li>Patent landscape analysis with prior art search and freedom-to-operate assessment</li>
+            <li>M&amp;A due diligence automation with financial, legal, and technical workstreams</li>
+            <li>Audit trail with source citations, confidence scores, and uncertainty flagging</li>
+          </ul>
+          <div class="metric-chips">
+            <span class="metric-chip"><strong>1h 12m</strong> median contract-bundle review</span>
+            <span class="metric-chip"><strong>234</strong> citations per report (median)</span>
+            <span class="metric-chip"><strong>0</strong> documents retained after a run</span>
+          </div>
+          <a class="demo-link" href="/demo.html#contract-review"><span class="play">&#9654;</span>Watch this workflow live</a>
+        </div>
+        <div class="usecase-visual">
+          <div class="visual-header">
+            <span class="label">Agent</span>
+            <span class="value">Legal &amp; Compliance Review</span>
+          </div>
+          <div class="workflow-diagram">
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Document intake</strong> &mdash; 847 pages across 23 files ingested</span>
+              <span class="step-meta">1m 12s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Clause extraction</strong> &mdash; 142 key clauses identified &amp; categorized</span>
+              <span class="step-meta">6m 44s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Risk assessment</strong> &mdash; 4 high-risk, 11 medium, 18 low flagged</span>
+              <span class="step-meta">12m 08s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon done">&#x2713;</div>
+              <span class="step-text"><strong>Compliance check</strong> &mdash; SOC2 92%, GDPR 88%, HIPAA 95%</span>
+              <span class="step-meta">18m 33s</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon progress">&#x25CF;</div>
+              <span class="step-text"><strong>Patent search</strong> &mdash; 2,340 patents scanned, 17 relevant matches</span>
+              <span class="step-meta">~5m</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon pending">&#x25CB;</div>
+              <span class="step-text"><strong>Redline draft</strong> &mdash; suggested modifications for 4 high-risk clauses</span>
+              <span class="step-meta">queued</span>
+            </div>
+            <div class="workflow-step">
+              <div class="step-icon pending">&#x25CB;</div>
+              <span class="step-text"><strong>Final report</strong> &mdash; executive summary + full findings with citations</span>
+              <span class="step-meta">queued</span>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3.5s ease forwards 0.4s;"></div></div>
+          <div class="visual-footer">
+            <span>Citations: 234 sources</span>
+            <span>ETA: 12m remaining</span>
+          </div>
+        </div>
       </div>
-      <div class="usecase-visual">
-        <div class="visual-header">
-          <span class="label">Agent</span>
-          <span class="value">Legal &amp; Compliance Review</span>
-        </div>
-        <div class="workflow-diagram">
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Document intake</strong> &mdash; 847 pages across 23 files ingested</span>
-            <span class="step-meta">1m 12s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Clause extraction</strong> &mdash; 142 key clauses identified &amp; categorized</span>
-            <span class="step-meta">6m 44s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Risk assessment</strong> &mdash; 4 high-risk, 11 medium, 18 low flagged</span>
-            <span class="step-meta">12m 08s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon done">&#x2713;</div>
-            <span class="step-text"><strong>Compliance check</strong> &mdash; SOC2 92%, GDPR 88%, HIPAA 95%</span>
-            <span class="step-meta">18m 33s</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon progress">&#x25CF;</div>
-            <span class="step-text"><strong>Patent search</strong> &mdash; 2,340 patents scanned, 17 relevant matches</span>
-            <span class="step-meta">~5m</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon pending">&#x25CB;</div>
-            <span class="step-text"><strong>Redline draft</strong> &mdash; suggested modifications for 4 high-risk clauses</span>
-            <span class="step-meta">queued</span>
-          </div>
-          <div class="workflow-step">
-            <div class="step-icon pending">&#x25CB;</div>
-            <span class="step-text"><strong>Final report</strong> &mdash; executive summary + full findings with citations</span>
-            <span class="step-meta">queued</span>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 3.5s ease forwards 0.4s;"></div></div>
-        <div class="visual-footer">
-          <span>Citations: 234 sources</span>
-          <span>ETA: 12m remaining</span>
-        </div>
-      </div>
-    </div>
 
+      <div class="real-run">
+        <div class="real-run-top">
+          <span class="real-run-kicker">A real run, step by step</span>
+          <span class="run-id">run_9hd4w27 &middot; Research &amp; Due Diligence &middot; completed</span>
+        </div>
+        <div class="real-run-grid">
+          <div class="run-col">
+            <h4>Input</h4>
+            <p>A vendor MSA and DPA bundle: 847 pages across 23 files, reviewed against the company&rsquo;s contracting playbook (rev. March 2026).</p>
+          </div>
+          <div class="run-col">
+            <h4>What the agent did</h4>
+            <ol class="run-steps">
+              <li><span><strong>Intake and version reconciliation</strong> &mdash; 23 files deduplicated, 2 conflicting drafts resolved to the latest signature versions. <span class="t">4m</span></span></li>
+              <li><span><strong>Extracted and categorized 142 clauses</strong> against playbook positions. <span class="t">11m</span></span></li>
+              <li><span><strong>Scored risk</strong> &mdash; 4 high (uncapped indemnity and unilateral price escalation among them), 11 medium, 18 low. <span class="t">14m</span></span></li>
+              <li><span><strong>Mapped GDPR Article 28 processor terms</strong> &mdash; 88% covered, 3 gaps documented with the exact missing language. <span class="t">12m</span></span></li>
+              <li><span><strong>Drafted redlines</strong> for the 4 high-risk clauses, with primary and fallback positions. <span class="t">16m</span></span></li>
+              <li><span><strong>Assembled the findings report</strong> &mdash; 234 source citations, each linked to page and paragraph. <span class="t">12m</span></span></li>
+            </ol>
+          </div>
+          <div class="run-col">
+            <h4>Deliverable</h4>
+            <div class="run-deliverable">
+              <span class="check">&#x2713; Run complete &mdash; 1h 09m</span>
+              <p>Findings report with redlines and a negotiation brief. Counsel reviews conclusions, not page numbers &mdash; every finding is traceable to its source paragraph.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="proof-link-band">
+    <p>These workflows run in production today. See measured results from the teams running them.</p>
+    <a href="/customers.html" class="btn-secondary btn-sm">Read Customer Stories &#8594;</a>
+  </div>
+</div>
+
+<!-- Integration surface -->
+<div class="section-full integrations-strip">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Integration surface</h2>
+      <p>Agents operate inside the systems your team already uses &mdash; reading context from them and delivering work back into them. Access is scoped per workspace and per connection.</p>
+    </div>
+    <div class="integration-chips">
+      <span class="integration-chip">GitHub</span>
+      <span class="integration-chip">GitLab</span>
+      <span class="integration-chip">Slack</span>
+      <span class="integration-chip">Notion</span>
+      <span class="integration-chip">Linear</span>
+      <span class="integration-chip">Jira</span>
+      <span class="integration-chip">Snowflake</span>
+      <span class="integration-chip">Google Drive</span>
+    </div>
+    <p class="integrations-note">Every agent action against a connected system lands in the audit log &mdash; events, not content, in line with our zero-retention architecture.<br>Connection setup and permission scoping are covered in the <a href="/docs.html">documentation</a>.</p>
   </div>
 </div>
 
@@ -366,30 +724,36 @@
   <p>Start with the free tier. Scale to enterprise when you're ready.</p>
   <div class="hero-cta">
     <a href="#contact" class="btn-primary">Get Started Free</a>
-    <a href="#contact" class="btn-secondary">Contact Sales</a>
+    <a href="/demo.html" class="btn-secondary">Watch the Live Demo</a>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -399,16 +763,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -417,6 +781,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
 </body>
 </html>

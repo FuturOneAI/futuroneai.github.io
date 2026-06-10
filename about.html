@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>About FuturOne — Enterprise AI Agent Company</title>
-  <meta name="description" content="FuturOne is an enterprise AI agent company based in San Francisco. We build production-grade AI agents for coding, reasoning, content, and research workflows — not an API gateway or model proxy." />
-  <meta name="keywords" content="FuturOne, about FuturOne, enterprise AI agents, AI agent platform, coding agent, reasoning agent, workflow automation, Future Intelligence LLC, San Francisco AI company, AI agent company, not API gateway, not model proxy, enterprise AI startup, production-grade AI agents, autonomous workflow AI" />
+  <title>About FuturOne — Enterprise AI Agent Company | Future Intelligence LLC</title>
+  <meta name="description" content="FuturOne is an enterprise AI agent company based in San Francisco. Founded in 2024, we build production-grade AI agents for coding, reasoning, content, and research workflows — not an API gateway or model proxy." />
+  <meta name="keywords" content="FuturOne, about FuturOne, enterprise AI agents, AI agent platform, coding agent, reasoning agent, workflow automation, Future Intelligence LLC, San Francisco AI company, AI agent company, production-grade AI agents, autonomous workflow AI" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://futurmix.one/about.html" />
   <meta property="og:title" content="About FuturOne — Enterprise AI Agent Company" />
-  <meta property="og:description" content="FuturOne builds production-grade enterprise AI agents for coding, reasoning, finance, education, legal review, research, and content workflows." />
+  <meta property="og:description" content="Founded in 2024 in San Francisco. FuturOne builds production-grade enterprise AI agents that complete coding, strategy, content, and research workflows end-to-end." />
   <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About FuturOne — Enterprise AI Agent Company" />
-  <meta name="twitter:description" content="FuturOne builds production-grade enterprise AI agents for coding, reasoning, finance, education, legal review, research, and content workflows." />
+  <meta name="twitter:description" content="Founded in 2024 in San Francisco. FuturOne builds production-grade enterprise AI agents that complete coding, strategy, content, and research workflows end-to-end." />
   <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
   <script type="application/ld+json">
   {
@@ -32,6 +29,22 @@
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
         { "@type": "ListItem", "position": 2, "name": "About", "item": "https://futurmix.one/about.html" }
       ]
+    },
+    "about": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "legalName": "Future Intelligence LLC",
+      "url": "https://futurmix.one",
+      "logo": "https://futurmix.one/one-logo.svg",
+      "foundingDate": "2024",
+      "email": "nancy-sl@futurmix.one",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Francisco",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "slogan": "AI agents that complete workflows, not just answer questions"
     }
   }
   </script>
@@ -63,24 +76,134 @@
           "@type": "Answer",
           "text": "FuturOne is operated by Future Intelligence LLC, a company based in San Francisco, California. FuturOne is the product brand focused on enterprise AI agents for coding, reasoning, content, and research workflows."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Is FuturOne hiring?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. FuturOne is hiring for three roles: Founding Forward-Deployed Engineer, Agent Reliability Engineer, and Enterprise Account Executive. Candidates should write to nancy-sl@futurmix.one with what they have shipped."
+        }
       }
     ]
   }
   </script>
   <link rel="canonical" href="https://futurmix.one/about.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- Milestones timeline ---- */
+    .timeline { max-width: 760px; margin: 0 auto; position: relative; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item { position: relative; padding: 0 0 36px 44px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: 2px; top: 5px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent);
+      box-sizing: border-box;
+    }
+    .timeline-item.current .timeline-dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-glow);
+    }
+    .timeline-date {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .timeline-item h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .timeline-item p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .timeline-tag {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--accent-glow);
+      border: 1px solid rgba(56, 216, 200, 0.3);
+      color: var(--accent-light);
+      vertical-align: 1px;
+    }
+
+    /* ---- Careers band ---- */
+    .careers-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+      border: 1px solid rgba(56, 216, 200, 0.3);
+      border-radius: 16px;
+      padding: 44px 48px;
+      text-align: center;
+    }
+    .careers-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+    .careers-card h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .careers-roles {
+      font-size: 16px;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .careers-roles .sep { color: var(--text-muted); padding: 0 6px; }
+    .careers-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 980px) {
+      .careers-card { padding: 36px 28px; }
+    }
+    @media (max-width: 720px) {
+      .timeline-item { padding-left: 36px; }
+      .careers-roles .sep { display: block; height: 0; overflow: hidden; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
       <a href="/use-cases.html">Use Cases</a>
-      <a href="/how-it-works.html">How It Works</a>
-      <a href="/about.html" class="active">About</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -90,7 +213,7 @@
 <!-- Page Header -->
 <div class="page-header">
   <h1>About FuturOne</h1>
-  <p>Building production-grade enterprise AI agents, coding agent, reasoning agent, workflow automation for teams that ship.</p>
+  <p>We build production-grade AI agents that complete enterprise workflows end-to-end. Founded in 2024 in San Francisco, operated by Future Intelligence LLC.</p>
 </div>
 
 <!-- Mission Section -->
@@ -99,8 +222,8 @@
     <div class="about-text">
       <h2>Our mission</h2>
       <p>FuturOne exists to make production-grade AI agents accessible to every enterprise team. We believe the future of work isn't about replacing people with AI — it's about giving teams AI agents that handle the repetitive, high-volume work so humans can focus on judgment, creativity, and strategy.</p>
-      <p>We build the execution layer that makes this possible: an AI agent platform with workflow planning, automatic recovery, and zero data retention. Our agents do not just answer questions - they complete multi-step workflows end-to-end, from strategy analysis to code engineering to content production.</p>
-      <p>Every design decision we make optimizes for reliability over novelty, transparency over autonomy, and production readiness over demo impressiveness. We ship infrastructure that teams bet their operations on.</p>
+      <p>We build the execution layer that makes this possible: an AI agent platform with workflow planning, automatic recovery, and zero data retention. Our agents do not just answer questions — they complete multi-step workflows end-to-end, from strategy analysis to code engineering to content production and research.</p>
+      <p>Every design decision we make optimizes for reliability over novelty, transparency over autonomy, and production readiness over demo impressiveness. We ship infrastructure that teams bet their operations on. If you want to see what that looks like in practice, the <a href="/demo.html">live demo</a> walks through the same orchestration engine our customers run in production.</p>
     </div>
     <div class="about-info-card">
       <h3>Company Details</h3>
@@ -109,7 +232,7 @@
         <span class="value">Future Intelligence LLC</span>
       </div>
       <div class="info-row">
-        <span class="label">Location</span>
+        <span class="label">Headquarters</span>
         <span class="value">San Francisco, CA</span>
       </div>
       <div class="info-row">
@@ -117,11 +240,15 @@
         <span class="value">2024</span>
       </div>
       <div class="info-row">
-        <span class="label">Workflow Coverage</span>
-        <span class="value">40+</span>
+        <span class="label">Platform GA</span>
+        <span class="value">January 2026</span>
       </div>
       <div class="info-row">
-        <span class="label">SLA</span>
+        <span class="label">Agent Domains</span>
+        <span class="value">4</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Uptime SLA</span>
         <span class="value">99.99%</span>
       </div>
       <div class="info-row">
@@ -159,6 +286,91 @@
   </div>
 </div>
 
+<!-- Milestones -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>Milestones</h2>
+    <p>What we have shipped, in order. The full record lives in the <a href="/changelog.html">changelog</a>.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">2024</div>
+      <h3>Company founded</h3>
+      <p>Future Intelligence LLC incorporated in San Francisco. The first year went into the orchestration runtime — scheduling, retries, failover, and the zero-retention data path — built alongside a small group of design partners before anything was public.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">August 2025</div>
+      <h3>Private beta</h3>
+      <p>First customer workflows in production: PR review for an engineering team and due-diligence research for an investment team. Zero-retention architecture in place from the first request.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">January 2026</div>
+      <h3>Platform general availability</h3>
+      <p>Coding, strategy, content, and research agents generally available, with the public API and SDKs for Python and Node.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">February 2026</div>
+      <h3>Security pattern detection</h3>
+      <p>The code review agent gained security pattern detection and began generating auto-fix pull requests for confirmed issues.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">March 2026</div>
+      <h3>SSO and SCIM generally available</h3>
+      <p>Enterprise single sign-on and SCIM provisioning shipped, cutting average enterprise compliance approval to roughly two weeks.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">April 2026</div>
+      <h3>Parallel step execution</h3>
+      <p>Independent workflow steps now execute concurrently — a 2.4x throughput improvement on multi-step runs.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">May 2026</div>
+      <h3>Research agent with source verification</h3>
+      <p>Multi-step research agent released with source verification and confidence scoring on every claim it makes.</p>
+    </div>
+    <div class="timeline-item current">
+      <span class="timeline-dot"></span>
+      <div class="timeline-date">June 2026 <span class="timeline-tag">Current</span></div>
+      <h3>Usage analytics &amp; cost attribution</h3>
+      <p>Dashboard for per-workflow latency, run volume, error rates, and cost attribution by agent and team.</p>
+    </div>
+  </div>
+</div>
+
+<!-- How We Work -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>How we work</h2>
+      <p>The operating model behind the product.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F465;</div>
+        <h3>A small team of infrastructure engineers</h3>
+        <p>We are deliberately small. Most of the team has spent years running cloud-native and distributed systems in production, and it shows in what we prioritize: failover paths, queue behavior under load, and observability before features.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F4BC;</div>
+        <h3>Customer-embedded deployment</h3>
+        <p>Enterprise rollouts are led by forward-deployed engineers who sit with your team, map the actual workflow, and get the first agent into production — not a slide deck and a sandbox login.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F6A2;</div>
+        <h3>Production-first</h3>
+        <p>Nothing ships without SLOs, runbooks, and a rollback path. We run FuturOne agents on our own operations daily, and every release lands in the <a href="/changelog.html">changelog</a> and on the <a href="/status.html">status page</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- By the Numbers -->
 <div class="section-wrap">
   <div class="section-header">
@@ -167,8 +379,8 @@
   </div>
   <div class="stats">
     <div class="stat">
-      <div class="stat-value">40+</div>
-      <div class="stat-label">AI Workflow Coverage</div>
+      <div class="stat-value">4</div>
+      <div class="stat-label">Agent Domains</div>
     </div>
     <div class="stat">
       <div class="stat-value">99.99%</div>
@@ -176,12 +388,22 @@
     </div>
     <div class="stat">
       <div class="stat-value">248ms</div>
-      <div class="stat-label">Avg Latency</div>
+      <div class="stat-label">Avg Orchestration Latency</div>
     </div>
     <div class="stat">
       <div class="stat-value">0 bytes</div>
       <div class="stat-label">Data Retained</div>
     </div>
+  </div>
+</div>
+
+<!-- Careers -->
+<div class="section-wrap" id="careers">
+  <div class="careers-card">
+    <div class="careers-kicker">Careers</div>
+    <h2>We are hiring</h2>
+    <div class="careers-roles">Founding Forward-Deployed Engineer<span class="sep">&#183;</span>Agent Reliability Engineer<span class="sep">&#183;</span>Enterprise Account Executive</div>
+    <p>Write to <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a> with what you have shipped.</p>
   </div>
 </div>
 
@@ -196,7 +418,7 @@
       <div class="trust-card">
         <div class="trust-icon">&#x2709;&#xFE0F;</div>
         <h3>Email</h3>
-        <p><a href="#contact">nancy-sl@futurmix.one</a></p>
+        <p><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a><br>Replies within one business day.</p>
       </div>
       <div class="trust-card">
         <div class="trust-icon">&#x1F4CD;</div>
@@ -204,13 +426,9 @@
         <p>San Francisco, CA<br>United States</p>
       </div>
       <div class="trust-card">
-        <div class="trust-icon">&#x1F310;</div>
-        <h3>Product Site</h3>
-        <p>
-          <a href="https://www.futurmix.one">futurmix.one</a><br>
-          Independent product page<br>
-          Enterprise agent workflows
-        </p>
+        <div class="trust-icon">&#x25B6;&#xFE0F;</div>
+        <h3>See it running</h3>
+        <p>The <a href="/demo.html">live demo</a> walks through real agent runs — coding, strategy, content, and research — step by step.</p>
       </div>
     </div>
   </div>
@@ -249,30 +467,36 @@
   <p>Start with the free tier. Scale to enterprise when you're ready.</p>
   <div class="hero-cta">
     <a href="#contact" class="btn-primary">Get Started Free</a>
-    <a href="#contact" class="btn-secondary">Contact Sales</a>
+    <a href="/demo.html" class="btn-secondary">See the Live Demo</a>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -282,16 +506,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -300,6 +524,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
 </body>
 </html>

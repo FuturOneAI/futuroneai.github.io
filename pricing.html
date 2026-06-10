@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — FuturOne | Plans for Teams Running AI Agents in Production</title>
+  <meta name="description" content="FuturOne pricing: free Developer tier, Team at $499/mo, Scale at $1,990/mo, and custom Enterprise plans. Run-based usage with overage from $0.90/run, 2 months free on annual billing, and a 14-day Team trial." />
+  <meta name="keywords" content="FuturOne pricing, AI agent pricing, enterprise AI agent cost, AI workflow automation pricing, agent run pricing, AI code review pricing, AI research agent cost" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/pricing.html" />
+  <meta property="og:title" content="Pricing — FuturOne" />
+  <meta property="og:description" content="Start free with 20 runs a month. Team $499/mo, Scale $1,990/mo, Enterprise custom. Run-based usage, zero data retention on every tier, no per-token surprises." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pricing — FuturOne" />
+  <meta name="twitter:description" content="Start free with 20 runs a month. Team $499/mo, Scale $1,990/mo, Enterprise custom. Run-based usage, zero data retention on every tier." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <link rel="canonical" href="https://futurmix.one/pricing.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "FuturOne Agent Platform",
+    "description": "Production-grade AI agents that complete enterprise workflows end-to-end across four domains: coding, strategy and reasoning, content, and research. Priced per seat and per agent run.",
+    "brand": { "@type": "Brand", "name": "FuturOne" },
+    "url": "https://futurmix.one/pricing.html",
+    "image": "https://futurmix.one/one-og-banner.png",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Developer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "20 agent runs per month, 1 seat, all four agent domains, community support.",
+        "url": "https://futurmix.one/pricing.html",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "Team",
+        "price": "499",
+        "priceCurrency": "USD",
+        "description": "5 seats, 500 agent runs per month, all four agent domains, Slack and GitHub integrations, email support. 14-day trial available.",
+        "url": "https://futurmix.one/pricing.html",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "Scale",
+        "price": "1990",
+        "priceCurrency": "USD",
+        "description": "20 seats, 2,500 agent runs per month, priority queue, audit logs, dedicated success engineer.",
+        "url": "https://futurmix.one/pricing.html",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "Enterprise",
+        "priceCurrency": "USD",
+        "description": "Custom pricing. Unlimited seats, custom run volume, SSO/SCIM, VPC peering, DPA, 99.99% contractual SLA, dedicated support, invoicing and PO.",
+        "url": "https://futurmix.one/pricing.html",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What counts as a run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A run is one assigned task carried to one completed deliverable — a reviewed pull request, a due-diligence memo, a content draft, a research summary. Everything inside the run is included: planning, intermediate steps, model calls across providers, and retries. Retries never consume additional runs, and runs that fail for platform reasons are not billed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when I hit my monthly run limit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You get a notification at 80% of your allotment. Past 100%, runs continue at overage rates starting at $0.90 per run depending on agent domain, billed monthly in arrears. You can also set a hard cap in the dashboard so runs queue instead of incurring overage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does proration work when I upgrade or add seats?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upgrades take effect immediately and the difference is prorated to the day for the remainder of the billing cycle. Run allotments switch to the new tier at the moment of upgrade. Downgrades take effect at the start of the next billing cycle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an annual discount?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Annual billing on Team and Scale includes 2 months free — you pay for 10 months and get 12. Enterprise agreements are typically annual by default."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do trials work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Team comes with a 14-day trial: full Team features, integrations included, no credit card required. When the trial ends you can subscribe or drop to the Developer tier — your workflow configurations and integration settings are kept either way."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does security review and procurement work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FuturOne runs a zero-retention architecture: customer data never persists beyond the request lifecycle. SOC 2 Type I is complete and Type II is in its observation period; the report is available under NDA. A standard GDPR DPA is available to all paid plans, and Enterprise agreements include a negotiated DPA and custom terms. Teams typically clear enterprise compliance review in about two weeks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I bring my own model API keys?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. FuturOne owns the full execution path — model routing, retries, failover, and parallel step execution — and our zero-retention guarantee depends on inference running under our enterprise zero-retention terms with model providers. FuturOne is an agent platform, not a model proxy: you pay for completed deliverables, not pass-through tokens."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- Tier cards ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+    .tier-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s;
+    }
+    .tier-card:hover { border-color: var(--border-hover); }
+    .tier-card.popular {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), 0 12px 40px var(--accent-glow-strong);
+    }
+    .tier-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .tier-name { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .tier-price { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+    .tier-price .tier-per { font-size: 14px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+    .tier-tagline { font-size: 13px; color: var(--text-secondary); margin: 10px 0 20px; line-height: 1.55; min-height: 40px; }
+    .tier-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .tier-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .tier-features li::before {
+      content: '\2713';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .tier-cta { margin-top: auto; text-align: center; width: 100%; box-sizing: border-box; }
+    .pricing-note { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 24px; }
+
+    /* ---- Comparison table ---- */
+    .table-scroll { overflow-x: auto; border-radius: 16px; }
+    .table-scroll .comparison-table { min-width: 820px; }
+    .cmp-yes { color: var(--green); font-weight: 600; }
+    .cmp-no { color: var(--text-muted); }
+    .table-footnote {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      line-height: 1.6;
+      max-width: 820px;
+    }
+
+    /* ---- Runs & overage explainer ---- */
+    .runs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .run-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      transition: border-color 0.3s;
+    }
+    .run-card:hover { border-color: var(--border-hover); }
+    .run-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+    .run-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .run-card p + p { margin-top: 10px; }
+    .rate-list { list-style: none; margin-top: 14px; display: flex; flex-direction: column; }
+    .rate-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+    .rate-list li:last-child { border-bottom: none; }
+    .rate-list .rate { color: var(--text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    /* ---- ROI calculator ---- */
+    .roi-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      overflow: hidden;
+    }
+    .roi-inputs { padding: 40px; }
+    .roi-field { margin-bottom: 26px; }
+    .roi-field:last-child { margin-bottom: 0; }
+    .roi-field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+    .roi-field label .roi-val { color: var(--accent-light); font-size: 14px; font-variant-numeric: tabular-nums; }
+    .roi-field input[type="number"] {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .roi-field input[type="number"]:focus { outline: none; border-color: var(--accent); }
+    input[type="range"].roi-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 5.5%, var(--border) 5.5%, var(--border) 100%);
+      outline: none;
+      cursor: pointer;
+      margin: 4px 0;
+    }
+    input[type="range"].roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg-card);
+      box-shadow: 0 0 0 1px var(--accent), 0 2px 10px var(--accent-glow-strong);
+      transition: background 0.2s;
+    }
+    input[type="range"].roi-slider::-webkit-slider-thumb:hover { background: var(--accent-hover); }
+    input[type="range"].roi-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg-card);
+      box-shadow: 0 0 0 1px var(--accent), 0 2px 10px var(--accent-glow-strong);
+    }
+    input[type="range"].roi-slider::-moz-range-track { background: transparent; }
+    .roi-results {
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+    .roi-stat .roi-stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+    .roi-stat .roi-stat-value {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .roi-stat .roi-stat-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
+    .roi-stat.secondary .roi-stat-value { font-size: 22px; color: var(--text-primary); }
+    .roi-caveat {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    /* ---- Demo cross-link strip ---- */
+    .demo-strip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .demo-strip h3 { font-size: 19px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .demo-strip p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 560px; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 980px) {
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .runs-grid { grid-template-columns: 1fr; }
+      .roi-panel { grid-template-columns: 1fr; }
+      .roi-results { border-left: none; border-top: 1px solid var(--border); }
+    }
+    @media (max-width: 720px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .roi-inputs, .roi-results { padding: 28px; }
+      .demo-strip { padding: 28px; }
+      .tier-tagline { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Page header -->
+<div class="page-header">
+  <h1>Pricing that maps to <span class="gradient" style="background:linear-gradient(135deg,#38D8C8,#C7F9CC,#6EA8FE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">completed work</span></h1>
+  <p>You pay per seat and per run — one task carried to one finished deliverable. No per-token metering, no surprise inference bills. Zero data retention on every tier, including the free one.</p>
+</div>
+
+<!-- Tier cards -->
+<div class="section-wrap" style="padding-top:24px;">
+  <div class="pricing-grid">
+
+    <div class="tier-card">
+      <div class="tier-name">Developer</div>
+      <div class="tier-price">$0 <span class="tier-per">forever</span></div>
+      <p class="tier-tagline">Evaluate real agent runs on your own work before anyone signs anything.</p>
+      <ul class="tier-features">
+        <li>20 runs per month</li>
+        <li>1 seat</li>
+        <li>All four agent domains</li>
+        <li>Run history &amp; step traces in dashboard</li>
+        <li>Community support</li>
+      </ul>
+      <a href="#contact" class="btn-secondary btn-sm tier-cta">Start Free</a>
+    </div>
+
+    <div class="tier-card popular">
+      <div class="tier-badge">Most Popular</div>
+      <div class="tier-name">Team</div>
+      <div class="tier-price">$499 <span class="tier-per">/ month</span></div>
+      <p class="tier-tagline">For teams putting agents into a daily review or production loop.</p>
+      <ul class="tier-features">
+        <li>5 seats</li>
+        <li>500 runs per month</li>
+        <li>All four agent domains</li>
+        <li>Slack &amp; GitHub integrations</li>
+        <li>Webhooks &amp; API access</li>
+        <li>Email support</li>
+        <li>14-day trial, no card required</li>
+      </ul>
+      <a href="#contact" class="btn-primary btn-sm tier-cta">Start 14-Day Trial</a>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-name">Scale</div>
+      <div class="tier-price">$1,990 <span class="tier-per">/ month</span></div>
+      <p class="tier-tagline">For departments standardizing agent workflows across several teams.</p>
+      <ul class="tier-features">
+        <li>20 seats</li>
+        <li>2,500 runs per month</li>
+        <li>Priority run queue</li>
+        <li>Audit logs</li>
+        <li>Dedicated success engineer</li>
+      </ul>
+      <a href="#contact" class="btn-secondary btn-sm tier-cta">Get Started</a>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price">Custom</div>
+      <p class="tier-tagline">For organizations with procurement, network, and compliance requirements.</p>
+      <ul class="tier-features">
+        <li>Unlimited seats</li>
+        <li>Custom run volume</li>
+        <li>SSO / SCIM provisioning</li>
+        <li>VPC peering</li>
+        <li>DPA &amp; custom terms</li>
+        <li>99.99% contractual SLA</li>
+        <li>Dedicated support team</li>
+        <li>Invoicing / PO</li>
+      </ul>
+      <a href="#contact" class="btn-secondary btn-sm tier-cta">Talk to Sales</a>
+    </div>
+
+  </div>
+  <p class="pricing-note">All paid plans: 2 months free with annual billing. Prices in USD.</p>
+</div>
+
+<!-- Comparison table -->
+<div class="section-wrap" style="padding-top:40px;">
+  <div class="section-header">
+    <h2>Compare plans</h2>
+    <p>Every tier runs on the same agent runtime, the same model routing, and the same zero-retention architecture. The differences are volume, controls, and support.</p>
+  </div>
+  <div class="table-scroll">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th style="width:26%;">Feature</th>
+          <th>Developer</th>
+          <th class="highlight-col">Team</th>
+          <th>Scale</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Runs / month</td>
+          <td>20</td>
+          <td class="highlight-col">500</td>
+          <td>2,500</td>
+          <td>Custom volume</td>
+        </tr>
+        <tr>
+          <td>Seats</td>
+          <td>1</td>
+          <td class="highlight-col">5</td>
+          <td>20</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Agent domains</td>
+          <td>All 4</td>
+          <td class="highlight-col">All 4</td>
+          <td>All 4</td>
+          <td>All 4</td>
+        </tr>
+        <tr>
+          <td>API access</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Parallel step execution</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Priority run queue</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Slack &amp; GitHub integrations</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Webhooks</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>SSO (SAML / OIDC)</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>SCIM provisioning</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Audit logs</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Zero data retention</td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td class="highlight-col"><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>VPC peering</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-yes">&#x2713;</span></td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Community</td>
+          <td class="highlight-col">Email</td>
+          <td>Email + success engineer</td>
+          <td>Dedicated team, named contacts</td>
+        </tr>
+        <tr>
+          <td>Uptime SLA</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col"><span class="cmp-no">&mdash;</span></td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td>99.99% contractual</td>
+        </tr>
+        <tr>
+          <td>Invoicing / PO</td>
+          <td><span class="cmp-no">&mdash;</span></td>
+          <td class="highlight-col">Card</td>
+          <td>Card or annual invoice</td>
+          <td><span class="cmp-yes">&#x2713;</span> Invoicing &amp; PO</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-footnote">All plans run on the same infrastructure. Measured platform uptime over the trailing 90 days is &ge;99.98% — see the <a href="/status.html">live status page</a>. The 99.99% SLA is a contractual commitment with service credits, available on Enterprise agreements.</p>
+</div>
+
+<!-- Usage & overage explainer -->
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>How usage works</h2>
+      <p>Runs are the only usage unit on the platform. We deliberately do not meter tokens — the unit you budget for should be the unit you get value from.</p>
+    </div>
+    <div class="runs-grid">
+      <div class="run-card">
+        <h3>One task, one run</h3>
+        <p>A run is one assigned task carried to one completed deliverable: a reviewed PR with inline comments, a due-diligence memo, a content draft, a sourced research summary. Everything inside — planning, intermediate steps, model calls across providers — is included in that single run.</p>
+        <p>Retries are free. If a step fails and the agent recovers, or a run fails for a platform reason, you are not billed again. A run only counts when it produces a deliverable.</p>
+      </div>
+      <div class="run-card">
+        <h3>Overage, priced by domain</h3>
+        <p>Past your monthly allotment, runs continue at per-run overage rates, billed monthly in arrears. Rates vary by agent domain because execution depth varies:</p>
+        <ul class="rate-list">
+          <li>Content <span class="rate">$0.90 / run</span></li>
+          <li>Coding <span class="rate">$1.10 / run</span></li>
+          <li>Research <span class="rate">$1.30 / run</span></li>
+          <li>Strategy / Reasoning <span class="rate">$1.50 / run</span></li>
+        </ul>
+        <p style="margin-top:14px;">You get an alert at 80% of allotment, and you can set a hard cap so runs queue instead of incurring overage.</p>
+      </div>
+      <div class="run-card">
+        <h3>Runs don't roll over</h3>
+        <p>Allotments reset on your billing date and unused runs don't accumulate. We provision execution capacity against each plan's allotment, which is how we keep latency predictable — banked runs would mean banked capacity nobody is holding.</p>
+        <p>If you're consistently under or over your allotment, moving tiers mid-cycle is prorated to the day. Most teams check the usage dashboard once a month and adjust from there.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROI calculator -->
+<div class="section-wrap" id="roi">
+  <div class="section-header">
+    <h2>What would this save your team?</h2>
+    <p>Plug in your team's review workload. The model uses the 73% first-pass reduction we measure across production deployments — adjust the inputs to match your reality.</p>
+  </div>
+  <div class="roi-panel">
+    <div class="roi-inputs">
+      <div class="roi-field">
+        <label for="roi-team">Team size <span class="roi-val" id="roi-team-val">12 people</span></label>
+        <input type="range" class="roi-slider" id="roi-team" min="1" max="200" value="12" step="1" />
+      </div>
+      <div class="roi-field">
+        <label for="roi-rate">Fully-loaded hourly cost (USD)</label>
+        <input type="number" id="roi-rate" min="1" max="2000" step="5" value="95" />
+      </div>
+      <div class="roi-field">
+        <label for="roi-items">Review-type items per person, per week</label>
+        <input type="number" id="roi-items" min="0" max="100" step="1" value="6" />
+      </div>
+      <div class="roi-field">
+        <label for="roi-hours">Current hours per item</label>
+        <input type="number" id="roi-hours" min="0" max="40" step="0.25" value="1.5" />
+      </div>
+    </div>
+    <div class="roi-results" aria-live="polite">
+      <div class="roi-stat">
+        <div class="roi-stat-label">Hours saved / month</div>
+        <div class="roi-stat-value" id="roi-out-hours">&mdash;</div>
+        <div class="roi-stat-sub" id="roi-out-baseline"></div>
+      </div>
+      <div class="roi-stat">
+        <div class="roi-stat-label">Dollars saved / month</div>
+        <div class="roi-stat-value" id="roi-out-dollars">&mdash;</div>
+      </div>
+      <div class="roi-stat secondary">
+        <div class="roi-stat-label">Suggested plan</div>
+        <div class="roi-stat-value" id="roi-out-tier">&mdash;</div>
+        <div class="roi-stat-sub" id="roi-out-runs"></div>
+      </div>
+      <div class="roi-stat secondary">
+        <div class="roi-stat-label">Payback multiple</div>
+        <div class="roi-stat-value" id="roi-out-payback">&mdash;</div>
+        <div class="roi-stat-sub" id="roi-out-payback-note"></div>
+      </div>
+      <div class="roi-caveat">Estimate based on measured 73% average first-pass reduction across production deployments. Your workload mix will move this number — run the <a href="/demo.html">live demo</a> on a representative task to calibrate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Demo cross-link -->
+<div class="section-wrap" style="padding-top:0;">
+  <div class="demo-strip">
+    <div>
+      <h3>Not sure yet? Watch a run first.</h3>
+      <p>The live demo replays complete agent runs — PR review, due diligence, contract review — step by step, with the same traces you'd see in the dashboard. No signup required.</p>
+    </div>
+    <a href="/demo.html" class="btn-secondary btn-sm">Watch the Live Demo &#8594;</a>
+  </div>
+</div>
+
+<!-- Pricing FAQ -->
+<div class="section-wrap" style="padding-top:40px;">
+  <div class="section-header">
+    <h2>Pricing FAQ</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>What counts as a run?</summary>
+      <p>A run is one assigned task carried to one completed deliverable — a reviewed pull request, a due-diligence memo, a content draft, a research summary with citations. Everything inside the run is included: task planning, intermediate steps, model calls across providers, and retries. Retries never consume additional runs, and runs that fail for platform reasons are not billed. If a run produces nothing usable, you shouldn't pay for it, and you don't.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What happens when I hit my monthly run limit?</summary>
+      <p>Nothing abrupt. You get a notification at 80% of your allotment. Past 100%, runs continue at overage rates starting at $0.90 per run depending on agent domain, billed monthly in arrears. If you'd rather never see an overage line item, set a hard cap in the dashboard — runs past the cap queue until your next cycle or until someone with billing permissions raises the cap.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How does proration work when I upgrade or add seats?</summary>
+      <p>Upgrades take effect immediately. We prorate the price difference to the day for the remainder of your billing cycle, and your run allotment switches to the new tier at the moment of upgrade — not at the next cycle. Downgrades take effect at the start of the next billing cycle, so you keep what you paid for. Seat changes inside a tier work the same way.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there an annual discount?</summary>
+      <p>Yes. Annual billing on Team and Scale includes 2 months free — you pay for 10 months and get 12. Annual plans are invoiced upfront. Enterprise agreements are typically annual by default, with multi-year terms available during negotiation.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do trials work?</summary>
+      <p>Team comes with a 14-day trial: full Team features, all four agent domains, Slack and GitHub integrations included, no credit card required. When the trial ends, you can subscribe to keep going or drop to the Developer tier — your workflow configurations and integration settings are kept either way (there's no customer content to migrate, because we never retain any). Scale and Enterprise evaluations are run as structured pilots — <a href="#contact">talk to us</a> to scope one.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How does security review and procurement work?</summary>
+      <p>Usually faster than you'd expect, because there's less to review: FuturOne runs a zero-retention architecture, so customer data never persists beyond the request lifecycle. SOC 2 Type I is complete and Type II is in its observation period — the report is available under NDA. A standard GDPR DPA is available to all paid plans; Enterprise agreements include a negotiated DPA, security questionnaire support, and custom terms. Teams typically clear enterprise compliance review in about two weeks. Full details, including our subprocessor list, are on the <a href="/security.html">security page</a>.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I bring my own model API keys?</summary>
+      <p>No, and it's a deliberate design decision rather than a missing feature. FuturOne agents route individual workflow steps across frontier models with automatic retries, failover, and parallel execution — that only works if we own the full execution path. Our zero-retention guarantee also depends on every model call running under our enterprise zero-retention terms with providers; a customer-supplied key would put your data outside that boundary. FuturOne is an agent platform, not a model proxy: you pay for completed deliverables, not pass-through tokens, so there's no per-token margin a BYO key would save you.</p>
+    </details>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Start with 20 free runs</h2>
+  <p>No card, no sales call. Upgrade when the runs are doing real work.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Start Free</a>
+    <a href="#contact" class="btn-secondary">Talk to Sales</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var FIRST_PASS_REDUCTION = 0.73;
+  var WEEKS_PER_MONTH = 4.33;
+  var TIERS = {
+    team:  { name: 'Team',  price: 499,  runs: 500,  label: '$499/mo' },
+    scale: { name: 'Scale', price: 1990, runs: 2500, label: '$1,990/mo' }
+  };
+
+  var teamEl = document.getElementById('roi-team');
+  var rateEl = document.getElementById('roi-rate');
+  var itemsEl = document.getElementById('roi-items');
+  var hoursEl = document.getElementById('roi-hours');
+
+  var teamVal = document.getElementById('roi-team-val');
+  var outHours = document.getElementById('roi-out-hours');
+  var outBaseline = document.getElementById('roi-out-baseline');
+  var outDollars = document.getElementById('roi-out-dollars');
+  var outTier = document.getElementById('roi-out-tier');
+  var outRuns = document.getElementById('roi-out-runs');
+  var outPayback = document.getElementById('roi-out-payback');
+  var outPaybackNote = document.getElementById('roi-out-payback-note');
+
+  function num(el, fallback) {
+    var v = parseFloat(el.value);
+    return isFinite(v) && v >= 0 ? v : fallback;
+  }
+
+  function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+  function paintSlider() {
+    var min = parseFloat(teamEl.min), max = parseFloat(teamEl.max);
+    var pct = ((parseFloat(teamEl.value) - min) / (max - min)) * 100;
+    teamEl.style.background =
+      'linear-gradient(90deg, var(--accent) 0%, var(--accent) ' + pct +
+      '%, var(--border) ' + pct + '%, var(--border) 100%)';
+  }
+
+  function update() {
+    var team = parseInt(teamEl.value, 10) || 1;
+    var rate = num(rateEl, 95);
+    var items = num(itemsEl, 6);
+    var hours = num(hoursEl, 1.5);
+
+    teamVal.textContent = team + (team === 1 ? ' person' : ' people');
+    paintSlider();
+
+    var itemsPerMonth = team * items * WEEKS_PER_MONTH;
+    var baselineHours = itemsPerMonth * hours;
+    var hoursSaved = baselineHours * FIRST_PASS_REDUCTION;
+    var dollarsSaved = hoursSaved * rate;
+
+    outHours.textContent = fmt(hoursSaved) + ' h';
+    outBaseline.textContent = 'of ' + fmt(baselineHours) + ' h currently spent on first-pass review';
+    outDollars.textContent = '$' + fmt(dollarsSaved);
+
+    var runsNeeded = Math.round(itemsPerMonth);
+    var enterprise = team > 20 || runsNeeded > TIERS.scale.runs;
+    var tier = (team > 5 || runsNeeded > TIERS.team.runs) ? TIERS.scale : TIERS.team;
+
+    if (enterprise) {
+      outTier.textContent = 'Enterprise';
+      outRuns.textContent = '≈ ' + fmt(runsNeeded) + ' runs/mo — custom volume and pricing';
+      var floorPayback = dollarsSaved / TIERS.scale.price;
+      outPayback.textContent = '≥ ' + (floorPayback >= 100 ? fmt(floorPayback) : floorPayback.toFixed(1)) + '×';
+      outPaybackNote.textContent = 'Floor computed against Scale list price; Enterprise pricing is custom.';
+    } else {
+      outTier.textContent = tier.name + ' · ' + tier.label;
+      outRuns.textContent = '≈ ' + fmt(runsNeeded) + ' runs/mo — ' + tier.name + ' includes ' + fmt(tier.runs);
+      var payback = dollarsSaved / tier.price;
+      outPayback.textContent = (payback >= 100 ? fmt(payback) : payback.toFixed(1)) + '×';
+      outPaybackNote.textContent = 'Monthly savings vs. ' + tier.name + ' list price.';
+    }
+  }
+
+  [teamEl, rateEl, itemsEl, hoursEl].forEach(function (el) {
+    el.addEventListener('input', update);
+  });
+  update();
+})();
+</script>
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status — FuturOne</title>
+  <meta name="description" content="Live operational status for the FuturOne platform — API, Agent Runtime, Dashboard, and Webhooks — with 90-day uptime history and full incident reports." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/status.html" />
+  <meta property="og:title" content="Status — FuturOne" />
+  <meta property="og:description" content="All systems operational. 90-day uptime history and incident reports for the FuturOne agent platform." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Status — FuturOne" />
+  <meta name="twitter:description" content="All systems operational. 90-day uptime history and incident reports for the FuturOne agent platform." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <link rel="canonical" href="https://futurmix.one/status.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "FuturOne Status",
+    "url": "https://futurmix.one/status.html",
+    "description": "Live operational status for the FuturOne platform — API, Agent Runtime, Dashboard, and Webhooks — with 90-day uptime history and full incident reports.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "dateModified": "2026-06-10"
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- status page ---- */
+    .status-hero { padding: 140px 24px 16px; max-width: 1000px; margin: 0 auto; }
+    .status-banner { display: flex; align-items: center; gap: 22px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 34px 38px; }
+    .banner-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.14); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; transition: box-shadow 0.4s; }
+    .banner-dot.flash { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0.22); }
+    .status-banner h1 { font-size: clamp(24px, 3.2vw, 34px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+    .banner-sub { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+    #last-checked { color: var(--text-secondary); font-weight: 600; }
+    .banner-uptime { color: var(--text-muted); }
+
+    .status-section { max-width: 1000px; padding-top: 48px; padding-bottom: 56px; }
+    .status-section .section-header { margin-bottom: 36px; }
+
+    .component-row { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; }
+    .component-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+    .component-head h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+    .component-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .component-meta { display: flex; align-items: center; gap: 28px; flex-shrink: 0; }
+    .component-status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--green); white-space: nowrap; }
+    .dot-sm { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .component-uptime { display: flex; flex-direction: column; align-items: flex-end; font-size: 17px; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+    .component-uptime small { font-size: 11px; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+
+    .uptime-bar { display: flex; gap: 2px; height: 34px; }
+    .uptime-bar .cell { flex: 1; min-width: 0; border-radius: 2px; background: var(--green); cursor: default; transition: transform 0.1s ease; }
+    .uptime-bar .cell.deg { background: var(--yellow); opacity: 1 !important; }
+    .uptime-bar .cell:hover { transform: scaleY(1.18); }
+    .bar-axis { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    .legend { display: flex; gap: 28px; justify-content: center; font-size: 13px; color: var(--text-muted); margin-top: 20px; flex-wrap: wrap; }
+    .legend .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 7px; }
+    .legend .swatch.ok { background: var(--green); }
+    .legend .swatch.deg { background: var(--yellow); }
+    .window-note { text-align: center; font-size: 12.5px; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
+
+    #tip { position: fixed; display: none; z-index: 300; background: var(--bg-secondary); border: 1px solid var(--border-hover); border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: var(--text-primary); pointer-events: none; max-width: 300px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); line-height: 1.45; }
+
+    /* incident history */
+    .incident-month { font-size: 12.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin: 36px 0 12px; }
+    .incident-month:first-of-type { margin-top: 0; }
+    .incident-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+    .incident-item:hover { border-color: var(--border-hover); }
+    .incident-item summary { padding: 20px 24px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .incident-item summary::-webkit-details-marker { display: none; }
+    .incident-item summary::after { content: '+'; font-size: 20px; color: var(--accent); font-weight: 300; margin-left: auto; }
+    .incident-item[open] summary::after { content: '\2212'; }
+    .incident-title { font-weight: 600; font-size: 16px; color: var(--text-primary); }
+    .tag { font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
+    .tag.deg { background: rgba(251, 191, 36, 0.12); color: var(--yellow); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .tag.res { background: rgba(74, 222, 128, 0.12); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.3); }
+    .tag.comp { background: rgba(96, 165, 250, 0.12); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.3); }
+    .incident-body { padding: 4px 24px 24px; border-top: 1px solid var(--border); }
+    .timeline { list-style: none; margin: 18px 0 20px; }
+    .timeline li { display: grid; grid-template-columns: 158px 110px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+    .timeline li:last-child { border-bottom: none; }
+    .tl-time { color: var(--text-muted); font-size: 13px; white-space: nowrap; }
+    .tl-label { font-weight: 600; font-size: 13px; }
+    .tl-label.investigating { color: var(--yellow); }
+    .tl-label.identified { color: var(--blue); }
+    .tl-label.monitoring { color: var(--accent); }
+    .tl-label.resolved { color: var(--green); }
+    .tl-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+    .root-cause { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .root-cause strong { color: var(--text-primary); }
+    .no-more-incidents { text-align: center; font-size: 14px; color: var(--text-muted); margin-top: 32px; }
+
+    /* maintenance + subscribe */
+    .maintenance-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px 36px; display: flex; align-items: center; gap: 18px; }
+    .maintenance-card .dot-sm { background: var(--blue); }
+    .maintenance-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .maintenance-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .status-links { display: flex; gap: 28px; justify-content: center; margin-top: 28px; font-size: 14px; font-weight: 600; flex-wrap: wrap; }
+
+    @media (max-width: 980px) {
+      .status-banner { padding: 28px; }
+      .component-meta { gap: 18px; }
+    }
+    @media (max-width: 720px) {
+      .status-banner { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; }
+      .component-head { flex-direction: column; gap: 10px; }
+      .component-meta { width: 100%; justify-content: space-between; }
+      .component-uptime { align-items: flex-start; }
+      .timeline li { grid-template-columns: 1fr; gap: 3px; }
+      .uptime-bar { gap: 1px; height: 28px; }
+      .maintenance-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Status banner -->
+<section class="status-hero">
+  <div class="status-banner">
+    <span class="banner-dot" id="banner-dot" aria-hidden="true"></span>
+    <div>
+      <h1>All systems operational</h1>
+      <p class="banner-sub">Last checked: <span id="last-checked">just now</span> &nbsp;&#183;&nbsp; <span class="banner-uptime">&ge;99.98% uptime on every component, trailing 90 days</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Components -->
+<div class="section-wrap status-section" id="components">
+  <div class="component-row">
+    <div class="component-head">
+      <div>
+        <h3>API</h3>
+        <p class="component-desc">api.futurmix.one — run creation, polling, event streams</p>
+      </div>
+      <div class="component-meta">
+        <span class="component-status"><span class="dot-sm"></span>Operational</span>
+        <span class="component-uptime">99.98%<small>90-day uptime</small></span>
+      </div>
+    </div>
+    <div class="uptime-bar" id="bar-api" aria-label="Daily status for API over the last 90 days"></div>
+    <div class="bar-axis"><span class="axis-start"></span><span class="axis-end"></span></div>
+  </div>
+
+  <div class="component-row">
+    <div class="component-head">
+      <div>
+        <h3>Agent Runtime</h3>
+        <p class="component-desc">Workflow execution, step orchestration, model routing</p>
+      </div>
+      <div class="component-meta">
+        <span class="component-status"><span class="dot-sm"></span>Operational</span>
+        <span class="component-uptime">99.98%<small>90-day uptime</small></span>
+      </div>
+    </div>
+    <div class="uptime-bar" id="bar-runtime" aria-label="Daily status for Agent Runtime over the last 90 days"></div>
+    <div class="bar-axis"><span class="axis-start"></span><span class="axis-end"></span></div>
+  </div>
+
+  <div class="component-row">
+    <div class="component-head">
+      <div>
+        <h3>Dashboard</h3>
+        <p class="component-desc">Web console, usage analytics, cost attribution</p>
+      </div>
+      <div class="component-meta">
+        <span class="component-status"><span class="dot-sm"></span>Operational</span>
+        <span class="component-uptime">100.00%<small>90-day uptime</small></span>
+      </div>
+    </div>
+    <div class="uptime-bar" id="bar-dashboard" aria-label="Daily status for Dashboard over the last 90 days"></div>
+    <div class="bar-axis"><span class="axis-start"></span><span class="axis-end"></span></div>
+  </div>
+
+  <div class="component-row">
+    <div class="component-head">
+      <div>
+        <h3>Webhooks</h3>
+        <p class="component-desc">Outbound event delivery to customer endpoints</p>
+      </div>
+      <div class="component-meta">
+        <span class="component-status"><span class="dot-sm"></span>Operational</span>
+        <span class="component-uptime">100.00%<small>90-day uptime</small></span>
+      </div>
+    </div>
+    <div class="uptime-bar" id="bar-webhooks" aria-label="Daily status for Webhooks over the last 90 days"></div>
+    <div class="bar-axis"><span class="axis-start"></span><span class="axis-end"></span></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="swatch ok"></span>Operational</span>
+    <span><span class="swatch deg"></span>Degraded performance</span>
+  </div>
+  <p class="window-note">Each cell is one UTC day in the 90-day window ending <span id="window-end"></span>. Degraded-performance minutes are weighted against component uptime by the share of requests affected.</p>
+</div>
+
+<!-- Incident history -->
+<div class="section-wrap status-section" id="incidents" style="padding-top:0;">
+  <div class="section-header">
+    <h2>Incident history</h2>
+    <p>What happened, when, and what we changed afterward.</p>
+  </div>
+
+  <div class="incident-month">April 2026</div>
+  <details class="incident-item">
+    <summary>
+      <span class="incident-title">Elevated run queue latency</span>
+      <span class="tag deg">Degraded performance</span>
+      <span class="tag comp">API &#183; Agent Runtime</span>
+      <span class="tag res">Resolved &#183; 38 min</span>
+    </summary>
+    <div class="incident-body">
+      <ul class="timeline">
+        <li>
+          <span class="tl-time">Apr 18, 14:02 UTC</span>
+          <span class="tl-label investigating">Investigating</span>
+          <span class="tl-text">Internal SLO monitors alerted on elevated p95 queue wait for new runs. Run creation succeeding, but time-to-first-step rising across regions. Investigating queue infrastructure.</span>
+        </li>
+        <li>
+          <span class="tl-time">Apr 18, 14:11 UTC</span>
+          <span class="tl-label identified">Identified</span>
+          <span class="tl-text">Cause identified as queue shard hot-spotting: the shard assignment function shipped with the April 9 parallel-execution rollout keyed on workspace ID, so large workspaces fanning out many concurrent branches concentrated load onto two of sixteen shards. p95 queue wait peaked at 3.1s against a 240ms baseline.</span>
+        </li>
+        <li>
+          <span class="tl-time">Apr 18, 14:26 UTC</span>
+          <span class="tl-label monitoring">Monitoring</span>
+          <span class="tl-text">Shard assignment rebalanced and temporary enqueue smoothing applied to the affected shards. Queue wait times returning to baseline; monitoring for regression under sustained load.</span>
+        </li>
+        <li>
+          <span class="tl-time">Apr 18, 14:40 UTC</span>
+          <span class="tl-label resolved">Resolved</span>
+          <span class="tl-text">Latency back to baseline across all shards. Total impact 38 minutes of degraded performance. No runs failed and no data was lost; affected runs completed with longer queue waits.</span>
+        </li>
+      </ul>
+      <div class="root-cause">
+        <strong>Root cause.</strong> The 2.4x parallel-execution rollout changed enqueue patterns: the shard assignment function keyed on workspace ID, so large workspaces fanning out many concurrent branches concentrated load onto a small set of queue shards. Under a period of elevated batch traffic, two shards hot-spotted while fourteen sat under capacity. Shard assignment now keys on workspace plus branch with bounded rebalancing, per-shard depth alarms page before queue wait becomes customer-visible, and throughput-affecting rollouts are load-tested against recorded peak traffic before deployment.
+      </div>
+    </div>
+  </details>
+
+  <div class="incident-month">February 2026</div>
+  <details class="incident-item">
+    <summary>
+      <span class="incident-title">Webhook delivery delays</span>
+      <span class="tag deg">Degraded performance</span>
+      <span class="tag comp">Webhooks</span>
+      <span class="tag res">Resolved &#183; 22 min</span>
+    </summary>
+    <div class="incident-body">
+      <ul class="timeline">
+        <li>
+          <span class="tl-time">Feb 3, 09:47 UTC</span>
+          <span class="tl-label investigating">Investigating</span>
+          <span class="tl-text">Webhook delivery queue depth growing; deliveries to customer endpoints delayed. API, Agent Runtime, and Dashboard unaffected — runs completing normally.</span>
+        </li>
+        <li>
+          <span class="tl-time">Feb 3, 09:55 UTC</span>
+          <span class="tl-label identified">Identified</span>
+          <span class="tl-text">A scheduled certificate rotation on the webhook egress proxy completed without reloading long-lived worker processes, which continued presenting the previous client certificate. Deliveries to endpoints validating the client certificate chain failed TLS handshake and entered retry with exponential backoff.</span>
+        </li>
+        <li>
+          <span class="tl-time">Feb 3, 10:04 UTC</span>
+          <span class="tl-label monitoring">Monitoring</span>
+          <span class="tl-text">Rolling restart of egress workers picked up the rotated certificate. Handshakes succeeding; delivery backlog draining at full rate.</span>
+        </li>
+        <li>
+          <span class="tl-time">Feb 3, 10:09 UTC</span>
+          <span class="tl-label resolved">Resolved</span>
+          <span class="tl-text">Backlog fully drained. Total impact 22 minutes of delayed deliveries. No webhook events were lost; all deliveries completed under at-least-once semantics.</span>
+        </li>
+      </ul>
+      <div class="root-cause">
+        <strong>Root cause.</strong> The certificate rotation procedure on the egress proxy updated certificates on disk but did not signal long-lived worker processes to reload them, leaving workers pinned to a stale client certificate until restart. The rotation pipeline now sends a reload signal to every egress worker and runs a canary delivery against a reference endpoint before the rotation is marked complete.
+      </div>
+    </div>
+  </details>
+
+  <p class="no-more-incidents">No other incidents since platform GA in January 2026.</p>
+</div>
+
+<!-- Scheduled maintenance -->
+<div class="section-wrap status-section" id="maintenance" style="padding-top:0;">
+  <div class="section-header">
+    <h2>Scheduled maintenance</h2>
+  </div>
+  <div class="maintenance-card">
+    <span class="dot-sm" aria-hidden="true"></span>
+    <div>
+      <h3>None planned</h3>
+      <p>The platform deploys continuously without downtime windows. Any maintenance that could affect availability is announced here at least 72 hours in advance.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Subscribe -->
+<section class="cta-section">
+  <h2>Subscribe to updates</h2>
+  <p>Incident notifications and maintenance announcements go out by email as updates post.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Subscribe to Updates</a>
+  </div>
+  <div class="status-links">
+    <a href="/security.html">Security &amp; data handling &#8594;</a>
+    <a href="/demo.html">See the runtime in the live demo &#8594;</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+   * Uptime history is computed against a FIXED reference date so the
+   * page renders identically on every load and incident cells always
+   * land on their canonical dates. Do NOT replace REF_UTC with the
+   * live clock — only the "Last checked" label may use real time.
+   * ------------------------------------------------------------------ */
+  var REF_UTC = Date.UTC(2026, 5, 10); // 2026-06-10 (months are 0-based)
+  var DAYS = 90;
+  var SEED = 20260610; // fixed seed — deterministic rendering
+
+  /* mulberry32 — small deterministic PRNG */
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtISO(t) {
+    var d = new Date(t);
+    return d.getUTCFullYear() + '-' + pad2(d.getUTCMonth() + 1) + '-' + pad2(d.getUTCDate());
+  }
+  function fmtNice(t) {
+    var d = new Date(t);
+    return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
+  }
+
+  var COMPONENTS = [
+    { id: 'api', name: 'API' },
+    { id: 'runtime', name: 'Agent Runtime' },
+    { id: 'dashboard', name: 'Dashboard' },
+    { id: 'webhooks', name: 'Webhooks' }
+  ];
+
+  /* The two canonical incidents. Mapping is data-driven: a day cell
+     turns yellow only when its UTC date matches an incident date AND
+     the component is affected. (2026-02-03 predates the current
+     90-day window, so it appears in incident history only.) */
+  var INCIDENTS = [
+    { date: '2026-04-18', components: ['api', 'runtime'], status: 'Degraded performance', title: 'Elevated run queue latency', duration: '38 min' },
+    { date: '2026-02-03', components: ['webhooks'], status: 'Degraded performance', title: 'Webhook delivery delays', duration: '22 min' }
+  ];
+
+  function incidentFor(iso, compId) {
+    for (var k = 0; k < INCIDENTS.length; k++) {
+      if (INCIDENTS[k].date === iso && INCIDENTS[k].components.indexOf(compId) !== -1) return INCIDENTS[k];
+    }
+    return null;
+  }
+
+  /* Build the 90 day-cells for each component */
+  COMPONENTS.forEach(function (comp, ci) {
+    var rng = mulberry32(SEED + ci * 101); // per-component stream, fixed offsets
+    var bar = document.getElementById('bar-' + comp.id);
+    if (!bar) return;
+    for (var i = 0; i < DAYS; i++) {
+      var t = REF_UTC - (DAYS - 1 - i) * 86400000;
+      var iso = fmtISO(t);
+      var inc = incidentFor(iso, comp.id);
+      var cell = document.createElement('div');
+      var shade = (0.72 + rng() * 0.28).toFixed(2); // consume rng on every day for stable streams
+      if (inc) {
+        cell.className = 'cell deg';
+        cell.setAttribute('data-tip', fmtNice(t) + ' — ' + inc.status + ': ' + inc.title + ' (' + inc.duration + ')');
+      } else {
+        cell.className = 'cell';
+        cell.style.opacity = shade;
+        cell.setAttribute('data-tip', fmtNice(t) + ' — Operational');
+      }
+      cell.setAttribute('aria-label', cell.getAttribute('data-tip'));
+      bar.appendChild(cell);
+    }
+  });
+
+  /* Axis labels + window note, derived from the fixed reference date */
+  var startLabel = fmtNice(REF_UTC - (DAYS - 1) * 86400000);
+  var endLabel = fmtNice(REF_UTC);
+  var starts = document.querySelectorAll('.axis-start');
+  var ends = document.querySelectorAll('.axis-end');
+  for (var s = 0; s < starts.length; s++) starts[s].textContent = startLabel;
+  for (var e = 0; e < ends.length; e++) ends[e].textContent = endLabel;
+  var windowEnd = document.getElementById('window-end');
+  if (windowEnd) windowEnd.textContent = endLabel;
+
+  /* Hover tooltips for day cells */
+  var tip = document.createElement('div');
+  tip.id = 'tip';
+  document.body.appendChild(tip);
+  function moveTip(ev) {
+    var pad = 14;
+    var x = ev.clientX + pad;
+    var y = ev.clientY + pad;
+    var r = tip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth - 8) x = ev.clientX - r.width - pad;
+    if (y + r.height > window.innerHeight - 8) y = ev.clientY - r.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+  }
+  document.addEventListener('mouseover', function (ev) {
+    var t = ev.target;
+    if (t.classList && t.classList.contains('cell')) {
+      tip.textContent = t.getAttribute('data-tip');
+      tip.style.display = 'block';
+      moveTip(ev);
+    }
+  });
+  document.addEventListener('mousemove', function (ev) {
+    if (tip.style.display === 'block') moveTip(ev);
+  });
+  document.addEventListener('mouseout', function (ev) {
+    if (ev.target.classList && ev.target.classList.contains('cell')) tip.style.display = 'none';
+  });
+
+  /* "Last checked" — presentation-only live timer (real clock allowed
+     here). Re-checks every 30s; label drifts between checks. */
+  var lastChecked = Date.now();
+  var lcEl = document.getElementById('last-checked');
+  var dotEl = document.getElementById('banner-dot');
+  function renderChecked() {
+    var sec = Math.round((Date.now() - lastChecked) / 1000);
+    lcEl.textContent = sec < 3 ? 'just now' : sec < 60 ? sec + 's ago' : '1m ago';
+  }
+  setInterval(renderChecked, 1000);
+  setInterval(function () {
+    lastChecked = Date.now();
+    renderChecked();
+    if (dotEl) {
+      dotEl.classList.add('flash');
+      setTimeout(function () { dotEl.classList.remove('flash'); }, 700);
+    }
+  }, 30000);
+  renderChecked();
+})();
+</script>
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

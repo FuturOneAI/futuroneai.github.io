@@ -3,33 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>Terms of Service — FuturOne</title>
-  <meta name="description" content="Terms of Service for FuturOne AI Agent platform. Enterprise-grade terms covering acceptable use, data privacy, and service availability." />
-  <meta name="keywords" content="FuturOne terms of service, AI agent terms, enterprise AI terms, FuturOne Agent" />
+  <meta name="description" content="Terms of Service for the FuturOne agent platform: plans and billing, 14-day Team trial, acceptable use, customer content ownership, zero-retention data handling, and service availability." />
+  <meta name="keywords" content="FuturOne terms of service, AI agent terms, enterprise AI terms, FuturOne billing, FuturOne SLA" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/terms.html" />
+  <meta property="og:title" content="Terms of Service — FuturOne" />
+  <meta property="og:description" content="The terms that govern use of the FuturOne agent platform, including plans, billing, acceptable use, and data handling." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terms of Service — FuturOne" />
+  <meta name="twitter:description" content="The terms that govern use of the FuturOne agent platform, including plans, billing, acceptable use, and data handling." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Terms of Service — FuturOne",
+    "url": "https://futurmix.one/terms.html",
+    "dateModified": "2026-06-01",
+    "isPartOf": { "@type": "WebSite", "name": "FuturOne", "url": "https://futurmix.one" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
+        { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://futurmix.one/terms.html" }
+      ]
+    }
+  }
+  </script>
   <link rel="canonical" href="https://futurmix.one/terms.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
   <style>
     .legal-content { max-width: 800px; margin: 0 auto; padding: 0 24px 80px; }
-    .legal-content h2 { font-size: 22px; font-weight: 700; margin-top: 40px; margin-bottom: 12px; }
+    .legal-content h2 { font-size: 22px; font-weight: 700; margin-top: 40px; margin-bottom: 12px; letter-spacing: -0.01em; }
     .legal-content h3 { font-size: 17px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--text-primary); }
     .legal-content p, .legal-content li { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
     .legal-content ul { padding-left: 24px; }
     .legal-content .last-updated { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .legal-table th, .legal-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .legal-table th { background: var(--bg-secondary); color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .legal-table td { color: var(--text-secondary); }
+    .legal-table td:first-child { color: var(--text-primary); font-weight: 500; }
+    .legal-table tr:last-child td { border-bottom: none; }
+    @media (max-width: 980px) {
+      .legal-content { padding-bottom: 64px; }
+    }
+    @media (max-width: 720px) {
+      .legal-table { display: block; overflow-x: auto; }
+      .legal-table th, .legal-table td { padding: 10px 12px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
       <a href="/use-cases.html">Use Cases</a>
-      <a href="/how-it-works.html">How It Works</a>
-      <a href="/about.html">About</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -38,75 +76,124 @@
 
 <div class="page-header">
   <h1>Terms of Service</h1>
+  <p>The terms that govern your use of the FuturOne agent platform, operated by Future Intelligence LLC.</p>
 </div>
 
 <div class="legal-content">
-  <p class="last-updated">Last updated: May 6, 2026</p>
+  <p class="last-updated">Last updated: June 1, 2026</p>
 
   <h2>1. Acceptance of Terms</h2>
-  <p>By accessing or using the FuturOne Agent platform ("Service") operated by Future Intelligence LLC ("Company", "we", "us"), you agree to be bound by these Terms of Service. If you do not agree, please do not use our Service.</p>
+  <p>By accessing or using the FuturOne agent platform, the API at api.futurmix.one, or the futurmix.one website (together, the "Service"), operated by Future Intelligence LLC ("Company", "we", "us"), you agree to be bound by these Terms of Service. If you are using the Service on behalf of an organization, you represent that you have authority to bind that organization, and "you" refers to the organization. If you do not agree, do not use the Service. Enterprise customers with a signed master services agreement or order form are governed by that agreement where it conflicts with these Terms.</p>
 
   <h2>2. Description of Service</h2>
-  <p>FuturOne provides an AI agent platform that enables enterprise teams to complete multi-step workflows across reasoning, creative, coding, research, and industry operations tasks. The Service includes workflow orchestration, collaboration tools, and related product capabilities.</p>
+  <p>FuturOne provides an AI agent platform on which autonomous agents complete multi-step enterprise workflows across four domains: coding, strategy and reasoning, content production, and research. The Service includes workflow orchestration, the dashboard, the API and SDKs, usage analytics, and related capabilities. FuturOne is not an API gateway, model proxy, or model provider, and the Service does not include resale of raw model access.</p>
 
   <h2>3. Account Registration</h2>
-  <p>To use certain features of the Service, you may need to create an account. You agree to provide accurate information and to keep your account credentials secure. You are responsible for all activity under your account.</p>
+  <p>To use most features of the Service, you must create an account. You agree to provide accurate information and to keep your account credentials and API keys secure. You are responsible for all activity under your account, including runs initiated with your API keys. Workspaces on Enterprise plans may manage access through SSO and SCIM provisioning.</p>
 
-  <h2>4. Acceptable Use</h2>
+  <h2>4. Plans, Trials, and Billing</h2>
+  <h3>Plans</h3>
+  <p>The Service is offered on the following plans. The <a href="/pricing.html">pricing page</a> is the authoritative description of current plans, limits, and prices.</p>
+  <table class="legal-table">
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Included</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Developer</td><td>$0</td><td>20 agent runs per month</td></tr>
+      <tr><td>Team</td><td>$499 / month</td><td>5 seats, 500 runs per month</td></tr>
+      <tr><td>Scale</td><td>$1,990 / month</td><td>20 seats, 2,500 runs per month, priority queue</td></tr>
+      <tr><td>Enterprise</td><td>Custom</td><td>SSO/SCIM, VPC peering, DPA, 99.99% SLA, dedicated support</td></tr>
+    </tbody>
+  </table>
+  <h3>Billing</h3>
+  <ul>
+    <li>Paid plans are billed <strong>monthly in advance</strong>. Annual prepayment is available at the equivalent of <strong>two months free</strong> (twelve months for the price of ten).</li>
+    <li>Runs beyond your plan's included volume are billed as overage, <strong>from $0.90 per run depending on agent domain</strong>, monthly in arrears.</li>
+    <li>The Team plan includes a <strong>14-day free trial</strong>. You will not be charged until the trial ends, and you may cancel at any time during the trial at no cost.</li>
+    <li>Fees are exclusive of taxes, which you are responsible for where applicable.</li>
+    <li>We may change prices with at least 30 days' notice; changes take effect at your next renewal. Annual prepaid terms are price-protected for their duration.</li>
+  </ul>
+  <h3>Cancellation and Downgrades</h3>
+  <p>You may cancel or downgrade at any time from the dashboard or by contacting <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>. Cancellations and downgrades take effect at the end of the current billing period. Except where required by law, fees already paid are non-refundable for partial periods.</p>
+
+  <h2>5. Acceptable Use</h2>
   <p>You agree not to:</p>
   <ul>
     <li>Use the Service for any unlawful purpose or in violation of any applicable laws</li>
-    <li>Attempt to gain unauthorized access to our systems or other users' accounts</li>
-    <li>Interfere with or disrupt the Service or its infrastructure</li>
+    <li>Attempt to gain unauthorized access to our systems or other users' accounts or workspaces</li>
+    <li>Interfere with or disrupt the Service or its infrastructure, including circumventing run metering or rate limits</li>
     <li>Use the Service to generate content that is harmful, abusive, or violates third-party rights</li>
+    <li>Resell or proxy the Service as raw model access</li>
     <li>Reverse engineer, decompile, or attempt to extract the source code of the Service</li>
   </ul>
 
-  <h2>5. Intellectual Property</h2>
-  <p>The Service, including its design, features, and content, is owned by Future Intelligence LLC and protected by intellectual property laws. Your use of the Service does not grant you ownership of any intellectual property rights in the Service.</p>
-  <p>You retain ownership of any content you submit to the Service. By using the Service, you grant us a limited license to process your content solely for the purpose of providing the Service.</p>
+  <h2>6. Customer Content and Intellectual Property</h2>
+  <p>The Service, including its design, software, and documentation, is owned by Future Intelligence LLC and protected by intellectual property laws. Your use of the Service does not grant you ownership of any intellectual property rights in the Service.</p>
+  <p>You retain ownership of all content you submit to the Service ("Customer Content"). You grant us a limited license to process Customer Content solely to provide the Service, and — consistent with our zero-retention architecture — only within the request lifecycle of each run. We do not store Customer Content after a run completes, and we do not use Customer Content to train models.</p>
+  <p>As between you and us, deliverables produced by agents from your Customer Content belong to you. You are responsible for reviewing deliverables before relying on or distributing them (see Section 10).</p>
 
-  <h2>6. Data and Privacy</h2>
-  <p>Our handling of your data is described in our <a href="/privacy.html">Privacy Policy</a>. FuturOne operates a zero-retention architecture — enterprise data does not persist beyond the request lifecycle.</p>
+  <h2>7. Data and Privacy</h2>
+  <p>Our handling of your data is described in our <a href="/privacy.html">Privacy Policy</a> and on our <a href="/security.html">Security page</a>. FuturOne operates a zero-retention architecture: workflow content does not persist beyond the request lifecycle, and audit logs record event metadata without content. A GDPR DPA is available for Team plans and above.</p>
 
-  <h2>7. Service Availability</h2>
-  <p>We strive to maintain 99.99% uptime for the Service. However, we do not guarantee uninterrupted availability and are not liable for any downtime or service interruptions. We may modify or discontinue features of the Service at any time.</p>
+  <h2>8. Service Availability and SLA</h2>
+  <p>We engineer the Service to a 99.99% uptime target and publish live component status and incident history at <a href="/status.html">futurmix.one/status.html</a>. A contractual 99.99% SLA with service credits is included in Enterprise plans under the applicable order form. For other plans, we do not guarantee uninterrupted availability and are not liable for downtime. We may modify features of the Service, and will provide reasonable notice of material reductions in core functionality.</p>
 
-  <h2>8. Limitation of Liability</h2>
-  <p>To the maximum extent permitted by law, Future Intelligence LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Service.</p>
+  <h2>9. Beta Features</h2>
+  <p>Features identified as beta or preview are provided as-is, may change or be withdrawn without notice, and are excluded from SLA commitments.</p>
 
-  <h2>9. Termination</h2>
-  <p>We may suspend or terminate your access to the Service at any time, with or without cause. Upon termination, your right to use the Service ceases immediately.</p>
+  <h2>10. AI Output Disclaimer</h2>
+  <p>Agent deliverables are generated with frontier AI models and automated verification, and include confidence scores and citation trails where applicable. They may nonetheless contain errors or omissions. The Service is a tool that supports professional work; it does not provide legal, financial, medical, or other professional advice, and you are responsible for review by a qualified person before acting on any deliverable.</p>
 
-  <h2>10. Changes to Terms</h2>
-  <p>We may update these Terms from time to time. We will notify you of material changes by posting the updated Terms on this page. Your continued use of the Service after changes constitutes acceptance of the revised Terms.</p>
+  <h2>11. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, Future Intelligence LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Service. Our aggregate liability under these Terms is limited to the fees you paid for the Service in the twelve months preceding the claim, or one hundred dollars ($100) if you have paid no fees.</p>
 
-  <h2>11. Governing Law</h2>
-  <p>These Terms are governed by the laws of the State of California, United States. Any disputes shall be resolved in the courts of Santa Clara County, California.</p>
+  <h2>12. Indemnification</h2>
+  <p>You agree to indemnify and hold harmless Future Intelligence LLC from claims arising out of your Customer Content, your use of the Service in violation of these Terms, or your violation of applicable law.</p>
 
-  <h2>12. Contact</h2>
-  <p>For questions about these Terms, contact us at <a href="#contact">nancy-sl@futurmix.one</a>.</p>
+  <h2>13. Termination</h2>
+  <p>We may suspend or terminate your access to the Service for material breach of these Terms, with notice where practicable. You may terminate at any time by cancelling your account. Upon termination, your right to use the Service ceases; because workflow content is not retained, there is no stored Customer Content to return or delete, and account data is handled as described in the <a href="/privacy.html">Privacy Policy</a>. Sections 6, 10, 11, 12, and 15 survive termination.</p>
+
+  <h2>14. Changes to Terms</h2>
+  <p>We may update these Terms from time to time. We will notify you of material changes by posting the updated Terms on this page with a revised "Last updated" date, and by email to workspace administrators for changes affecting billing or data handling. Your continued use of the Service after changes take effect constitutes acceptance of the revised Terms.</p>
+
+  <h2>15. Governing Law</h2>
+  <p>These Terms are governed by the laws of the State of California, United States, without regard to conflict-of-law principles. Any disputes shall be resolved in the state or federal courts located in San Francisco County, California, and the parties consent to their jurisdiction.</p>
+
+  <h2>16. Contact</h2>
+  <p>For questions about these Terms, contact us at <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>.</p>
+
+  <p style="margin-top:40px;">
+    <strong>Future Intelligence LLC</strong><br>
+    San Francisco, CA, United States
+  </p>
 </div>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -116,16 +203,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -134,6 +221,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
 </body>
 </html>

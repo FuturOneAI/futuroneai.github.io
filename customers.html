@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Stories — Measured Results from Teams Running FuturOne | FuturOne</title>
+  <meta name="description" content="How Meridian Pay cut due diligence from 3 days to 4.2 hours, how Halberd Systems reviews 40+ PRs a week 73% faster, and how Northcliff Capital cleared security review in 2 weeks. Detailed case studies with rollout timelines and measured results." />
+  <meta name="keywords" content="FuturOne customers, AI agent case studies, enterprise AI agent results, AI due diligence case study, AI code review case study, AI agent ROI, zero retention AI deployment, AI agent rollout timeline, enterprise AI adoption, FuturOne reviews" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/customers.html" />
+  <meta property="og:title" content="Customer Stories — Measured Results from Teams Running FuturOne" />
+  <meta property="og:description" content="Detailed case studies: due diligence in 4.2 hours at Meridian Pay, 73% faster PR review at Halberd Systems, 2-week security approval at Northcliff Capital." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Customer Stories — Measured Results from Teams Running FuturOne" />
+  <meta name="twitter:description" content="How real teams rolled FuturOne agents from pilot to production — with the numbers they measured along the way." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "FuturOne Customer Stories",
+    "description": "Case studies from teams running FuturOne agents in production: Meridian Pay, Halberd Systems, Northcliff Capital, Corepoint Health, and Atlas University.",
+    "url": "https://futurmix.one/customers.html",
+    "isPartOf": { "@type": "WebSite", "name": "FuturOne", "url": "https://futurmix.one" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
+        { "@type": "ListItem", "position": 2, "name": "Customers", "item": "https://futurmix.one/customers.html" }
+      ]
+    }
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/customers.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- customers.html page styles ---- */
+    .case-list { display: flex; flex-direction: column; }
+    .case-study {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+      gap: 56px;
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+      scroll-margin-top: 88px;
+    }
+    .case-study:first-child { border-top: none; padding-top: 24px; }
+
+    .case-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+    .case-main h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .case-main h3 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin: 32px 0 12px;
+    }
+    .case-main p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .case-main p + p { margin-top: 12px; }
+
+    .rollout { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .rollout li {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .rollout .week {
+      flex-shrink: 0;
+      min-width: 96px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      padding-top: 2px;
+      white-space: nowrap;
+    }
+
+    .case-results { display: flex; flex-wrap: wrap; gap: 10px; }
+    .result-chip {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--bg-secondary);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .result-chip strong { color: var(--accent); font-weight: 700; }
+
+    .case-quote {
+      margin-top: 36px;
+      padding: 24px 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .case-quote p {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    .case-quote p::before {
+      content: "\201C";
+      font-size: 28px;
+      color: var(--accent);
+      line-height: 0;
+      vertical-align: -10px;
+      margin-right: 4px;
+    }
+    .case-quote footer {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .case-quote footer strong { color: var(--text-secondary); }
+
+    .case-side { position: sticky; top: 96px; align-self: start; }
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+    }
+    .case-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .case-card .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .case-card .info-row:last-child { border-bottom: none; }
+    .case-card .info-row .label { color: var(--text-muted); flex-shrink: 0; }
+    .case-card .info-row .value { color: var(--text-primary); font-weight: 500; text-align: right; line-height: 1.5; }
+    .case-card .side-demo { margin-top: 18px; display: block; text-align: center; font-size: 13px; font-weight: 600; }
+
+    /* emerging stories */
+    .emerging-section { border-top: 1px solid var(--border); padding: 72px 0 24px; }
+    .emerging-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    .emerging-card h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
+    .emerging-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+    .emerging-card p + p { margin-top: 10px; }
+    .emerging-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .one-liner {
+      margin-top: 20px;
+      padding: 22px 28px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .one-liner strong { color: var(--text-primary); }
+
+    .pilot-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      color: var(--yellow);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 980px) {
+      .case-study { grid-template-columns: 1fr; gap: 32px; padding: 56px 0; }
+      .case-side { position: static; }
+    }
+    @media (max-width: 720px) {
+      .case-quote { padding: 20px; }
+      .emerging-card { padding: 26px; }
+      .rollout .week { min-width: 84px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>Customer stories</h1>
+  <p>How real teams rolled FuturOne agents from pilot to production &mdash; the bottleneck they started with, the timeline it actually took, and the numbers they measured along the way.</p>
+</div>
+
+<!-- Wordmark strip -->
+<div class="partners-strip">
+  <div class="partners-inner">
+    <div class="label">Teams running FuturOne in production</div>
+    <div class="partner-logos">
+      <span>Meridian Pay</span>
+      <span>Halberd Systems</span>
+      <span>Northcliff Capital</span>
+      <span>Corepoint Health</span>
+      <span>Atlas University</span>
+    </div>
+  </div>
+</div>
+
+<!-- Metrics band -->
+<div class="section-wrap" style="padding-bottom:40px;">
+  <div class="section-header">
+    <h2>Measured across production deployments</h2>
+    <p>The numbers below come from customer-measured outcomes, not internal benchmarks. Each case study shows where they came from.</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-number">73%</div>
+      <div class="result-label">Faster first-pass review</div>
+      <div class="result-detail">Average reduction in time-to-first-review for code PRs and document drafts</div>
+    </div>
+    <div class="result-card">
+      <div class="result-number">4.2h</div>
+      <div class="result-label">Avg. due diligence cycle</div>
+      <div class="result-detail">Down from 3+ business days for standard investment committee preparation</div>
+    </div>
+    <div class="result-card">
+      <div class="result-number">91%</div>
+      <div class="result-label">Agent output accepted</div>
+      <div class="result-detail">Percentage of agent deliverables used without major revision by reviewing teams</div>
+    </div>
+    <div class="result-card">
+      <div class="result-number">2 weeks</div>
+      <div class="result-label">Avg. compliance approval</div>
+      <div class="result-detail">Zero-retention architecture accelerates enterprise security review timelines</div>
+    </div>
+  </div>
+</div>
+
+<!-- Case studies -->
+<div class="section-wrap" style="padding-top:24px;">
+  <div class="case-list">
+
+    <!-- Meridian Pay -->
+    <article class="case-study" id="meridian-pay">
+      <div class="case-main">
+        <div class="case-kicker">Fintech &middot; Investment Operations</div>
+        <h2>Meridian Pay: due diligence in 4.2 hours instead of 3 business days</h2>
+
+        <h3>Context</h3>
+        <p>Meridian Pay is a Series B payments company with around 140 employees. Its nine-person investment operations team evaluates partnership and acquisition targets &mdash; typically 4 to 6 active targets at a time, each arriving as a data room of 150&ndash;300 files. The team works out of Snowflake for financial data, Google Drive for data rooms, and Notion for memo drafting, with deal threads in Slack.</p>
+
+        <h3>The bottleneck</h3>
+        <p>A standard diligence cycle took 3+ business days. Most of that time was not analysis &mdash; it was analysts moving material between data rooms and memo templates, reconciling financial extracts by hand, and the compliance team re-verifying every citation in the finished memo because there was no trail back to source documents. Deals stalled on memo prep, not judgment.</p>
+
+        <h3>Rollout</h3>
+        <ul class="rollout">
+          <li><span class="week">Weeks 1&ndash;2</span><span>Joined the private beta in September 2025. Backtested the strategy agent on six closed deals and compared agent memos against the memos the team had actually written.</span></li>
+          <li><span class="week">Weeks 3&ndash;4</span><span>Parallel run on live targets: analysts wrote memos as usual while the agent produced its own. Differences were logged and reviewed weekly.</span></li>
+          <li><span class="week">Weeks 5&ndash;6</span><span>Compliance signed off on the citation-trail format. Agent memos became the first draft of record; analysts moved to review and exceptions.</span></li>
+        </ul>
+
+        <h3>Measured results</h3>
+        <div class="case-results">
+          <span class="result-chip"><strong>4.2h</strong> avg due-diligence cycle, down from 3+ business days</span>
+          <span class="result-chip"><strong>3.4x</strong> more targets evaluated per quarter, same headcount</span>
+          <span class="result-chip"><strong>100% &#8594; 20%</strong> compliance citation spot-check rate after month one</span>
+        </div>
+
+        <blockquote class="case-quote">
+          <p>We replaced a 3-day manual due diligence cycle with a 4-hour agent workflow. The citation trails mean our compliance team trusts the output without re-doing the research.</p>
+          <footer><strong>James L.</strong> &mdash; VP, Investment Operations, Meridian Pay</footer>
+        </blockquote>
+      </div>
+
+      <aside class="case-side">
+        <div class="case-card">
+          <h3>Deployment</h3>
+          <div class="info-row"><span class="label">Industry</span><span class="value">Payments (Series B)</span></div>
+          <div class="info-row"><span class="label">Team</span><span class="value">9-person investment ops</span></div>
+          <div class="info-row"><span class="label">Agents used</span><span class="value">Strategy &amp; Analysis,<br>Research &amp; Due Diligence</span></div>
+          <div class="info-row"><span class="label">Integrations</span><span class="value">Snowflake, Google Drive,<br>Notion, Slack</span></div>
+          <div class="info-row"><span class="label">Plan tier</span><span class="value">Scale</span></div>
+          <div class="info-row"><span class="label">Time to production</span><span class="value">6 weeks</span></div>
+          <div class="info-row"><span class="label">In production since</span><span class="value">October 2025</span></div>
+          <a class="side-demo" href="/demo.html#due-diligence">Watch a due-diligence run &#8594;</a>
+        </div>
+      </aside>
+    </article>
+
+    <!-- Halberd Systems -->
+    <article class="case-study" id="halberd-systems">
+      <div class="case-main">
+        <div class="case-kicker">Enterprise SaaS &middot; Engineering</div>
+        <h2>Halberd Systems: first-pass review for 40+ PRs a week, 73% faster</h2>
+
+        <h3>Context</h3>
+        <p>Halberd Systems builds enterprise workflow software. Engineering is 120 people across 14 teams, working in a TypeScript and Go monorepo with GitHub for source control, Linear for planning, and Slack for everything else. The organization merges 40+ PRs per week per team-cluster, and review load fell disproportionately on senior engineers.</p>
+
+        <h3>The bottleneck</h3>
+        <p>First-pass review was the queue everything waited in. Median time from PR open to first substantive review was over an hour of senior-engineer attention per PR &mdash; and at that volume, convention drift between the 14 teams went unchecked and recurring security patterns (token validation, query construction) slipped through. Review quality depended on who happened to pick up the PR.</p>
+
+        <h3>Rollout</h3>
+        <ul class="rollout">
+          <li><span class="week">Weeks 1&ndash;4</span><span>November 2025: pilot with two teams. The code review agent ran on every PR but posted to a private channel; engineers graded its comments against their own reviews.</span></li>
+          <li><span class="week">Weeks 5&ndash;8</span><span>Agent comments moved inline on the pilot teams&rsquo; PRs. Acceptance tracking started: comments resolved-as-written versus dismissed.</span></li>
+          <li><span class="week">Feb 2026</span><span>Expanded org-wide after FuturOne shipped security pattern detection and auto-fix PRs. SSO/SCIM provisioning (GA in March) brought all 120 engineers under managed access.</span></li>
+        </ul>
+
+        <h3>Measured results</h3>
+        <div class="case-results">
+          <span class="result-chip"><strong>73%</strong> faster first-pass review across the org</span>
+          <span class="result-chip"><strong>18 min</strong> median from PR open to first-pass verdict</span>
+          <span class="result-chip"><strong>91%</strong> of agent review deliverables accepted without major revision</span>
+        </div>
+
+        <blockquote class="case-quote">
+          <p>Our engineering team handles 40+ PRs per week. The code review agent catches convention drift and security patterns that humans miss at volume. We still review everything, but the first pass is dramatically better.</p>
+          <footer><strong>Sarah K.</strong> &mdash; Engineering Lead, Halberd Systems</footer>
+        </blockquote>
+      </div>
+
+      <aside class="case-side">
+        <div class="case-card">
+          <h3>Deployment</h3>
+          <div class="info-row"><span class="label">Industry</span><span class="value">Enterprise SaaS</span></div>
+          <div class="info-row"><span class="label">Team</span><span class="value">120 engineers, 14 teams</span></div>
+          <div class="info-row"><span class="label">Agents used</span><span class="value">Code &amp; Engineering</span></div>
+          <div class="info-row"><span class="label">Integrations</span><span class="value">GitHub, Linear, Slack</span></div>
+          <div class="info-row"><span class="label">Plan tier</span><span class="value">Enterprise (SSO/SCIM)</span></div>
+          <div class="info-row"><span class="label">Time to production</span><span class="value">8 weeks (pilot teams)</span></div>
+          <div class="info-row"><span class="label">Org-wide since</span><span class="value">March 2026</span></div>
+          <a class="side-demo" href="/demo.html#code-review">Watch a code-review run &#8594;</a>
+        </div>
+      </aside>
+    </article>
+
+    <!-- Northcliff Capital -->
+    <article class="case-study" id="northcliff-capital">
+      <div class="case-main">
+        <div class="case-kicker">Regulated Financial Services &middot; Legal &amp; Research Ops</div>
+        <h2>Northcliff Capital: security approval in 2 weeks, not 6 months</h2>
+
+        <h3>Context</h3>
+        <p>Northcliff Capital is a regulated financial services firm of roughly 600 employees, with around 40 people across legal, compliance, and research operations who review vendor contracts, monitor regulatory changes, and prepare diligence summaries. Vendor onboarding runs through a formal security review; historically, any tool that touches client or counterparty documents took about six months to clear.</p>
+
+        <h3>The bottleneck</h3>
+        <p>The team wanted agents for contract review and regulatory horizon scanning, but data handling was the blocker, not capability. Previous AI vendors stalled in review over retention terms, training-data clauses, and subprocessor agreements. Meanwhile the underlying work piled up: multi-day turnarounds on vendor contract bundles, and regulatory monitoring done weekly when the team wanted it daily.</p>
+
+        <h3>Rollout</h3>
+        <ul class="rollout">
+          <li><span class="week">Weeks 1&ndash;2</span><span>December 2025: vendor security review. Zero-retention architecture meant no retention schedule, no training-data clause, and no content-storage terms to negotiate. Legal approved the pilot in two weeks. DPA executed; SOC 2 report reviewed under NDA.</span></li>
+          <li><span class="week">Weeks 3&ndash;8</span><span>January 2026 pilot on two workflows: vendor MSA/DPA review against the firm&rsquo;s contracting playbook, and daily regulatory horizon scans with citation trails.</span></li>
+          <li><span class="week">Weeks 9&ndash;12</span><span>Production rollout on the Enterprise plan with VPC peering and SSO. Contract bundles now route through the agent before reaching counsel.</span></li>
+        </ul>
+
+        <h3>Measured results</h3>
+        <div class="case-results">
+          <span class="result-chip"><strong>2 weeks</strong> from first contact to approved pilot</span>
+          <span class="result-chip"><strong>1h 12m</strong> median contract-bundle review, down from 2&ndash;3 days</span>
+          <span class="result-chip"><strong>Weekly &#8594; daily</strong> regulatory monitoring cadence, same team</span>
+        </div>
+
+        <blockquote class="case-quote">
+          <p>The zero-retention architecture was the deciding factor. Our legal team approved the pilot in two weeks instead of the usual six months because there was nothing to negotiate on data handling.</p>
+          <footer><strong>Michael R.</strong> &mdash; CTO, Northcliff Capital</footer>
+        </blockquote>
+      </div>
+
+      <aside class="case-side">
+        <div class="case-card">
+          <h3>Deployment</h3>
+          <div class="info-row"><span class="label">Industry</span><span class="value">Regulated financial services</span></div>
+          <div class="info-row"><span class="label">Team</span><span class="value">~40 reviewers (legal,<br>compliance, research ops)</span></div>
+          <div class="info-row"><span class="label">Agents used</span><span class="value">Research &amp; Due Diligence,<br>Strategy &amp; Analysis</span></div>
+          <div class="info-row"><span class="label">Integrations</span><span class="value">Jira, Slack, Google Drive</span></div>
+          <div class="info-row"><span class="label">Plan tier</span><span class="value">Enterprise (VPC peering, DPA)</span></div>
+          <div class="info-row"><span class="label">Time to production</span><span class="value">12 weeks incl. security review</span></div>
+          <div class="info-row"><span class="label">In production since</span><span class="value">March 2026</span></div>
+          <a class="side-demo" href="/demo.html#contract-review">Watch a contract-review run &#8594;</a>
+        </div>
+      </aside>
+    </article>
+
+  </div>
+
+  <!-- Emerging stories -->
+  <div class="emerging-section" id="emerging">
+    <div class="emerging-card">
+      <div class="case-kicker">Healthcare &middot; Clinical Documentation</div>
+      <h2>Corepoint Health: clinical documentation QA<span class="pilot-badge">Pilot</span></h2>
+      <p>Corepoint Health operates outpatient clinics across three states. Its documentation team is piloting a content-and-research agent workflow that checks encounter notes against documentation templates and coding guidelines before they reach the billing queue &mdash; flagging missing elements and inconsistent terminology rather than rewriting clinician text.</p>
+      <p>The pilot started in May 2026. Five weeks in, the agent has processed about 1,900 encounter notes; a senior-reviewer audit puts agreement with human QA at 89% and climbing as the template library is refined. The zero-retention architecture &mdash; no note content persists beyond the request lifecycle &mdash; is what cleared the pilot through privacy review. A production decision is scheduled for Q3 2026.</p>
+      <div class="emerging-facts">
+        <span class="result-chip">Agents: <strong>Content, Research</strong></span>
+        <span class="result-chip">Integrations: <strong>Google Drive</strong></span>
+        <span class="result-chip">Plan tier: <strong>Team</strong></span>
+        <span class="result-chip">Stage: <strong>pilot, week 5</strong></span>
+      </div>
+    </div>
+
+    <div class="one-liner">
+      <strong>Atlas University</strong> &mdash; the admissions office routes roughly 3,000 inquiries per cycle through a research agent that drafts policy-grounded responses for staff review. Pilot underway for the 2026&ndash;27 admissions cycle.
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>See the same workflows run, live</h2>
+  <p>The demo walks through the due diligence, code review, and contract review runs these teams use in production &mdash; step by step.</p>
+  <div class="hero-cta">
+    <a href="/demo.html" class="btn-primary">Watch the Live Demo</a>
+    <a href="#contact" class="btn-secondary">Talk to Us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

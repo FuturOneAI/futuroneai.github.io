@@ -3,33 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>Privacy Policy — FuturOne</title>
-  <meta name="description" content="Privacy Policy for FuturOne AI Agent platform. Zero data retention architecture ensures enterprise data never persists beyond the request lifecycle." />
-  <meta name="keywords" content="FuturOne privacy policy, AI agent privacy, zero data retention, enterprise AI data security, FuturOne Agent" />
+  <meta name="description" content="Privacy Policy for the FuturOne agent platform. Zero data retention: prompts, documents, and agent outputs are processed within the request lifecycle only and never persist on our servers." />
+  <meta name="keywords" content="FuturOne privacy policy, AI agent privacy, zero data retention, enterprise AI data security, GDPR DPA, FuturOne subprocessors" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/privacy.html" />
+  <meta property="og:title" content="Privacy Policy — FuturOne" />
+  <meta property="og:description" content="How FuturOne handles data: zero-retention processing, event-metadata-only audit logs, and a documented subprocessor list." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacy Policy — FuturOne" />
+  <meta name="twitter:description" content="How FuturOne handles data: zero-retention processing, event-metadata-only audit logs, and a documented subprocessor list." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy — FuturOne",
+    "url": "https://futurmix.one/privacy.html",
+    "dateModified": "2026-06-01",
+    "isPartOf": { "@type": "WebSite", "name": "FuturOne", "url": "https://futurmix.one" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
+        { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://futurmix.one/privacy.html" }
+      ]
+    }
+  }
+  </script>
   <link rel="canonical" href="https://futurmix.one/privacy.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
   <style>
     .legal-content { max-width: 800px; margin: 0 auto; padding: 0 24px 80px; }
-    .legal-content h2 { font-size: 22px; font-weight: 700; margin-top: 40px; margin-bottom: 12px; }
+    .legal-content h2 { font-size: 22px; font-weight: 700; margin-top: 40px; margin-bottom: 12px; letter-spacing: -0.01em; }
     .legal-content h3 { font-size: 17px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--text-primary); }
     .legal-content p, .legal-content li { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
     .legal-content ul { padding-left: 24px; }
     .legal-content .last-updated { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .legal-summary {
+      background: var(--bg-card);
+      border: 1px solid rgba(56, 216, 200, 0.3);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 8px;
+    }
+    .legal-summary h2 { margin-top: 0 !important; font-size: 16px !important; color: var(--accent-light); }
+    .legal-summary p:last-child, .legal-summary ul:last-child { margin-bottom: 0; }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .legal-table th, .legal-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .legal-table th { background: var(--bg-secondary); color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .legal-table td { color: var(--text-secondary); }
+    .legal-table td:first-child { color: var(--text-primary); font-weight: 500; }
+    .legal-table tr:last-child td { border-bottom: none; }
+    @media (max-width: 980px) {
+      .legal-content { padding-bottom: 64px; }
+    }
+    @media (max-width: 720px) {
+      .legal-table { display: block; overflow-x: auto; }
+      .legal-table th, .legal-table td { padding: 10px 12px; font-size: 13px; }
+      .legal-summary { padding: 20px; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
       <a href="/use-cases.html">Use Cases</a>
-      <a href="/how-it-works.html">How It Works</a>
-      <a href="/about.html">About</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -38,74 +86,115 @@
 
 <div class="page-header">
   <h1>Privacy Policy</h1>
+  <p>How Future Intelligence LLC collects, uses, and protects information on the FuturOne platform.</p>
 </div>
 
 <div class="legal-content">
-  <p class="last-updated">Last updated: May 6, 2026</p>
+  <p class="last-updated">Last updated: June 1, 2026</p>
+
+  <div class="legal-summary">
+    <h2>The short version</h2>
+    <p>Workflow content — prompts, uploaded documents, repository contents, and agent outputs — is processed within the request lifecycle only and is never stored on our servers. Audit logs contain event metadata (timestamps, run identifiers, status, latency, error codes), never content. We keep the minimum account and billing information needed to operate the Service, and we do not sell personal information. Technical details are on our <a href="/security.html">Security page</a>.</p>
+  </div>
 
   <h2>1. Introduction</h2>
-  <p>Future Intelligence LLC ("FuturOne", "we", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use the FuturOne Agent platform ("Service").</p>
+  <p>Future Intelligence LLC ("FuturOne", "we", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use the FuturOne agent platform, the API at api.futurmix.one, and the futurmix.one website (together, the "Service").</p>
+  <p>For most customers, FuturOne acts as a data processor for workflow content submitted to agents, and as a data controller for account, billing, and website data. A GDPR-compliant Data Processing Agreement (DPA) is available for customers on Team plans and above — contact <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>.</p>
 
   <h2>2. Information We Collect</h2>
   <h3>Account Information</h3>
-  <p>When you create an account, we collect your name, email address, and company name. This information is used to manage your account and communicate with you about the Service.</p>
+  <p>When you create an account, we collect your name, email address, and company name. Workspace administrators on plans with SSO/SCIM may also provision role and group membership attributes from their identity provider. This information is used to manage your account, enforce seat limits, and communicate with you about the Service.</p>
 
-  <h3>Usage Data</h3>
-  <p>We collect anonymized operational metadata about your use of the Service, including timestamps, latency metrics, workflow status, and error codes. This data is used for performance monitoring and service improvement.</p>
+  <h3>Billing Information</h3>
+  <p>Paid plans are billed monthly (or annually, prepaid) through our payment processor. We receive and store billing contact details, plan tier, and invoice history. We do not store full payment card numbers on our systems.</p>
+
+  <h3>Operational Metadata</h3>
+  <p>We collect operational metadata about your use of the Service: run identifiers, timestamps, workflow type and status, step counts, latency metrics, error codes, and per-team usage volumes (used for the analytics and cost attribution dashboard). This metadata describes that a run happened and how it performed — it does not include the content of the run.</p>
 
   <h3>Contact Form Submissions</h3>
   <p>When you submit a contact form on our website, we collect the information you provide (name, email, company, message) to respond to your inquiry.</p>
 
   <h2>3. Zero Data Retention</h2>
-  <p>FuturOne operates a zero-retention architecture for AI processing. This means:</p>
+  <p>FuturOne operates a zero-retention architecture for all workflow processing. Specifically:</p>
   <ul>
-    <li>Your prompts and AI-generated responses are <strong>not stored</strong> beyond the request lifecycle</li>
-    <li>No conversation content, uploaded documents, or generated outputs persist on our servers</li>
-    <li>Audit logs track operational metadata such as timing, workflow status, and error codes without recording the actual content</li>
+    <li>Prompts, uploaded documents, repository contents, and agent-generated outputs are processed <strong>within the request lifecycle only</strong>. When a run completes (or fails), its content is discarded.</li>
+    <li>No conversation content, source material, or deliverable persists on our servers after the run ends. Deliverables are returned to you; we do not keep a copy.</li>
+    <li>Transient in-memory buffers used during execution are encrypted with AES-256 and released at run completion.</li>
+    <li>Audit logs are <strong>event metadata without content</strong>: they record who started a run, when, against which workflow, with what outcome and latency — never what was said, uploaded, or produced.</li>
+    <li>We do not use customer content to train models — ours or anyone else's.</li>
   </ul>
+  <p>The architecture behind these guarantees, including encryption and isolation details, is documented on our <a href="/security.html">Security page</a>.</p>
 
   <h2>4. How We Use Your Information</h2>
-  <p>We use your information to:</p>
+  <p>We use account information, billing information, and operational metadata to:</p>
   <ul>
-    <li>Provide and maintain the Service</li>
+    <li>Provide, operate, and maintain the Service</li>
+    <li>Meter usage against plan limits and calculate overage charges</li>
     <li>Process and respond to your inquiries</li>
-    <li>Monitor Service performance and reliability</li>
-    <li>Send you important Service updates and security notifications</li>
+    <li>Monitor Service performance, reliability, and abuse</li>
+    <li>Send important Service updates and security notifications</li>
     <li>Comply with legal obligations</li>
   </ul>
 
-  <h2>5. Data Sharing</h2>
-  <p>We do not sell your personal information. We may share your information with:</p>
+  <h2>5. Subprocessors</h2>
+  <p>We use a small number of subprocessors to operate the Service. Each is bound by a data processing agreement, and model inference providers operate under zero-retention enterprise terms — they do not store or train on content routed through FuturOne.</p>
+  <table class="legal-table">
+    <thead>
+      <tr><th>Subprocessor</th><th>Role</th><th>Data handled</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cloudflare</td><td>Edge network and hosting</td><td>Request routing; website delivery</td></tr>
+      <tr><td>Amazon Web Services</td><td>Transient compute</td><td>In-flight workflow execution (request lifecycle only)</td></tr>
+      <tr><td>Anthropic</td><td>Model inference</td><td>In-flight step content under zero-retention enterprise terms</td></tr>
+      <tr><td>OpenAI</td><td>Model inference</td><td>In-flight step content under zero-retention enterprise terms</td></tr>
+      <tr><td>Google</td><td>Model inference</td><td>In-flight step content under zero-retention enterprise terms</td></tr>
+    </tbody>
+  </table>
+  <p>The current subprocessor list and each provider's role are maintained on our <a href="/security.html">Security page</a>. Enterprise customers can request notice of subprocessor changes as part of their DPA.</p>
+
+  <h2>6. Data Sharing</h2>
+  <p>We do not sell your personal information. Beyond the subprocessors above, we may disclose information only:</p>
   <ul>
-    <li><strong>Service vendors</strong> — We use third-party services for hosting, analytics, and email. These vendors are bound by data processing agreements.</li>
-    <li><strong>Legal requirements</strong> — We may disclose information if required by law or to protect our rights.</li>
+    <li><strong>Legal requirements</strong> — if required by law, subpoena, or to protect our rights or the safety of others. Because workflow content is not retained, there is typically no content available to disclose.</li>
+    <li><strong>Business transfers</strong> — in connection with a merger, acquisition, or asset sale, subject to this Policy's commitments.</li>
   </ul>
 
-  <h2>6. Data Security</h2>
-  <p>We implement industry-standard security measures to protect your information, including encryption in transit (TLS 1.3), access controls, and regular security audits. No system is completely secure, and we cannot guarantee absolute security.</p>
+  <h2>7. Data Security</h2>
+  <p>All data is encrypted in transit with TLS 1.3. Transient processing buffers are encrypted at rest with AES-256 for the duration of the request lifecycle. Access to production systems is role-restricted and logged. FuturOne has completed a SOC 2 Type I examination and is currently in the observation period for Type II; the report is available under NDA. No system is completely secure, and we cannot guarantee absolute security.</p>
 
-  <h2>7. Your Rights</h2>
-  <p>Depending on your jurisdiction, you may have the right to:</p>
+  <h2>8. Data Retention Periods</h2>
+  <ul>
+    <li><strong>Workflow content:</strong> not retained — discarded at the end of the request lifecycle.</li>
+    <li><strong>Audit and operational metadata:</strong> retained for 12 months, then deleted or irreversibly aggregated.</li>
+    <li><strong>Account and billing records:</strong> retained while your account is active and as required for tax and accounting obligations; deleted within 30 days of a verified deletion request, except where law requires longer.</li>
+    <li><strong>Contact form submissions:</strong> retained for up to 24 months to maintain inquiry history.</li>
+  </ul>
+
+  <h2>9. Your Rights</h2>
+  <p>Depending on your jurisdiction (including under GDPR and CCPA/CPRA), you may have the right to:</p>
   <ul>
     <li>Access the personal information we hold about you</li>
     <li>Request correction of inaccurate information</li>
     <li>Request deletion of your personal information</li>
     <li>Object to or restrict processing of your information</li>
-    <li>Data portability</li>
+    <li>Receive your information in a portable format</li>
   </ul>
-  <p>To exercise these rights, contact us at <a href="#contact">nancy-sl@futurmix.one</a>.</p>
+  <p>To exercise these rights, contact us at <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>. We respond to verified requests within 30 days.</p>
 
-  <h2>8. Cookies</h2>
-  <p>Our website uses essential cookies for authentication and session management. We do not use advertising or tracking cookies.</p>
+  <h2>10. International Transfers</h2>
+  <p>The Service is operated from the United States. Where personal data is transferred from the EEA, UK, or Switzerland, we rely on Standard Contractual Clauses incorporated into our DPA.</p>
 
-  <h2>9. Children's Privacy</h2>
+  <h2>11. Cookies</h2>
+  <p>Our website uses essential cookies for authentication and session management only. We do not use advertising or cross-site tracking cookies.</p>
+
+  <h2>12. Children's Privacy</h2>
   <p>The Service is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children.</p>
 
-  <h2>10. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on this page with a revised "Last updated" date.</p>
+  <h2>13. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on this page with a revised "Last updated" date, and — for changes affecting how workflow content is handled — by email to workspace administrators.</p>
 
-  <h2>11. Contact</h2>
-  <p>For privacy-related questions or requests, contact us at <a href="#contact">nancy-sl@futurmix.one</a>.</p>
+  <h2>14. Contact</h2>
+  <p>For privacy-related questions, DPA requests, or rights requests, contact us at <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>.</p>
 
   <p style="margin-top:40px;">
     <strong>Future Intelligence LLC</strong><br>
@@ -117,21 +206,28 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -141,16 +237,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -159,6 +255,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
 </body>
 </html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agents vs. chatbots: it is an architecture, not a feature — FuturOne Engineering</title>
+  <meta name="description" content="The difference between an agent and a chatbot is not the model or the prompt. It is a planner–orchestrator–verifier loop over tools and durable state. What each piece does, and why wrapping a chat API does not get you there." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://futurmix.one/blog/agents-vs-chatbots-architecture.html" />
+  <meta property="og:title" content="Agents vs. chatbots: it is an architecture, not a feature" />
+  <meta property="og:description" content="The difference is a planner–orchestrator–verifier loop over tools and durable state — and you cannot prompt your way into one." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta property="article:published_time" content="2026-02-12" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agents vs. chatbots: it is an architecture, not a feature" />
+  <meta name="twitter:description" content="The difference is a planner–orchestrator–verifier loop over tools and durable state — and you cannot prompt your way into one." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Agents vs. chatbots: it is an architecture, not a feature",
+    "description": "The difference between an agent and a chatbot is not the model or the prompt. It is a planner–orchestrator–verifier loop over tools and durable state.",
+    "url": "https://futurmix.one/blog/agents-vs-chatbots-architecture.html",
+    "mainEntityOfPage": "https://futurmix.one/blog/agents-vs-chatbots-architecture.html",
+    "datePublished": "2026-02-12",
+    "dateModified": "2026-02-12",
+    "author": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://futurmix.one/one-logo.svg"
+      }
+    },
+    "image": "https://futurmix.one/one-og-banner.png"
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/blog/agents-vs-chatbots-architecture.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="/styles.css?v=20260610" />
+  <style>
+    .post-wrap { max-width: 760px; margin: 0 auto; padding: 140px 24px 32px; }
+    .post-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+    .post-wrap h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .post-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--text-muted); font-size: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+    .post-meta .byline { color: var(--text-secondary); font-weight: 600; }
+    .post-meta .sep { color: var(--border-hover); }
+    .post-body p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 20px; }
+    .post-body h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text-primary); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 22px; color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
+    .post-body li { margin-bottom: 10px; }
+    .post-body strong { color: var(--text-primary); }
+    .post-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; overflow-x: auto; font-size: 13px; line-height: 1.65; margin: 0 0 22px; color: var(--text-secondary); }
+    .post-body pre code { font-family: 'SF Mono', Menlo, Consolas, monospace; background: none; border: none; padding: 0; }
+    .post-body p code, .post-body li code { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13.5px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--accent-light); }
+    .post-figure { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 8px 0 24px; }
+    .post-figure svg { width: 100%; height: auto; display: block; }
+    .post-figure figcaption { font-size: 13px; color: var(--text-muted); margin-top: 14px; text-align: center; line-height: 1.5; }
+    .post-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; text-align: center; margin: 52px 0 8px; }
+    .post-cta h2 { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .post-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 22px; line-height: 1.6; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 28px auto 88px; padding: 0 24px; }
+    .post-nav a { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.2s; }
+    .post-nav a:hover { border-color: var(--border-hover); }
+    .post-nav .dir { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .post-nav .t { font-size: 14.5px; font-weight: 600; color: var(--text-primary); line-height: 1.45; }
+    .post-nav a.next { text-align: right; }
+    @media (max-width: 980px) {
+      .post-wrap { padding-top: 120px; }
+    }
+    @media (max-width: 720px) {
+      .post-body pre { font-size: 12px; padding: 14px 16px; }
+      .post-nav { grid-template-columns: 1fr; }
+      .post-nav a.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<article class="post-wrap">
+  <div class="post-kicker">Architecture</div>
+  <h1>Agents vs. chatbots: it is an architecture, not a feature</h1>
+  <div class="post-meta">
+    <span class="byline">FuturOne Engineering</span>
+    <span class="sep">&middot;</span>
+    <span>February 12, 2026</span>
+    <span class="sep">&middot;</span>
+    <span>7 min read</span>
+  </div>
+
+  <div class="post-body">
+
+    <p>Sometime in the last eighteen months, every product page in our industry started saying "agent." Look under the hood of most of them and you find the same thing: a chat completion API, a long system prompt, and a function-calling schema. That is a chatbot with tools. It is genuinely useful — for answering questions. It does not complete workflows, and no amount of prompt engineering will change that, because the difference between a chatbot and an agent is not the model, the prompt, or the feature list. It is the architecture around the model.</p>
+
+    <p>This post describes the loop we run in production — a planner, an orchestrator, and a verifier, operating over mediated tools and durable state — and why each piece exists. None of it is exotic. All of it is necessary.</p>
+
+    <h2>The chat loop, and why it cannot carry a workflow</h2>
+
+    <p>A chatbot is a request-response system. Context goes in, text comes out, and the only state is the transcript itself. For conversation, that is fine — the transcript <em>is</em> the product. For a workflow, the transcript is a terrible database: it is append-only, it gets lossy the moment you summarize to fit a context window, it has no types, no transactions, and no way to distinguish "the model said it would do X" from "X actually happened."</p>
+
+    <p>Run a fourteen-step due diligence workflow through a chat loop and you are asking one context window to simultaneously be the plan, the working memory, the tool log, the error handler, and the deliverable. Under length pressure the model starts dropping whichever of those it considers least salient. In our experience, it is usually the error handler.</p>
+
+    <h2>The agent loop</h2>
+
+    <p>We separate three roles, and we keep them separated on purpose — partly so each can be built and measured independently, and partly because no role should be allowed to grade its own work.</p>
+
+    <figure class="post-figure">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of the agent loop: task flows to planner, plan flows to orchestrator which calls tools and writes state, artifacts flow to verifier, which either delivers or sends a replan signal back to the planner.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-muted)"/>
+          </marker>
+          <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+          </marker>
+        </defs>
+        <!-- Task input -->
+        <text x="60" y="78" fill="var(--text-muted)" font-size="13" font-family="Inter, sans-serif">task</text>
+        <line x1="30" y1="92" x2="92" y2="92" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <!-- Planner -->
+        <rect x="96" y="56" width="140" height="72" rx="12" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="166" y="86" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="700" font-family="Inter, sans-serif">Planner</text>
+        <text x="166" y="106" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">decompose &amp; criteria</text>
+        <!-- Plan arrow -->
+        <line x1="236" y1="92" x2="306" y2="92" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="271" y="80" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">plan</text>
+        <!-- Orchestrator -->
+        <rect x="310" y="56" width="160" height="72" rx="12" fill="var(--bg-secondary)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="390" y="86" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="700" font-family="Inter, sans-serif">Orchestrator</text>
+        <text x="390" y="106" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">execute &amp; checkpoint</text>
+        <!-- Artifact arrow -->
+        <line x1="470" y1="92" x2="540" y2="92" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="505" y="80" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">artifact</text>
+        <!-- Verifier -->
+        <rect x="544" y="56" width="140" height="72" rx="12" fill="var(--bg-secondary)" stroke="var(--green)" stroke-width="1.5"/>
+        <text x="614" y="86" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="700" font-family="Inter, sans-serif">Verifier</text>
+        <text x="614" y="106" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="Inter, sans-serif">score vs. criteria</text>
+        <!-- Deliver arrow -->
+        <line x1="614" y1="128" x2="614" y2="180" stroke="var(--green)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text x="640" y="158" fill="var(--green)" font-size="12" font-family="Inter, sans-serif">pass</text>
+        <rect x="544" y="184" width="140" height="44" rx="10" fill="rgba(74,222,128,0.08)" stroke="var(--green)" stroke-width="1"/>
+        <text x="614" y="211" text-anchor="middle" fill="var(--text-primary)" font-size="13" font-weight="600" font-family="Inter, sans-serif">Deliverable</text>
+        <!-- Replan loop -->
+        <path d="M 560 120 C 470 200, 260 200, 172 132" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrowAccent)"/>
+        <text x="366" y="196" text-anchor="middle" fill="var(--accent)" font-size="12" font-family="Inter, sans-serif">fail &#8594; replan with the failed criterion attached</text>
+        <!-- Tools -->
+        <rect x="240" y="248" width="130" height="44" rx="10" fill="var(--bg-secondary)" stroke="var(--border-hover)" stroke-width="1"/>
+        <text x="305" y="275" text-anchor="middle" fill="var(--text-secondary)" font-size="13" font-family="Inter, sans-serif">Mediated tools</text>
+        <line x1="340" y1="248" x2="375" y2="132" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="395" y1="130" x2="358" y2="246" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <!-- State -->
+        <rect x="410" y="248" width="130" height="44" rx="10" fill="var(--bg-secondary)" stroke="var(--border-hover)" stroke-width="1"/>
+        <text x="475" y="275" text-anchor="middle" fill="var(--text-secondary)" font-size="13" font-family="Inter, sans-serif">Durable state</text>
+        <line x1="430" y1="130" x2="460" y2="246" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#arrow)"/>
+      </svg>
+      <figcaption>The loop: the planner emits a plan with success criteria, the orchestrator executes it over mediated tools and checkpointed state, and the verifier gates delivery. Failures route back as structured replan signals.</figcaption>
+    </figure>
+
+    <p>The <strong>planner</strong> turns a task into an explicit plan: a dependency graph of steps, each with typed inputs, expected outputs, and success criteria written down <em>before</em> execution starts. The <strong>orchestrator</strong> executes that graph — it owns durable state, mediates every tool call, and checkpoints after each step. The <strong>verifier</strong> scores finished artifacts against the success criteria and decides whether anything ships.</p>
+
+    <h2>Task decomposition: the plan is an artifact</h2>
+
+    <p>In a chat wrapper, the plan — to the extent one exists — is a paragraph of intentions somewhere in the transcript. In our runtime, the plan is a first-class data structure:</p>
+
+    <pre><code>plan = planner.decompose(task)
+# plan.steps: [{id, action, inputs, depends_on, success_criteria}]
+
+while not plan.complete():
+    for step in plan.ready_steps():          # dependencies satisfied
+        result = orchestrator.execute(step)  # mediated tools, typed I/O
+        state.checkpoint(step.id, result)
+
+    verdict = verifier.check(artifact, step.success_criteria)
+    if verdict.failed:
+        plan = planner.replan(plan, verdict) # or escalate to a human</code></pre>
+
+    <p>Making the plan explicit buys three things. It is <strong>inspectable</strong> — a reviewer or an auditor can see what the agent intended to do before it did anything. It is <strong>schedulable</strong> — independent branches of the graph can run concurrently, because the dependencies are data, not vibes. And it is <strong>recoverable</strong> — when step nine fails, the orchestrator knows exactly which downstream steps are invalidated and which results from steps one through eight are still good.</p>
+
+    <h2>Tool mediation: the model proposes, the runtime disposes</h2>
+
+    <p>"The model can call functions" is not tool use; it is tool <em>suggestion</em>. In a wrapper, the model emits a function call and application code executes it more or less on faith. Mediation means the orchestrator sits between the model and every side effect:</p>
+
+    <ul>
+      <li>Every tool is a typed contract. Arguments are validated against a schema before execution and results are validated after — a malformed tool result is an error, not more text in the transcript.</li>
+      <li>Tools are allowlisted per workflow. The research agent has no deploy credentials. The code review agent can open a PR but cannot merge one.</li>
+      <li>Timeouts, retry budgets, and rate limits belong to the orchestrator, not the model. The model never holds credentials at all — it asks, the runtime decides.</li>
+      <li>Every call is recorded as an audit event: tool name, duration, outcome. (Metadata only — content never persists; that is a <a href="/blog/zero-retention-enterprise-ai.html">separate architectural commitment</a>.)</li>
+    </ul>
+
+    <h2>Verification is a separate job</h2>
+
+    <p>If you ask the model that produced an artifact "are you sure?" in the same context, you are mostly measuring agreeableness. Our verifier runs in a fresh context: it sees the artifact, the success criteria, and the original inputs — not the producer's chain of reasoning, which is precisely the thing that might have been wrong. It frequently runs on a different model than the producer, since we route steps across frontier models anyway.</p>
+
+    <p>Each artifact type has a rubric. A code review is checked for whether each finding refers to code that actually exists and behaves as described; a research memo is checked claim by claim against its cited sources. When verification fails, the failure routes back to the planner as structured data — "criterion 3 failed: claim cites a source that does not contain it" — not as "please try again," which is how wrappers handle it, and which converges on the model apologizing fluently while repeating the mistake.</p>
+
+    <h2>Failure is the normal case</h2>
+
+    <p>At workflow lengths, failure stops being an edge case and becomes arithmetic. A twelve-step workflow in which each step succeeds 95% of the time completes 54% of the time if any single failure kills the run. Nobody ships a product on those odds. Reliability comes from recovery, not from hoping every step works, and recovery requires a taxonomy:</p>
+
+    <ul>
+      <li><strong>Transient failures</strong> — timeouts, rate limits, a flaky upstream — are retried with backoff against a budget, invisibly.</li>
+      <li><strong>Structural failures</strong> — a step's assumption turned out false, a source disappeared, an API changed shape — trigger a replan from the last good checkpoint. Steps one through eight do not re-run because step nine broke.</li>
+      <li><strong>Semantic failures</strong> — low confidence, conflicting sources, an ambiguous requirement — escalate to a human, with the specific uncertainty named. An agent that cannot say "I am not sure" is not safe to delegate to.</li>
+    </ul>
+
+    <h2>Why you cannot prompt your way into this</h2>
+
+    <p>A bigger prompt gives the model more instructions. It does not give the system a transaction boundary. The wrapper failure modes are predictable because they are structural:</p>
+
+    <p><strong>State lives in the context window</strong>, so it degrades under exactly the conditions — long, complex tasks — where you need it most. <strong>There is no atomicity</strong>: the model "decides" to do something, the side effect fails, and nothing reconciles intent with reality. <strong>Tool errors come back as text</strong> the model is free to misread or ignore. <strong>Verification is self-assessment</strong>, in the same context that produced the error. And <strong>cost compounds</strong>: a chat loop replays the entire transcript on every turn, while an orchestrator hands each step only the context that step needs.</p>
+
+    <p>You can demo a wrapper convincingly. You cannot run one against forty PRs a week and keep your engineers' trust.</p>
+
+    <h2>Questions that separate the two</h2>
+
+    <p>If you are evaluating anything that calls itself an agent, five questions get to the truth quickly:</p>
+
+    <ol>
+      <li>Show me the plan artifact for a real run — before execution, not a post-hoc summary.</li>
+      <li>What happens, mechanically, when step <em>N</em> fails? Which steps re-run?</li>
+      <li>Who executes tool calls, and what validates their inputs and outputs?</li>
+      <li>What gates delivery, and is it the same model and context that produced the work?</li>
+      <li>Can I see per-step latency and cost?</li>
+    </ol>
+
+    <p>If the answer to most of these is "the model handles it," you are buying a chatbot. That may be fine — chatbots are useful. But know what you are buying.</p>
+
+  </div>
+
+  <div class="post-cta">
+    <h2>Watch the loop run</h2>
+    <p>The live demo shows a real run end-to-end: the plan, every mediated tool call, the verification gate, and the deliverable.</p>
+    <a href="/demo.html" class="btn-primary">Watch a Run</a>
+  </div>
+</article>
+
+<div class="post-nav">
+  <div></div>
+  <a class="next" href="/blog/zero-retention-enterprise-ai.html">
+    <div class="dir">Next post &#8594;</div>
+    <div class="t">Zero retention is an architecture decision, not a policy promise</div>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/contact.js?v=20260610"></script>
+</body>
+</html>

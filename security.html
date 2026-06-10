@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security &amp; Data Handling — FuturOne</title>
+  <meta name="description" content="How FuturOne handles enterprise data: zero-retention architecture, TLS 1.3 and AES-256 encryption, SSO/SCIM/RBAC access controls, SOC 2 status, subprocessor list, model provider data handling, and responsible disclosure." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/security.html" />
+  <meta property="og:title" content="Security &amp; Data Handling — FuturOne" />
+  <meta property="og:description" content="Zero-retention by architecture, not by policy. Encryption, access controls, SOC 2 status, subprocessors, and responsible disclosure for the FuturOne agent platform." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Security &amp; Data Handling — FuturOne" />
+  <meta name="twitter:description" content="Zero-retention by architecture, not by policy. Encryption, access controls, SOC 2 status, subprocessors, and responsible disclosure." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <link rel="canonical" href="https://futurmix.one/security.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Security & Data Handling — FuturOne",
+    "url": "https://futurmix.one/security.html",
+    "description": "How FuturOne handles enterprise data: zero-retention architecture, TLS 1.3 and AES-256 encryption, SSO/SCIM/RBAC access controls, SOC 2 status, subprocessors, and responsible disclosure.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "about": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "dateModified": "2026-06-10"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you train models on our data — or let your model providers do so?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Our enterprise agreements with Anthropic, OpenAI, and Google prohibit training on customer content and prohibit retention beyond request processing. On our side there is nothing to train on: FuturOne does not store task inputs, repository contents, or deliverables after a run completes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does our data live while an agent is running?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In transient execution buffers on AWS compute — RAM only, encrypted with AES-256 under a per-request data key. Buffers are zeroed when the request ends. Nothing is written to disk, so there is no at-rest datastore of customer content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do we get the SOC 2 report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Email nancy-sl@futurmix.one. The SOC 2 Type I report is available under NDA, usually within the same week. The Type II report will be available on the same terms once the observation period concludes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you support SSO and SCIM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SSO (SAML 2.0 / OIDC) is available on the Scale and Enterprise plans and works with Okta, Microsoft Entra ID, Google Workspace, and any standards-compliant IdP. SCIM provisioning is available on the Enterprise plan and handles provisioning and deprovisioning automatically. Both have been generally available since March 2026."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What exactly appears in audit logs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Events only: actor, action, timestamp, run identifier, and outcome. Audit logs never contain prompts, file contents, or deliverables. They are exportable from the dashboard and via the API."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    /* ---- security page ---- */
+    .sec-hero-links { display: flex; gap: 28px; justify-content: center; margin-top: 28px; font-size: 14px; font-weight: 600; flex-wrap: wrap; }
+
+    .sec-lede { max-width: 760px; margin: 0 auto 48px; }
+    .sec-lede p { font-size: 16px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 16px; }
+    .sec-lede strong { color: var(--text-primary); }
+
+    .arch-figure { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin: 0; overflow-x: auto; }
+    .arch-figure svg { width: 100%; height: auto; min-width: 680px; display: block; }
+    .arch-figure figcaption { font-size: 13px; color: var(--text-muted); margin-top: 20px; text-align: center; line-height: 1.6; }
+
+    .store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+    .store-col { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .store-col.keep { border-top: 3px solid var(--accent); }
+    .store-col.never { border-top: 3px solid var(--red); }
+    .store-col h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px; letter-spacing: -0.01em; }
+    .store-col ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .store-col li { display: flex; gap: 11px; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+    .store-col .mark { flex-shrink: 0; font-weight: 700; font-size: 13px; line-height: 1.6; }
+    .store-col.keep .mark { color: var(--accent); }
+    .store-col.never .mark { color: var(--red); }
+    .store-col li small { display: block; color: var(--text-muted); font-size: 12.5px; margin-top: 2px; }
+
+    .sec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .compliance-list { max-width: 860px; margin: 0 auto; }
+    .compliance-row { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .compliance-row:last-child { border-bottom: none; }
+    .compliance-row .pill { flex-shrink: 0; margin-top: 2px; min-width: 132px; text-align: center; }
+    .compliance-row h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .compliance-row p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .pill { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+    .pill.done { background: rgba(74, 222, 128, 0.12); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.3); }
+    .pill.progress { background: rgba(251, 191, 36, 0.12); color: var(--yellow); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .pill.avail { background: rgba(96, 165, 250, 0.12); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.3); }
+    .compliance-note { max-width: 860px; margin: 32px auto 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+
+    .table-scroll { overflow-x: auto; }
+    .table-scroll .comparison-table { min-width: 640px; }
+
+    .provider-points { list-style: none; display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin: 0 auto; }
+    .provider-points li { display: flex; gap: 12px; font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+    .provider-points li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 9px; flex-shrink: 0; }
+    .provider-points strong { color: var(--text-primary); }
+
+    .disclosure-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 800px; margin: 0 auto; }
+    .disclosure-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+    .disclosure-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 18px; }
+    .disclosure-card ul { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+    .disclosure-card li { display: flex; gap: 11px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .disclosure-card li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; flex-shrink: 0; }
+
+    @media (max-width: 980px) {
+      .sec-grid { gap: 16px; }
+      .store-grid { gap: 16px; }
+      .compliance-row { flex-direction: column; gap: 10px; }
+      .compliance-row .pill { min-width: 0; }
+    }
+    @media (max-width: 720px) {
+      .store-grid { grid-template-columns: 1fr; }
+      .sec-grid { grid-template-columns: 1fr; }
+      .arch-figure { padding: 20px; }
+      .disclosure-card { padding: 28px; }
+      .sec-hero-links { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-header">
+  <div class="hero-badge">Trust &amp; Security</div>
+  <h1>Security &amp; data handling</h1>
+  <p>Zero-retention by architecture, not by policy.</p>
+  <div class="sec-hero-links">
+    <a href="/status.html">Live status &#8594;</a>
+    <a href="/privacy.html">Privacy policy &#8594;</a>
+    <a href="mailto:nancy-sl@futurmix.one?subject=Security%20Disclosure">Report a vulnerability &#8594;</a>
+  </div>
+</section>
+
+<!-- Zero-retention architecture -->
+<div class="section-wrap" id="zero-retention">
+  <div class="section-header">
+    <h2>Zero-retention architecture</h2>
+    <p>Most vendors promise to delete your data. We removed the place where it would have lived.</p>
+  </div>
+  <div class="sec-lede">
+    <p>Every FuturOne run executes inside <strong>transient execution buffers</strong>: RAM-only working memory allocated when a request starts and zeroed when it ends. Task inputs, intermediate agent state, and deliverables exist only inside that lifecycle. There is no content database, no document store, and no conversation history on our side — which means there is no retention policy to audit, no deletion SLA to negotiate, and no stored corpus of your data to breach.</p>
+    <p>Operational telemetry takes a separate lane. The audit log records <strong>events</strong> — who ran what, when, and with what outcome — and never records content. You can watch this model end-to-end in the <a href="/demo.html">live demo</a>: the stream you see returned is everything that ever exists, and it exists only while the run does.</p>
+  </div>
+
+  <figure class="arch-figure">
+    <svg viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="archTitle">
+      <title id="archTitle">Zero-retention request flow: an encrypted request enters transient RAM-only execution buffers, which are purged at request end; the deliverable is returned to the customer; a side lane writes events-only entries to the audit log, never content.</title>
+      <defs>
+        <marker id="arrMain" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--text-muted)" />
+        </marker>
+        <marker id="arrBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--blue)" />
+        </marker>
+      </defs>
+
+      <!-- Request box -->
+      <rect x="30" y="81" width="180" height="104" rx="12" fill="var(--bg-secondary)" stroke="var(--blue)" stroke-width="1.5" />
+      <text x="120" y="125" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="600">Your request</text>
+      <text x="120" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="12">task + context</text>
+
+      <!-- TLS arrow -->
+      <line x1="210" y1="133" x2="294" y2="133" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrMain)" />
+      <text x="252" y="120" text-anchor="middle" fill="var(--blue)" font-size="12" font-weight="600">TLS 1.3</text>
+
+      <!-- Transient buffer box -->
+      <rect x="300" y="48" width="330" height="170" rx="14" fill="var(--bg-secondary)" stroke="var(--accent)" stroke-width="1.5" />
+      <text x="465" y="84" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="700">Transient execution buffers</text>
+      <text x="465" y="106" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="600">RAM-only &#183; AES-256</text>
+
+      <!-- inner step chips -->
+      <rect x="318" y="122" width="90" height="30" rx="7" fill="var(--accent-glow)" stroke="var(--border)" />
+      <text x="363" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="11">plan</text>
+      <rect x="420" y="122" width="90" height="30" rx="7" fill="var(--accent-glow)" stroke="var(--border)" />
+      <text x="465" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="11">execute steps</text>
+      <rect x="522" y="122" width="90" height="30" rx="7" fill="var(--accent-glow)" stroke="var(--border)" />
+      <text x="567" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="11">assemble</text>
+
+      <!-- purge strip -->
+      <rect x="318" y="166" width="294" height="30" rx="8" fill="rgba(248,113,113,0.08)" stroke="var(--red)" stroke-width="1" stroke-dasharray="4 3" />
+      <text x="465" y="185" text-anchor="middle" fill="var(--red)" font-size="11.5" font-weight="600">purged at request end &#8212; buffers zeroed</text>
+
+      <!-- Response arrow -->
+      <line x1="630" y1="133" x2="714" y2="133" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#arrMain)" />
+      <text x="672" y="120" text-anchor="middle" fill="var(--green)" font-size="12" font-weight="600">response</text>
+
+      <!-- Deliverable box -->
+      <rect x="720" y="81" width="170" height="104" rx="12" fill="var(--bg-secondary)" stroke="var(--green)" stroke-width="1.5" />
+      <text x="805" y="125" text-anchor="middle" fill="var(--text-primary)" font-size="15" font-weight="600">Deliverable</text>
+      <text x="805" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="12">returned to you</text>
+
+      <!-- Audit side lane -->
+      <line x1="465" y1="218" x2="465" y2="256" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrBlue)" />
+      <text x="478" y="242" fill="var(--text-muted)" font-size="11">side lane</text>
+      <rect x="300" y="262" width="330" height="78" rx="12" fill="rgba(96,165,250,0.05)" stroke="var(--blue)" stroke-width="1" stroke-dasharray="6 4" />
+      <text x="465" y="290" text-anchor="middle" fill="var(--text-primary)" font-size="14" font-weight="600">Audit log</text>
+      <text x="465" y="310" text-anchor="middle" fill="var(--text-secondary)" font-size="11.5">events only: actor &#183; action &#183; timestamp &#183; run ID</text>
+      <text x="465" y="328" text-anchor="middle" fill="var(--blue)" font-size="11" font-weight="600">never content</text>
+    </svg>
+    <figcaption>Nothing persists beyond the request lifecycle. Audit entries carry event metadata only — content never crosses into the side lane.</figcaption>
+  </figure>
+
+  <div class="store-grid">
+    <div class="store-col keep">
+      <h3>What we store</h3>
+      <ul>
+        <li><span class="mark">&#x2713;</span><span>Account data — names, emails, workspace membership, billing records</span></li>
+        <li><span class="mark">&#x2713;</span><span>Workspace configuration — agent settings, integration credentials, routing preferences</span></li>
+        <li><span class="mark">&#x2713;</span><span>Audit events — actor, action, timestamp, run ID, outcome<small>Event metadata only; payloads are never written.</small></span></li>
+        <li><span class="mark">&#x2713;</span><span>Aggregate usage metrics — run counts, latency, error rates, cost attribution</span></li>
+      </ul>
+    </div>
+    <div class="store-col never">
+      <h3>What we never store</h3>
+      <ul>
+        <li><span class="mark">&#x2715;</span><span>Task inputs — prompts, instructions, uploaded context</span></li>
+        <li><span class="mark">&#x2715;</span><span>Repository contents, source code, or diffs processed by coding agents</span></li>
+        <li><span class="mark">&#x2715;</span><span>Documents, datasets, or records passed to any agent at runtime</span></li>
+        <li><span class="mark">&#x2715;</span><span>Agent outputs and deliverables after they are returned</span></li>
+        <li><span class="mark">&#x2715;</span><span>Model provider copies of your content<small>Inference runs under zero-retention enterprise terms — see below.</small></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Encryption -->
+<div class="section-full" style="background:var(--bg-secondary);" id="encryption">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Encryption</h2>
+      <p>Standard, current, and boring — exactly what encryption should be.</p>
+    </div>
+    <div class="sec-grid">
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F510;</div>
+        <h3>In transit — TLS 1.3</h3>
+        <p>All endpoints — <code>api.futurmix.one</code>, the dashboard, and webhook delivery — require TLS 1.3 with modern cipher suites only. HSTS is enforced, and certificates rotate automatically. Plaintext connections are refused, not redirected, on the API.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F9F0;</div>
+        <h3>Transient buffers — AES-256</h3>
+        <p>Execution buffers are encrypted in memory with AES-256 under a per-request data key. Keys live only in memory, are never written to disk, and are discarded when the buffer is zeroed at request end. There is no at-rest story because there is no at-rest data.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Access controls -->
+<div class="section-wrap" id="access-controls">
+  <div class="section-header">
+    <h2>Access controls</h2>
+    <p>Identity and permissions integrate with the systems your IT team already runs.</p>
+  </div>
+  <div class="sec-grid">
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F511;</div>
+      <h3>SSO / SAML 2.0</h3>
+      <p>Single sign-on against Okta, Microsoft Entra ID, Google Workspace, or any standards-compliant IdP. SSO can be enforced workspace-wide so password logins are disabled entirely. Generally available since March 2026 on the Scale and Enterprise plans.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F465;</div>
+      <h3>SCIM provisioning</h3>
+      <p>Users and groups sync from your IdP automatically. Offboarding in your directory deprovisions FuturOne access within minutes — including active API sessions tied to that identity. Available on the Enterprise plan.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F6E1;&#xFE0F;</div>
+      <h3>Role-based access control</h3>
+      <p>Owner, admin, developer, and viewer roles per workspace. API keys (<code>fo_live_&#8230;</code>) are scoped to a workspace and can be restricted by agent domain, rotated on demand, and revoked instantly.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#x1F4CB;</div>
+      <h3>Audit logs</h3>
+      <p>Every administrative action and every run-level event is logged — actor, action, timestamp, run ID, outcome. Logs are exportable from the dashboard and the API, and contain event metadata only, never content.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Compliance -->
+<div class="section-full" style="background:var(--bg-secondary);" id="compliance">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Compliance status</h2>
+      <p>The current state, stated plainly.</p>
+    </div>
+    <div class="compliance-list">
+      <div class="compliance-row">
+        <span class="pill done">Complete</span>
+        <div>
+          <h3>SOC 2 Type I</h3>
+          <p>Audit complete. The report is available under NDA — email <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a> and we typically turn requests around within the week.</p>
+        </div>
+      </div>
+      <div class="compliance-row">
+        <span class="pill progress">In observation</span>
+        <div>
+          <h3>SOC 2 Type II</h3>
+          <p>We are in the observation period now. The Type II report will be available under NDA on the same terms once the window closes and the audit is issued.</p>
+        </div>
+      </div>
+      <div class="compliance-row">
+        <span class="pill avail">Available</span>
+        <div>
+          <h3>GDPR — Data Processing Agreement</h3>
+          <p>A DPA with Standard Contractual Clauses is available for signature for customers processing EU personal data. The zero-retention design substantially narrows the processing scope it has to cover. See the <a href="/privacy.html">privacy policy</a> for how personal data is handled.</p>
+        </div>
+      </div>
+    </div>
+    <div class="compliance-note">
+      That is the complete list — we don't display badges we haven't earned. If your review requires a framework that isn't here (ISO 27001, HIPAA, FedRAMP), ask us and we'll tell you exactly where we stand and what's on the roadmap. In practice, most enterprise security reviews close in about two weeks, largely because there is no stored customer content to negotiate over.
+    </div>
+  </div>
+</div>
+
+<!-- Subprocessors -->
+<div class="section-wrap" id="subprocessors">
+  <div class="section-header">
+    <h2>Subprocessors</h2>
+    <p>Every third party that touches a request, and what it sees.</p>
+  </div>
+  <div class="table-scroll">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Subprocessor</th>
+          <th>Function</th>
+          <th>Content handling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cloudflare</td>
+          <td>Edge network and site hosting</td>
+          <td>TLS termination at the edge; no workload content stored</td>
+        </tr>
+        <tr>
+          <td>AWS</td>
+          <td>Transient compute for the agent runtime</td>
+          <td>RAM-only execution buffers; purged at request end</td>
+        </tr>
+        <tr>
+          <td>Anthropic</td>
+          <td>Model inference — Claude Opus 4.8, Claude Sonnet 4.6, Claude Haiku 4.5</td>
+          <td>Zero-retention enterprise terms; no training on customer data</td>
+        </tr>
+        <tr>
+          <td>OpenAI</td>
+          <td>Model inference — GPT-5.1</td>
+          <td>Zero-retention enterprise terms; no training on customer data</td>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>Model inference — Gemini 3 Pro</td>
+          <td>Zero-retention enterprise terms; no training on customer data</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Model provider data handling -->
+<div class="section-wrap" id="model-providers" style="padding-top:0;">
+  <div class="section-header">
+    <h2>Model provider data handling</h2>
+    <p>Agents route steps across frontier models. The data terms don't change with the route.</p>
+  </div>
+  <ul class="provider-points">
+    <li><span><strong>Zero-retention enterprise agreements</strong> are in place with Anthropic, OpenAI, and Google. Under these terms, providers do not retain prompts or outputs beyond processing the request, and do not use customer content for model training.</span></li>
+    <li><span><strong>Routing is per step, terms are uniform.</strong> A single run may touch several models — Claude Opus 4.8 for planning, Claude Haiku 4.5 for extraction, GPT-5.1 or Gemini 3 Pro where they fit best. Whichever path a step takes, the same retention terms apply.</span></li>
+    <li><span><strong>Enterprise customers can pin or exclude providers.</strong> If your data governance requires inference to stay with specific providers, routing can be restricted at the workspace level without code changes.</span></li>
+    <li><span><strong>No content side-channels.</strong> Provider-bound requests carry the step payload and nothing else — no account identifiers beyond what authentication requires, and no telemetry containing your content.</span></li>
+  </ul>
+</div>
+
+<!-- Responsible disclosure -->
+<div class="section-full" style="background:var(--bg-secondary);" id="disclosure">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Responsible disclosure</h2>
+      <p>If you find something, we want to hear about it — directly and first.</p>
+    </div>
+    <div class="disclosure-card">
+      <h3>How to report</h3>
+      <p>Email <a href="mailto:nancy-sl@futurmix.one?subject=Security%20Disclosure">nancy-sl@futurmix.one</a> with the subject line <strong style="color:var(--text-primary);">Security Disclosure</strong>. Include reproduction steps and the scope of what you accessed. Our commitments:</p>
+      <ul>
+        <li>Acknowledgment within 2 business days, with a named engineering contact.</li>
+        <li>Triage updates as we confirm, assess, and fix — you won't be left guessing.</li>
+        <li>Coordinated disclosure within 90 days of report, sooner when the fix ships sooner.</li>
+        <li>Public acknowledgment for valid reports, with your permission, on this page and in the changelog.</li>
+        <li>No legal action against good-faith research that avoids service disruption and other customers' data.</li>
+      </ul>
+      <a href="mailto:nancy-sl@futurmix.one?subject=Security%20Disclosure" class="btn-secondary btn-sm">Report a vulnerability</a>
+    </div>
+  </div>
+</div>
+
+<!-- Security FAQ -->
+<div class="section-wrap" id="faq">
+  <div class="section-header">
+    <h2>Security FAQ</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Do you train models on our data — or let your model providers do so?</summary>
+      <p>No. Our enterprise agreements with Anthropic, OpenAI, and Google prohibit training on customer content and prohibit retention beyond request processing. On our side there is nothing to train on: FuturOne does not store task inputs, repository contents, or deliverables after a run completes.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Where does our data live while an agent is running?</summary>
+      <p>In transient execution buffers on AWS compute — RAM only, encrypted with AES-256 under a per-request data key. Buffers are zeroed when the request ends. Nothing is written to disk, so there is no at-rest datastore of customer content.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do we get the SOC 2 report?</summary>
+      <p>Email <a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a>. The SOC 2 Type I report is available under NDA, usually within the same week. The Type II report will be available on the same terms once the observation period concludes.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you support SSO and SCIM?</summary>
+      <p>Yes. SSO (SAML 2.0 / OIDC) is available on the Scale and Enterprise plans and works with Okta, Microsoft Entra ID, Google Workspace, and any standards-compliant IdP. SCIM provisioning is available on the Enterprise plan and handles provisioning and deprovisioning automatically. Both have been generally available since March 2026.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What exactly appears in audit logs?</summary>
+      <p>Events only: actor, action, timestamp, run identifier, and outcome. Audit logs never contain prompts, file contents, or deliverables. They are exportable from the dashboard and via the API.</p>
+    </details>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Bring us your security questionnaire</h2>
+  <p>Most enterprise reviews close in about two weeks. Start the conversation, or check how the platform is running right now.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Start a Security Review</a>
+    <a href="/status.html" class="btn-secondary">View Live Status</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

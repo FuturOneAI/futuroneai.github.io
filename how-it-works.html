@@ -3,27 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>How FuturOne AI Agents Work — Task Orchestration, Failover & Enterprise Reliability</title>
-  <meta name="description" content="Learn how FuturOne agents complete enterprise workflows: intelligent task orchestration, automatic failover, parallel execution, and production-grade reliability. From coding tasks to strategy analysis, see how agents deliver end-to-end." />
-  <meta name="keywords" content="AI agent architecture, AI task orchestration, automatic failover, enterprise AI workflow, AI agent reliability, production-grade AI, coding agent workflow, reasoning agent pipeline, FuturOne, AI workflow automation, AI agent for enterprise, intelligent task planning, how AI agents work, AI agent execution pipeline, multi-step AI workflow, AI agent vs API gateway, agent orchestration patterns" />
+  <title>How FuturOne AI Agents Work — Architecture, Model Routing & Verification</title>
+  <meta name="description" content="Inside the FuturOne agent platform: task intake, planning, orchestration, per-step model routing across frontier models, a sandboxed tool layer, and a verification loop with rubric checks and confidence scoring. From task to audited deliverable." />
+  <meta name="keywords" content="AI agent architecture, AI task orchestration, model routing, agent verification, confidence scoring, automatic failover, enterprise AI workflow, AI agent reliability, production-grade AI, FuturOne, AI workflow automation, how AI agents work, AI agent execution pipeline, multi-step AI workflow, AI agent vs API gateway, agent orchestration patterns, rubric-based evaluation" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://futurmix.one/how-it-works.html" />
-  <meta property="og:title" content="How FuturOne AI Agents Work — Task Orchestration & Enterprise Reliability" />
-  <meta property="og:description" content="Intelligent task orchestration with automatic failover. See how FuturOne agents decompose, execute, and deliver enterprise workflows end-to-end." />
+  <meta property="og:title" content="How FuturOne AI Agents Work — Architecture, Model Routing & Verification" />
+  <meta property="og:description" content="Task intake, planner, orchestrator, model routing, tool layer, verifier. See the architecture that turns a task assignment into an audited deliverable." />
   <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="How FuturOne AI Agents Work — Task Orchestration & Enterprise Reliability" />
-  <meta name="twitter:description" content="See how FuturOne agents decompose, execute, and deliver enterprise workflows with automatic failover." />
+  <meta name="twitter:title" content="How FuturOne AI Agents Work — Architecture, Model Routing & Verification" />
+  <meta name="twitter:description" content="The architecture that turns a task assignment into an audited deliverable: planning, orchestration, model routing, and a verification loop." />
   <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "How FuturOne AI Agents Work",
-    "description": "Intelligent task orchestration, automatic failover, and production-grade reliability for enterprise AI workflows.",
+    "description": "Agent architecture: task intake, planning, orchestration, per-step model routing, sandboxed tools, and rubric-based verification with confidence scoring.",
     "url": "https://futurmix.one/how-it-works.html",
     "isPartOf": { "@type": "WebSite", "name": "FuturOne", "url": "https://futurmix.one" },
     "breadcrumb": {
@@ -45,7 +42,7 @@
         "name": "How do FuturOne agents execute workflows?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "FuturOne agents use intelligent task orchestration: they decompose a business task into sub-steps, select the optimal execution approach for each step, run independent steps in parallel, and recover automatically from failures. The result is a completed deliverable, not a raw model response."
+          "text": "Every task flows through the same pipeline: a planner decomposes it into a step graph, an orchestrator schedules steps (in parallel where they are independent), each step is bound to the best-fit frontier model and tool set, and a verifier runs rubric-based checks and confidence scoring before anything is delivered. The result is a completed deliverable with an audit trail, not a raw model response."
         }
       },
       {
@@ -53,7 +50,15 @@
         "name": "Does FuturOne use its own AI models?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "FuturOne focuses on building the agent execution layer — task planning, workflow orchestration, automatic recovery, and quality assurance. The agent selects the best available approach for each task step based on requirements like reasoning depth, speed, and domain expertise. FuturOne is an agent company, not a model provider or API gateway."
+          "text": "No. FuturOne is model-agnostic and builds the agent execution layer — planning, orchestration, routing, tools, and verification. Agents route individual workflow steps across current frontier models, including Claude Opus 4.8, Claude Sonnet 4.6, Claude Haiku 4.5, GPT-5.1, and Gemini 3 Pro, based on task type, cost, and latency. FuturOne is an agent company, not a model provider or API gateway."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is agent output verified before delivery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each agent domain ships with a versioned rubric. The verifier scores every deliverable against the rubric, checks claims against sources, and produces a confidence score. Runs that score below the workspace threshold are escalated to human review instead of being delivered as final. In production, 91% of agent deliverables are accepted without major revision."
         }
       }
     ]
@@ -61,99 +66,30 @@
   </script>
   <link rel="canonical" href="https://futurmix.one/how-it-works.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260507-blue" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
   <style>
-    /* Architecture Pipeline Diagram */
-    .architecture-visual {
+    /* ---- Architecture diagram ---- */
+    .arch-figure {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 48px 32px;
-      margin-top: 48px;
+      padding: 36px 28px 24px;
+      margin-top: 8px;
     }
-
-    .pipeline {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-      padding: 16px 0;
-    }
-
-    .pipeline-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding: 24px 20px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      min-width: 140px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: pipelineFadeIn 0.5s ease forwards;
-      transition: border-color 0.3s;
-    }
-
-    .pipeline-step:hover {
-      border-color: var(--accent);
-    }
-
-    .pipeline-step:nth-child(1) { animation-delay: 0.1s; }
-    .pipeline-step:nth-child(2) { animation-delay: 0.3s; }
-    .pipeline-step:nth-child(3) { animation-delay: 0.5s; }
-    .pipeline-step:nth-child(4) { animation-delay: 0.7s; }
-    .pipeline-step:nth-child(5) { animation-delay: 0.9s; }
-    .pipeline-step:nth-child(6) { animation-delay: 1.1s; }
-
-    @keyframes pipelineFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .pipeline-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--accent-glow);
-      border: 1px solid rgba(56, 216, 200, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .pipeline-label {
+    .arch-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .arch-scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+    .arch-caption {
       font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .pipeline-desc {
-      font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.4;
+      margin-top: 20px;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .pipeline-arrow {
-      font-size: 20px;
-      color: var(--accent);
-      padding: 0 8px;
-      flex-shrink: 0;
-      opacity: 0;
-      animation: pipelineFadeIn 0.3s ease forwards;
-    }
-
-    .pipeline-arrow:nth-of-type(2) { animation-delay: 0.2s; }
-    .pipeline-arrow:nth-of-type(4) { animation-delay: 0.4s; }
-    .pipeline-arrow:nth-of-type(6) { animation-delay: 0.6s; }
-    .pipeline-arrow:nth-of-type(8) { animation-delay: 0.8s; }
-    .pipeline-arrow:nth-of-type(10) { animation-delay: 1.0s; }
-
-    /* Work Planning Table */
+    /* ---- Routing table ---- */
     .capability-table {
       width: 100%;
       border-collapse: collapse;
@@ -162,7 +98,6 @@
       overflow: hidden;
       border: 1px solid var(--border);
     }
-
     .capability-table th,
     .capability-table td {
       padding: 16px 24px;
@@ -170,23 +105,18 @@
       border-bottom: 1px solid var(--border);
       font-size: 14px;
     }
-
     .capability-table th {
-      background: var(--bg-secondary);
+      background: var(--bg-card-hover);
       font-weight: 600;
       color: var(--text-muted);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
-
-    .capability-table td:first-child {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
+    .capability-table td:first-child { font-weight: 500; color: var(--text-primary); }
     .capability-table td { color: var(--text-secondary); }
     .capability-table tr:last-child td { border-bottom: none; }
+    .model-name { color: var(--text-primary); font-weight: 600; white-space: nowrap; }
 
     .tier-badge {
       display: inline-block;
@@ -195,73 +125,137 @@
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .tier-top { background: var(--accent-glow); color: var(--accent-light); border: 1px solid var(--accent-glow-strong); }
+    .tier-mid { background: rgba(96, 165, 250, 0.15); color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.3); }
+    .tier-fast { background: rgba(74, 222, 128, 0.15); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.3); }
+
+    .routing-note {
+      max-width: 800px;
+      margin: 28px auto 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      text-align: center;
     }
 
-    .tier-top {
-      background: rgba(56, 216, 200, 0.15);
-      color: var(--accent-light);
-      border: 1px solid rgba(56, 216, 200, 0.3);
+    /* ---- Verification loop ---- */
+    .verify-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 56px;
+      align-items: center;
     }
-
-    .tier-mid {
-      background: rgba(96, 165, 250, 0.15);
-      color: var(--blue);
-      border: 1px solid rgba(96, 165, 250, 0.3);
-    }
-
-    .tier-fast {
-      background: rgba(74, 222, 128, 0.15);
-      color: var(--green);
-      border: 1px solid rgba(74, 222, 128, 0.3);
-    }
-
-    /* Animated progress dots for pipeline */
-    .pipeline-active-dot {
-      width: 6px;
-      height: 6px;
+    .loop-item { display: flex; gap: 18px; margin-bottom: 28px; }
+    .loop-item:last-child { margin-bottom: 0; }
+    .loop-num {
+      width: 34px; height: 34px;
       border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-glow-strong);
+      color: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
-
-    @media (max-width: 900px) {
-      .pipeline {
-        flex-direction: column;
-        gap: 0;
-      }
-      .pipeline-arrow {
-        transform: rotate(90deg);
-        padding: 4px 0;
-      }
-      .pipeline-step {
-        min-width: 220px;
-        width: 100%;
-        max-width: 300px;
-      }
+    .loop-item h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+    .loop-item p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .rubric-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      color: var(--accent-light);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 6px;
     }
+    .accept-callout {
+      margin-top: 36px;
+      padding: 20px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .accept-callout .big { font-size: 34px; font-weight: 800; color: var(--accent); line-height: 1; }
+    .accept-callout p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
 
-    @media (max-width: 768px) {
-      .architecture-visual {
-        padding: 24px 16px;
-      }
-      .capability-table th,
-      .capability-table td {
-        padding: 12px 14px;
-        font-size: 12px;
-      }
+    .conf-meter { margin-top: 18px; }
+    .conf-track { position: relative; height: 8px; background: var(--border); border-radius: 4px; }
+    .conf-fill {
+      height: 100%; width: 93%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+    }
+    .conf-threshold {
+      position: absolute; left: 85%; top: -5px;
+      width: 2px; height: 18px;
+      background: var(--yellow);
+      border-radius: 1px;
+    }
+    .conf-labels {
+      display: flex; justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11.5px; color: var(--text-muted);
+    }
+    .conf-labels .pass { color: var(--green); font-weight: 600; }
+
+    /* ---- See it in action ---- */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .scenario-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .scenario-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .scenario-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+    .scenario-card h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+    .scenario-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .scenario-card .watch { font-size: 13px; font-weight: 600; color: var(--accent); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 980px) {
+      .verify-grid { grid-template-columns: 1fr; gap: 40px; }
+      .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .arch-figure { padding: 20px 14px 16px; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      .capability-table th, .capability-table td { padding: 12px 14px; font-size: 12.5px; }
+      .accept-callout { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
     <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
       <a href="/use-cases.html">Use Cases</a>
-      <a href="/how-it-works.html" class="active">How It Works</a>
-      <a href="/about.html">About</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
       <a href="#contact" class="nav-cta">Start Building</a>
     </div>
     <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
@@ -271,90 +265,139 @@
 <!-- Page Header -->
 <div class="page-header">
   <h1>How FuturOne Agents Work</h1>
-  <p>From natural-language task assignment to completed deliverable. Intelligent orchestration, automatic failover, and structured work planning under the hood.</p>
+  <p>From natural-language task assignment to an audited deliverable: planning, orchestration, per-step model routing, sandboxed tools, and a verification loop that refuses to ship work it can't stand behind.</p>
 </div>
 
-<!-- GEO: Definition paragraph for AI search -->
+<!-- Definition paragraph -->
 <div class="section-wrap" style="padding-top:20px; padding-bottom:0;">
-  <p style="color:var(--text-secondary); max-width:800px; margin:0 auto; text-align:center; line-height:1.7; font-size:15px;">FuturOne agents are autonomous workflow executors, not API endpoints or model proxies. When you assign a task, the agent decomposes it into sub-steps, selects the best execution approach for each step, handles failures with automatic recovery, and delivers a completed business artifact. This page explains the architecture behind that execution.</p>
+  <p style="color:var(--text-secondary); max-width:800px; margin:0 auto; text-align:center; line-height:1.7; font-size:15px;">FuturOne agents are autonomous workflow executors, not API endpoints or model proxies. When you assign a task, a planner decomposes it into a step graph, an orchestrator schedules and runs each step against the best-fit model and tools, and a verifier scores the result before anything reaches you. Median orchestration overhead is 248ms per step; 91% of deliverables are accepted without major revision. This page explains the architecture behind those numbers.</p>
 </div>
 
 <!-- 3-Step Overview -->
-<div class="section-full" style="background:var(--bg-secondary);">
+<div class="section-full" style="background:var(--bg-secondary); margin-top:80px;">
   <div class="section-full-inner">
     <div class="section-header">
       <h2>Three steps from task to deliverable</h2>
-      <p>No setup wizards, no pipeline configuration. Describe what you need and the agent handles the rest.</p>
+      <p>No setup wizards, no pipeline configuration. Describe what you need — in the dashboard, or with one API call — and the agent handles the rest.</p>
     </div>
     <div class="how-grid">
       <div class="how-card">
         <div class="how-step">1</div>
         <h3>Assign</h3>
-        <p>Describe your task in natural language. The agent understands context, constraints, quality bar, and success criteria from the conversation.</p>
+        <p>Describe your task in natural language, or submit it through the API. The agent extracts context, constraints, quality bar, and success criteria before any work begins.</p>
       </div>
       <div class="how-card">
         <div class="how-step">2</div>
         <h3>Execute</h3>
-        <p>The agent decomposes the workflow, selects the optimal approach for each sub-task, runs steps in parallel where possible, and handles errors automatically.</p>
+        <p>The planner decomposes the workflow into steps, the orchestrator runs independent steps in parallel, and each step is routed to the model and tools best suited to it — with automatic failover when anything degrades.</p>
       </div>
       <div class="how-card">
         <div class="how-step">3</div>
         <h3>Review</h3>
-        <p>Receive a completed deliverable with confidence scores, citation trails, and flagged uncertainties. Iterate in the same conversation if needed.</p>
+        <p>Receive a completed deliverable with confidence scores, citation trails, and a full event log. Anything below the confidence threshold is escalated for human review instead of being delivered as final.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Architecture Section -->
+<!-- Architecture -->
 <div class="section-wrap">
   <div class="section-header">
-    <h2>Intelligent task orchestration architecture</h2>
-    <p>Every task flows through an intelligent pipeline that decomposes, executes, and validates each step in real time.</p>
+    <h2>Architecture</h2>
+    <p>Every run — coding, strategy, content, or research — moves through the same seven-stage pipeline. The components below are shared infrastructure; only the rubrics and tools differ per agent domain.</p>
   </div>
 
-  <div class="architecture-visual">
-    <div class="pipeline">
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x1F4E5;</div>
-        <div class="pipeline-label">Task Input</div>
-        <div class="pipeline-desc">Parse intent, constraints, and quality requirements</div>
-      </div>
-      <div class="pipeline-arrow">&#8594;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x1F9E0;</div>
-        <div class="pipeline-label">Task Planning</div>
-        <div class="pipeline-desc">Assign sub-tasks to optimal execution paths</div>
-      </div>
-      <div class="pipeline-arrow">&#8594;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x26A1;</div>
-        <div class="pipeline-label">Parallel Execution</div>
-        <div class="pipeline-desc">Run independent steps concurrently</div>
-      </div>
-      <div class="pipeline-arrow">&#8594;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x1F527;</div>
-        <div class="pipeline-label">Result Assembly</div>
-        <div class="pipeline-desc">Merge outputs into coherent deliverable</div>
-      </div>
-      <div class="pipeline-arrow">&#8594;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x2705;</div>
-        <div class="pipeline-label">Quality Check</div>
-        <div class="pipeline-desc">Validate accuracy, flag uncertainty</div>
-      </div>
-      <div class="pipeline-arrow">&#8594;</div>
-      <div class="pipeline-step">
-        <div class="pipeline-icon">&#x1F4E4;</div>
-        <div class="pipeline-label">Output</div>
-        <div class="pipeline-desc">Deliver with confidence scores and citations</div>
-      </div>
+  <div class="arch-figure">
+    <div class="arch-scroll">
+      <svg viewBox="0 0 960 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FuturOne agent architecture: task intake flows to the planner, then the orchestrator, which coordinates the model routing layer and tool layer in parallel; results flow to the verifier and then to the deliverable with audit trail. Runs below the confidence threshold loop back from the verifier to the orchestrator.">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+          </marker>
+          <marker id="arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/>
+          </marker>
+        </defs>
+
+        <!-- Task intake -->
+        <rect x="320" y="16" width="320" height="66" rx="12" fill="var(--bg-secondary)" stroke="var(--border)"/>
+        <text x="480" y="44" text-anchor="middle" font-size="16" font-weight="700" fill="var(--text-primary)">Task intake</text>
+        <text x="480" y="64" text-anchor="middle" font-size="11" fill="var(--text-muted)">Natural language or API call &#183; context, constraints, success criteria</text>
+
+        <line x1="480" y1="84" x2="480" y2="104" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Planner -->
+        <rect x="320" y="108" width="320" height="66" rx="12" fill="var(--bg-secondary)" stroke="var(--border)"/>
+        <text x="480" y="136" text-anchor="middle" font-size="16" font-weight="700" fill="var(--text-primary)">Planner</text>
+        <text x="480" y="156" text-anchor="middle" font-size="11" fill="var(--text-muted)">Decomposes the task into a step graph with dependencies</text>
+
+        <line x1="480" y1="176" x2="480" y2="196" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Orchestrator -->
+        <rect x="200" y="200" width="560" height="70" rx="12" fill="var(--accent-glow)" stroke="var(--accent)"/>
+        <text x="480" y="230" text-anchor="middle" font-size="16" font-weight="700" fill="var(--text-primary)">Orchestrator</text>
+        <text x="480" y="250" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Schedules steps &#183; parallel where independent &#183; retries and failover &#183; 248ms median per step</text>
+
+        <!-- Bidirectional links to layers -->
+        <line x1="380" y1="274" x2="285" y2="304" stroke="var(--accent)" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+        <line x1="580" y1="274" x2="675" y2="304" stroke="var(--accent)" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+
+        <!-- Model routing layer -->
+        <rect x="60" y="308" width="400" height="168" rx="12" fill="var(--bg-secondary)" stroke="var(--border)"/>
+        <text x="260" y="336" text-anchor="middle" font-size="15" font-weight="700" fill="var(--text-primary)">Model routing layer</text>
+        <text x="260" y="354" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">Per-step binding by task type, cost, and latency</text>
+        <rect x="80" y="366" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="165" y="387" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Claude Opus 4.8</text>
+        <rect x="270" y="366" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="355" y="387" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Claude Sonnet 4.6</text>
+        <rect x="80" y="412" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="165" y="433" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">GPT-5.1</text>
+        <rect x="270" y="412" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="355" y="433" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Gemini 3 Pro</text>
+
+        <!-- Tool layer -->
+        <rect x="500" y="308" width="400" height="168" rx="12" fill="var(--bg-secondary)" stroke="var(--border)"/>
+        <text x="700" y="336" text-anchor="middle" font-size="15" font-weight="700" fill="var(--text-primary)">Tool layer</text>
+        <text x="700" y="354" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">Sandboxed execution with scoped, short-lived credentials</text>
+        <rect x="520" y="366" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="605" y="387" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Code execution</text>
+        <rect x="710" y="366" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="795" y="387" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Retrieval</text>
+        <rect x="520" y="412" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="605" y="433" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Web research</text>
+        <rect x="710" y="412" width="170" height="34" rx="8" fill="var(--bg-card)" stroke="var(--border)"/>
+        <text x="795" y="433" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Enterprise connectors</text>
+
+        <!-- Layers to Verifier -->
+        <line x1="260" y1="480" x2="425" y2="518" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="700" y1="480" x2="535" y2="518" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Verifier -->
+        <rect x="320" y="522" width="320" height="66" rx="12" fill="var(--bg-secondary)" stroke="var(--border)"/>
+        <text x="480" y="550" text-anchor="middle" font-size="16" font-weight="700" fill="var(--text-primary)">Verifier</text>
+        <text x="480" y="570" text-anchor="middle" font-size="11" fill="var(--text-muted)">Rubric checks &#183; confidence scoring &#183; escalation below threshold</text>
+
+        <!-- Escalation loop back to orchestrator -->
+        <path d="M 640 555 L 850 555 L 850 235 L 766 235" fill="none" stroke="var(--yellow)" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arr-y)"/>
+        <text x="872" y="395" text-anchor="middle" font-size="10.5" fill="var(--yellow)" transform="rotate(-90 872 395)">confidence below threshold &#8594; re-plan or human review</text>
+
+        <line x1="480" y1="590" x2="480" y2="610" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Deliverable -->
+        <rect x="280" y="614" width="400" height="70" rx="12" fill="var(--bg-secondary)" stroke="var(--green)"/>
+        <text x="480" y="643" text-anchor="middle" font-size="16" font-weight="700" fill="var(--text-primary)">Deliverable + audit trail</text>
+        <text x="480" y="663" text-anchor="middle" font-size="11" fill="var(--text-muted)">Report, patch, or memo &#183; citations and confidence &#183; content-free event log</text>
+      </svg>
     </div>
+    <p class="arch-caption">Solid lines are the primary execution path; the dashed line is the escalation loop. Model and tool bindings are made per step, not per run, and every binding, retry, and substitution is recorded in the run's audit trail — events only, never content.</p>
   </div>
 
-  <!-- Detailed workflow visual -->
-  <div style="margin-top:48px;">
+  <!-- Orchestration trace -->
+  <div style="margin-top:64px;">
+    <div class="section-header" style="margin-bottom:40px;">
+      <h2 style="font-size:clamp(22px,2.5vw,30px);">An orchestration trace, end to end</h2>
+      <p>What the pipeline above looks like on a real research task. Since April 2026, independent steps run in parallel — a 2.4x throughput improvement on multi-source work.</p>
+    </div>
     <div class="usecase-visual" style="max-width:700px; margin:0 auto;">
       <div class="visual-header">
         <span class="label">Pipeline</span>
@@ -363,13 +406,18 @@
       <div class="workflow-diagram">
         <div class="workflow-step">
           <div class="step-icon done">&#x2713;</div>
-          <span class="step-text"><strong>Task parsing</strong> &mdash; intent classified, 3 sub-tasks identified</span>
+          <span class="step-text"><strong>Task intake</strong> &mdash; intent classified, constraints extracted</span>
           <span class="step-meta">120ms</span>
         </div>
         <div class="workflow-step">
           <div class="step-icon done">&#x2713;</div>
-          <span class="step-text"><strong>Task planning</strong> &mdash; reasoning path for analysis, fast path for drafting</span>
+          <span class="step-text"><strong>Planning</strong> &mdash; 3 sub-tasks, 2 independent</span>
           <span class="step-meta">45ms</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Routing</strong> &mdash; synthesis &#8594; Claude Opus 4.8, drafting &#8594; Claude Sonnet 4.6</span>
+          <span class="step-meta">38ms</span>
         </div>
         <div class="workflow-step">
           <div class="step-icon done">&#x2713;</div>
@@ -378,12 +426,7 @@
         </div>
         <div class="workflow-step">
           <div class="step-icon done">&#x2713;</div>
-          <span class="step-text"><strong>Result assembly</strong> &mdash; outputs merged, conflicts resolved</span>
-          <span class="step-meta">1.4s</span>
-        </div>
-        <div class="workflow-step">
-          <div class="step-icon done">&#x2713;</div>
-          <span class="step-text"><strong>Quality validation</strong> &mdash; confidence 96%, no flags</span>
+          <span class="step-text"><strong>Verification</strong> &mdash; 12/12 rubric checks, confidence 0.96</span>
           <span class="step-meta">0.8s</span>
         </div>
         <div class="workflow-step">
@@ -394,194 +437,318 @@
       </div>
       <div class="progress-bar"><div class="progress-fill" style="animation: fillBar 2.5s ease forwards 0.3s;"></div></div>
       <div class="visual-footer">
-        <span>Total latency: 10.6s</span>
+        <span>Total wall time: 9.4s</span>
         <span>Steps completed: 6</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Work Planning Strategy -->
+<!-- Model Routing -->
 <div class="section-full" style="background:var(--bg-secondary);">
   <div class="section-full-inner">
     <div class="section-header">
-      <h2>Intelligent work planning</h2>
-      <p>The agent matches each sub-task to the right reasoning path based on work type, quality constraints, approval requirements, and real-time availability.</p>
+      <h2>Model routing</h2>
+      <p>FuturOne is model-agnostic by design. The router scores every planned step against three axes — task type, cost ceiling, and latency budget — plus real-time availability, and binds a model per step, not per run. A single due-diligence run routinely touches three different models.</p>
     </div>
 
     <table class="capability-table">
       <thead>
         <tr>
-          <th>Workflow Type</th>
-          <th>Reasoning Path</th>
-          <th>Planning Rationale</th>
-          <th>Example Enterprise Output</th>
+          <th>Step profile</th>
+          <th>Routing class</th>
+          <th>Typical model</th>
+          <th>Why</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Strategy analysis</td>
+          <td>Deep reasoning &amp; synthesis</td>
           <td><span class="tier-badge tier-top">Deep reasoning</span></td>
-          <td>Requires multi-step logic, evidence comparison, and nuanced judgment across complex data</td>
-          <td>Investment memo, risk note, board brief</td>
+          <td><span class="model-name">Claude Opus 4.8</span></td>
+          <td>Long-horizon analysis, evidence weighing, and careful attribution across large source sets</td>
         </tr>
         <tr>
-          <td>Content drafting</td>
-          <td><span class="tier-badge tier-mid">Structured drafting</span></td>
-          <td>Consistent structure, brand alignment, and fast iteration for high-volume content work</td>
-          <td>Campaign brief, landing page, executive summary</td>
-        </tr>
-        <tr>
-          <td>Code generation</td>
+          <td>Code review &amp; generation</td>
           <td><span class="tier-badge tier-top">Code reasoning</span></td>
-          <td>Needs precise syntax, edge-case handling, tests, and awareness of project conventions</td>
-          <td>PR review, refactor plan, test strategy</td>
+          <td><span class="model-name">Claude Sonnet 4.6</span></td>
+          <td>Strong code quality and convention awareness at interactive latency</td>
         </tr>
         <tr>
-          <td>Classification</td>
+          <td>Drafting &amp; transformation</td>
+          <td><span class="tier-badge tier-mid">Structured drafting</span></td>
+          <td><span class="model-name">GPT-5.1</span></td>
+          <td>Versatile drafting and rewriting at a balanced cost-latency point</td>
+        </tr>
+        <tr>
+          <td>Cross-document synthesis</td>
+          <td><span class="tier-badge tier-mid">Wide context</span></td>
+          <td><span class="model-name">Gemini 3 Pro</span></td>
+          <td>Large-context comparison across full document sets in a single pass</td>
+        </tr>
+        <tr>
+          <td>Classification, extraction &amp; triage</td>
           <td><span class="tier-badge tier-fast">Fast operations</span></td>
-          <td>Simple categorization tasks where speed and consistency matter more than deep analysis</td>
-          <td>Ticket triage, lead scoring, assignment decision</td>
-        </tr>
-        <tr>
-          <td>Data extraction</td>
-          <td><span class="tier-badge tier-fast">Fast operations</span></td>
-          <td>Structured parsing from known formats requires speed, consistency, and clear exception handling</td>
-          <td>Table extraction, policy mapping, case summary</td>
-        </tr>
-        <tr>
-          <td>Deep research</td>
-          <td><span class="tier-badge tier-top">Deep reasoning</span></td>
-          <td>Synthesizing across many sources requires extended context, careful attribution, and confidence flags</td>
-          <td>Research dossier, due diligence summary, cited report</td>
+          <td><span class="model-name">Claude Haiku 4.5</span></td>
+          <td>High-throughput structured steps at the lowest cost per call</td>
         </tr>
       </tbody>
     </table>
+
+    <p class="routing-note">The routing table is re-scored continuously as model behavior, pricing, and availability change — your workflows don't have to. Failover stays within a routing class, so a substitution never silently lowers the quality bar, and every substitution is flagged in the run's audit trail. To be clear about what this is not: FuturOne is not a gateway. You never pick a model. You assign a task, and the agent owns — and is accountable for — the routing decision.</p>
+  </div>
+</div>
+
+<!-- Verification Loop -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>The verification loop</h2>
+    <p>The most important component isn't the one that produces work — it's the one that decides whether the work is good enough to deliver.</p>
+  </div>
+
+  <div class="verify-grid">
+    <div>
+      <div class="loop-item">
+        <div class="loop-num">1</div>
+        <div>
+          <h3>Rubric-based output checks</h3>
+          <p>Every agent domain ships with a versioned rubric — <span class="rubric-code">code-review/v3</span> runs 12 checks covering convention adherence, security pattern coverage, test delta, and claim-citation match. Rubrics are evaluated by a separate verifier pass, never by the model that produced the work.</p>
+        </div>
+      </div>
+      <div class="loop-item">
+        <div class="loop-num">2</div>
+        <div>
+          <h3>Confidence scoring</h3>
+          <p>The verifier combines rubric pass rate, source agreement, and cross-sample consistency into a single 0&ndash;1 confidence score, attached to every deliverable and reported per section for long-form output. The score is calibrated against reviewer accept/reject outcomes over a rolling 90-day window, and re-fit whenever model routing changes.</p>
+        </div>
+      </div>
+      <div class="loop-item">
+        <div class="loop-num">3</div>
+        <div>
+          <h3>Escalation below threshold</h3>
+          <p>Runs scoring below the workspace threshold (default 0.85, configurable) are never delivered as final. They're marked <em>escalated</em> and routed to a human review queue with the full event trail, flagged sections, and the verifier's reasoning attached — so the reviewer starts from the failure, not from scratch.</p>
+        </div>
+      </div>
+
+      <div class="accept-callout">
+        <span class="big">91%</span>
+        <p>of agent deliverables are accepted without major revision. The other 9% never pretended to be finished — that's the verification loop working as designed.</p>
+      </div>
+    </div>
+
+    <div class="usecase-visual">
+      <div class="visual-header">
+        <span class="label">Verifier</span>
+        <span class="value">code-review/v3</span>
+      </div>
+      <div class="workflow-diagram">
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Rubric checks</strong> &mdash; 11 of 12 passed</span>
+          <span class="step-meta">0.4s</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Citation match</strong> &mdash; all 9 claims source-linked</span>
+          <span class="step-meta">0.2s</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon progress">&#x26A0;</div>
+          <span class="step-text"><strong>Coverage delta</strong> &mdash; below target on 1 module</span>
+          <span class="step-meta">flagged</span>
+        </div>
+        <div class="workflow-step">
+          <div class="step-icon done">&#x2713;</div>
+          <span class="step-text"><strong>Self-consistency</strong> &mdash; 3-sample agreement 0.96</span>
+          <span class="step-meta">0.3s</span>
+        </div>
+      </div>
+      <div class="conf-meter">
+        <div class="conf-track">
+          <div class="conf-fill"></div>
+          <div class="conf-threshold" title="Escalation threshold: 0.85"></div>
+        </div>
+        <div class="conf-labels">
+          <span>Confidence: 0.93</span>
+          <span>Threshold: 0.85</span>
+          <span class="pass">&#x2713; Deliver</span>
+        </div>
+      </div>
+      <div class="visual-footer">
+        <span>1 flag attached to deliverable</span>
+        <span>Status: completed</span>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Failover & Reliability -->
-<div class="section-wrap">
-  <div class="section-header">
-    <h2>Failover &amp; reliability</h2>
-    <p>Production systems need more than a polished answer. They need workflow reliability, traceability, and controlled recovery.</p>
-  </div>
-  <div class="trust-grid">
-    <div class="trust-card">
-      <div class="trust-icon">&#x1F504;</div>
-      <h3>Automatic Failover</h3>
-      <p>When a workflow step fails or times out, the agent retries through an alternate execution path. No context is lost, no manual intervention is required, and recovery decisions happen quickly.</p>
+<div class="section-full" style="background:var(--bg-secondary);">
+  <div class="section-full-inner">
+    <div class="section-header">
+      <h2>Failover &amp; reliability</h2>
+      <p>Production systems need more than a polished answer. They need workflow reliability, traceability, and controlled recovery — backed by a 99.99% uptime SLA.</p>
     </div>
-    <div class="trust-card">
-      <div class="trust-icon">&#x1F512;</div>
-      <h3>Zero Data Retention</h3>
-      <p>Enterprise data never persists beyond the request lifecycle. No prompts, generated text, uploaded documents, or intermediate results are stored. Audit logs track operational events without recording content.</p>
-    </div>
-    <div class="trust-card">
-      <div class="trust-icon">&#x1F6E1;&#xFE0F;</div>
-      <h3>Graceful Degradation</h3>
-      <p>If a premium reasoning path is unavailable, the agent uses the next-best path and flags the substitution. You always get a result, and you always know when quality was traded for availability.</p>
-    </div>
-    <div class="trust-card">
-      <div class="trust-icon">&#x1F4B0;</div>
-      <h3>Cost Optimization</h3>
-      <p>The agent assigns routine sub-tasks to lightweight execution paths automatically. Classification and extraction steps run quickly while deeper reasoning is reserved for work that actually needs it.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F504;</div>
+        <h3>Automatic Failover</h3>
+        <p>When a step fails or times out, the orchestrator retries through an alternate model or tool path within the same routing class. No context is lost, no manual intervention is required, and the failover is recorded in the audit trail.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F512;</div>
+        <h3>Zero Data Retention</h3>
+        <p>Enterprise data never persists beyond the request lifecycle. No prompts, documents, or intermediate results are stored. Audit logs record operational events — step timings, routing decisions, check results — without recording content.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F6E1;&#xFE0F;</div>
+        <h3>Graceful Degradation</h3>
+        <p>If a premium reasoning path is unavailable, the agent uses the next-best path in the same class and flags the substitution. You always get a result, and you always know when availability — not quality — drove the decision.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#x1F4B0;</div>
+        <h3>Cost Optimization</h3>
+        <p>Routine sub-tasks route to fast, inexpensive paths automatically; deep reasoning is reserved for steps that need it. The June 2026 analytics dashboard attributes cost per run, per agent, and per team.</p>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Comparison: Chatbot vs Agent -->
+<div class="section-wrap">
+  <div class="section-header">
+    <h2>Chatbot vs. FuturOne Agent</h2>
+    <p>Chatbots answer questions. Agents complete workflows. Here is how they differ.</p>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Typical Chatbot</th>
+        <th class="highlight-col">FuturOne Agent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Task scope</td>
+        <td>Single question/answer</td>
+        <td class="highlight-col">Multi-step workflows with sub-task decomposition</td>
+      </tr>
+      <tr>
+        <td>Workflow planning</td>
+        <td>One prompt, one response</td>
+        <td class="highlight-col">Step graph with dependency-aware parallel execution</td>
+      </tr>
+      <tr>
+        <td>Model strategy</td>
+        <td>Locked to one model</td>
+        <td class="highlight-col">Model-agnostic routing per step by task type, cost, and latency</td>
+      </tr>
+      <tr>
+        <td>Error handling</td>
+        <td>Returns error to user</td>
+        <td class="highlight-col">Automatic failover with zero context loss</td>
+      </tr>
+      <tr>
+        <td>Output quality</td>
+        <td>Depends on prompt quality</td>
+        <td class="highlight-col">Independent verifier with rubric checks and confidence scoring</td>
+      </tr>
+      <tr>
+        <td>Uncertainty</td>
+        <td>Confident tone regardless</td>
+        <td class="highlight-col">Below-threshold runs escalate to human review, never ship as final</td>
+      </tr>
+      <tr>
+        <td>Transparency</td>
+        <td>Black box output</td>
+        <td class="highlight-col">Citation trails, per-section confidence, content-free audit log</td>
+      </tr>
+      <tr>
+        <td>Reliability</td>
+        <td>Single point of failure</td>
+        <td class="highlight-col">99.99% SLA with redundant execution paths</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- See it in action -->
 <div class="section-full" style="background:var(--bg-secondary);">
   <div class="section-full-inner">
     <div class="section-header">
-      <h2>Chatbot vs. FuturOne Agent</h2>
-      <p>Chatbots answer questions. Agents complete workflows. Here is how they differ.</p>
+      <h2>See it in action</h2>
+      <p>The live demo replays real run event streams — plans, tool calls, findings, and verification — from four production scenarios. No signup required.</p>
     </div>
-
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Capability</th>
-          <th>Typical Chatbot</th>
-          <th class="highlight-col">FuturOne Agent</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Task scope</td>
-          <td>Single question/answer</td>
-          <td class="highlight-col">Multi-step workflows with sub-task decomposition</td>
-        </tr>
-        <tr>
-          <td>Workflow planning</td>
-          <td>One prompt, one response</td>
-          <td class="highlight-col">Step-by-step plans with task-aware execution</td>
-        </tr>
-        <tr>
-          <td>Error handling</td>
-          <td>Returns error to user</td>
-          <td class="highlight-col">Automatic failover with zero context loss</td>
-        </tr>
-        <tr>
-          <td>Output quality</td>
-          <td>Depends on prompt quality</td>
-          <td class="highlight-col">Built-in quality validation and confidence scoring</td>
-        </tr>
-        <tr>
-          <td>Context window</td>
-          <td>Single conversation</td>
-          <td class="highlight-col">Persistent context across workflow steps</td>
-        </tr>
-        <tr>
-          <td>Cost control</td>
-          <td>Same path for everything</td>
-          <td class="highlight-col">Workload-matched planning for simple and complex tasks</td>
-        </tr>
-        <tr>
-          <td>Transparency</td>
-          <td>Black box output</td>
-          <td class="highlight-col">Confidence scores, citation trails, flagged uncertainties</td>
-        </tr>
-        <tr>
-          <td>Reliability</td>
-          <td>Single point of failure</td>
-          <td class="highlight-col">99.99% SLA with redundant execution paths</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="scenario-grid">
+      <a class="scenario-card" href="/demo.html#code-review">
+        <div class="scenario-tag">Coding</div>
+        <h3>Code review</h3>
+        <p>Watch the agent review a 14-file PR, flag an unvalidated JWT expiry, and open an auto-fix PR.</p>
+        <span class="watch">Watch the replay &#8594;</span>
+      </a>
+      <a class="scenario-card" href="/demo.html#due-diligence">
+        <div class="scenario-tag">Strategy</div>
+        <h3>Due diligence</h3>
+        <p>A target company screened across financials, market position, and competitive set in a single run.</p>
+        <span class="watch">Watch the replay &#8594;</span>
+      </a>
+      <a class="scenario-card" href="/demo.html#contract-review">
+        <div class="scenario-tag">Legal</div>
+        <h3>Contract review</h3>
+        <p>Obligation extraction and clause comparison against a playbook, with deviations flagged for counsel.</p>
+        <span class="watch">Watch the replay &#8594;</span>
+      </a>
+      <a class="scenario-card" href="/demo.html#market-research">
+        <div class="scenario-tag">Research</div>
+        <h3>Market research</h3>
+        <p>Source-verified market sizing with a full citation trail and per-section confidence scoring.</p>
+        <span class="watch">Watch the replay &#8594;</span>
+      </a>
+    </div>
+    <div style="text-align:center; margin-top:48px;">
+      <a href="/demo.html" class="btn-secondary btn-sm">Open the Live Demo &#8594;</a>
+    </div>
   </div>
 </div>
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>See it in action</h2>
-  <p>Start with the free tier. Assign your first task in under two minutes.</p>
+  <h2>Ready to put an agent on real work?</h2>
+  <p>Start on the free tier, or read the <a href="/docs.html">API documentation</a> to see how runs, events, and webhooks fit your stack.</p>
   <div class="hero-cta">
-    <a href="#contact" class="btn-primary">Start Building Free</a>
+    <a href="#contact" class="btn-primary">Start Building</a>
     <a href="#contact" class="btn-secondary">Contact Sales</a>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo"><img src="one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
-        <p>FuturOne Agent helps teams complete reasoning, creative, and coding tasks in one continuous workflow.</p>
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
           <li><a href="/use-cases.html">Use Cases</a></li>
           <li><a href="/how-it-works.html">How It Works</a></li>
-          <li><a href="#contact">Start Agent</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
           <li><a href="/terms.html">Terms</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
         </ul>
@@ -591,16 +758,16 @@
         <ul>
           <li><a href="#contact">Request Access</a></li>
           <li><a href="#contact">Enterprise Sales</a></li>
-          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
-      <div class="footer-status">
+      <a class="footer-status" href="/status.html" style="color:inherit;">
         <span class="status-dot"></span>
         All systems operational
-      </div>
+      </a>
       <div class="footer-legal">
         <a href="/terms.html">Terms of Service</a>
         <a href="/privacy.html">Privacy Policy</a>
@@ -609,6 +776,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260507"></script>
+<script src="contact.js?v=20260610"></script>
 </body>
 </html>

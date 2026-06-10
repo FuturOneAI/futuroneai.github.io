@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog — FuturOne</title>
+  <meta name="description" content="Everything FuturOne ships, as we ship it: new agent capabilities, performance improvements, fixes, and security updates from private beta in August 2025 through today." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://futurmix.one/changelog.html" />
+  <meta property="og:title" content="Changelog — FuturOne" />
+  <meta property="og:description" content="New agent capabilities, performance improvements, fixes, and security updates — from private beta to GA and beyond." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Changelog — FuturOne" />
+  <meta name="twitter:description" content="New agent capabilities, performance improvements, fixes, and security updates — from private beta to GA and beyond." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://futurmix.one/" },
+      { "@type": "ListItem", "position": 2, "name": "Changelog", "item": "https://futurmix.one/changelog.html" }
+    ]
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/changelog.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <style>
+    .cl-wrap { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
+    .cl-intro-links { text-align: center; font-size: 14px; color: var(--text-muted); margin-top: -32px; padding: 0 24px 8px; }
+    .cl-month { margin-top: 56px; }
+    .cl-month > h2 {
+      font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent-light); padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .cl-entry { display: grid; grid-template-columns: 124px 1fr; gap: 28px; padding: 26px 0; border-bottom: 1px solid var(--border); }
+    .cl-month .cl-entry:last-child { border-bottom: none; }
+    .cl-date { font-size: 13px; color: var(--text-muted); font-weight: 600; padding-top: 4px; white-space: nowrap; }
+    .cl-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .cl-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 11px; border-radius: 100px; border: 1px solid var(--border); line-height: 1.5;
+    }
+    .cl-tag.new { color: var(--accent); border-color: rgba(56, 216, 200, 0.35); background: rgba(56, 216, 200, 0.08); }
+    .cl-tag.improved { color: var(--blue); border-color: rgba(96, 165, 250, 0.35); background: rgba(96, 165, 250, 0.08); }
+    .cl-tag.fixed { color: var(--yellow); border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+    .cl-tag.security { color: var(--red); border-color: rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.08); }
+    .cl-entry h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--text-primary); }
+    .cl-entry p { font-size: 14.5px; line-height: 1.7; color: var(--text-secondary); }
+    .cl-entry p + p { margin-top: 10px; }
+    .cl-entry code {
+      font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px;
+      padding: 1px 6px; color: var(--accent-light);
+    }
+    @media (max-width: 980px) {
+      .cl-entry { gap: 20px; }
+    }
+    @media (max-width: 720px) {
+      .cl-entry { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
+      .cl-date { padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>Changelog</h1>
+  <p>Everything we ship, as we ship it — new capabilities, performance work, fixes, and security updates for the FuturOne platform.</p>
+</div>
+<p class="cl-intro-links">Bigger releases get deeper write-ups on the <a href="/blog/">blog</a>. To see the current build in action, <a href="/demo.html">watch a live run</a>. Incident history lives on the <a href="/status.html">status page</a>.</p>
+
+<div class="cl-wrap">
+
+  <section class="cl-month">
+    <h2>June 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Jun 4, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Usage analytics and cost attribution dashboard</h3>
+        <p>Every run now carries cost attribution metadata: model spend per step, queue time versus execution time, and the team or cost center it bills to. The dashboard rolls these up by agent domain, project tag, and seat, with 90 days of history and latency percentiles alongside spend. Admins can set per-team budget alerts that fire a webhook at 80% and 100% of budget, and finance teams can export monthly rollups as CSV. Nothing about this changes the zero-retention model — attribution is computed from run metadata, never from content.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>May 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">May 6, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Research agent with source verification and confidence scoring</h3>
+        <p>Every claim in a research deliverable is now linked to its sources, and every source is independently re-fetched and checked against the claim before the deliverable ships. Claims that fail verification are reworked or flagged — never silently included. Deliverables carry per-section confidence scores calibrated against historical acceptance outcomes, and sections below the escalation threshold are routed to a human with a note on what would raise confidence. How the calibration works is covered in <a href="/blog/evaluating-agent-output-quality.html">this week's blog post</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>April 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Apr 22, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag fixed">Fixed</span></div>
+        <h3>Run queue latency under bursty load</h3>
+        <p>On April 18, a subset of runs saw elevated queue latency for 38 minutes. Root cause: queue shard hot-spotting. The shard assignment function we shipped with parallel execution keyed on workspace ID, so large workspaces fanning out many concurrent branches concentrated load on a small set of shards. Shard assignment now keys on workspace plus branch with bounded rebalancing, and we added per-shard depth alarms that page before customers notice. No runs were lost or produced incorrect results; the full postmortem is on the <a href="/status.html">status page</a>.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Apr 9, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Parallel execution for independent workflow steps</h3>
+        <p>The planner now emits a dependency graph instead of a linear sequence, and the orchestrator schedules independent branches concurrently. Across production workloads this cut median end-to-end run time by more than half and raised platform throughput 2.4x at the same fleet size. Steps that share state still serialize automatically, and nothing changes in the API — existing runs simply got faster.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>March 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Mar 25, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag improved">Improved</span></div>
+        <h3>Resumable event streams</h3>
+        <p><code>GET /v1/runs/{id}/events</code> now honors <code>Last-Event-ID</code>, so clients that disconnect mid-run resume from the last event they processed instead of replaying the stream or losing events. This builds on the heartbeat frames we added in September and closes the last gap for long-running workflows behind flaky corporate networks. SDKs reconnect automatically as of <code>futurone</code> 0.9 and <code>@futurone/sdk</code> 0.11.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Mar 12, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>SSO and SCIM provisioning generally available</h3>
+        <p>SAML 2.0 and OIDC sign-in, tested against Okta, Microsoft Entra ID, and Google Workspace. SCIM 2.0 handles the full user lifecycle — deprovisioning a user in your IdP revokes their API keys and active sessions within 60 seconds. Group-to-role mapping lets identity teams manage FuturOne permissions entirely from the IdP, with no dashboard round-trip. Available on the Enterprise plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>February 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Feb 17, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span><span class="cl-tag security">Security</span></div>
+        <h3>Security pattern detection and auto-fix PRs</h3>
+        <p>The code review agent now runs a dedicated security pass on every PR: taint-style data-flow checks for injection, authentication and authorization gaps (missing token expiry validation, unscoped credentials), secret handling, and unsafe deserialization patterns. For a vetted subset of findings the agent opens a separate auto-fix PR containing the patch, regression tests, and a plain-language explanation — it never pushes to the original branch. Findings are graded by severity and link to the exact lines and the rule that fired, so reviewers can audit the reasoning rather than trust a verdict.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Feb 5, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag fixed">Fixed</span></div>
+        <h3>Webhook delivery delays</h3>
+        <p>For 22 minutes on February 3, webhook deliveries were delayed. Root cause: a certificate rotation on our egress proxy left long-lived delivery workers presenting a stale client certificate, so deliveries to endpoints validating the client chain failed TLS handshake and entered retry. The backlog drained within minutes of a rolling restart — no events were lost. Rotations now signal every egress worker to reload and run a canary delivery against a reference endpoint before completing. Details on the <a href="/status.html">status page</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>January 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Jan 14, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>FuturOne platform generally available</h3>
+        <p>Coding, strategy, content, and research agents are out of beta and open for production use. GA includes the run API (<code>POST /v1/runs</code>), SSE event streams, the dashboard, webhooks, and a contractual 99.99% uptime SLA on Enterprise agreements. Pricing starts at a free Developer tier with 20 runs per month — see <a href="/pricing.html">pricing</a> for the full breakdown. Thank you to the 40+ teams who ran the private beta: most of what ships today exists because of your bug reports.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>December 2025</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Dec 16, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag improved">Improved</span></div>
+        <h3>Webhook retries with exponential backoff and a dead-letter queue</h3>
+        <p>Failed webhook deliveries now retry up to 8 times over roughly six hours with exponential backoff and jitter, replacing the old three fixed-interval attempts. Deliveries that exhaust their retries land in a per-workspace dead-letter queue, inspectable and replayable from the dashboard for 7 days. Delivery signatures (HMAC-SHA256 in <code>X-FuturOne-Signature</code>) are unchanged.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Dec 3, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Artifact diffing</h3>
+        <p>Re-running a workflow now produces a structural diff against the previous deliverable: changed sections, changed findings, changed citations — not a wall of red and green text. For code review runs the diff is per-finding; for research memos it is per-claim. Beta customers asked for this more than any other feature this quarter, mostly for weekly recurring runs where what changed matters more than the full report.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>November 2025</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Nov 18, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag security">Security</span></div>
+        <h3>Scoped API keys and audit event export</h3>
+        <p>API keys can now be scoped per project and per capability — create runs, read runs, manage webhooks — instead of granting workspace-wide access. Audit events covering key usage, run lifecycle, and permission changes export as JSON Lines; events record actor, action, timestamps, and resource IDs but never payload content, consistent with our zero-retention architecture. Existing unscoped keys keep working but are flagged in the dashboard with a one-click migration path.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Nov 5, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>GitHub App for the coding agent</h3>
+        <p>A first-party GitHub App replaces the OAuth-plus-deploy-key setup from early beta. Install it on selected repositories and PR review runs trigger automatically on <code>ready_for_review</code>; permissions are read on contents and write on pull requests and checks — nothing else. Review output now posts as a single review with inline threads instead of individual comments, which cut notification noise dramatically for large PRs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>October 2025</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Oct 21, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag improved">Improved</span></div>
+        <h3>Orchestration overhead down to 248ms</h3>
+        <p>Median orchestration overhead — everything we add around model calls: planning dispatch, tool mediation, state persistence — dropped from 610ms to 248ms per step. The wins came from connection pooling to inference providers, plan caching for recurring workflow shapes, and moving step-state writes off the critical path. On long multi-step runs this compounds into minutes of end-to-end improvement.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Oct 7, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Evaluation harness for agent deliverables</h3>
+        <p>Every beta run is now scored against a per-domain rubric before delivery: code reviews on finding correctness and severity calibration, research output on claim-source linkage and coverage. Scores are visible per run in the dashboard. This is deliberately infrastructure-first — calibrated confidence scores and automatic escalation are the features we want to build on top of it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>September 2025</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Sep 23, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag fixed">Fixed</span></div>
+        <h3>SSE streams truncated behind buffering proxies</h3>
+        <p>Several beta customers behind corporate proxies saw run event streams stall silently on runs longer than about ten minutes. The events endpoint now sets <code>X-Accel-Buffering: no</code>, sends a comment-frame heartbeat every 15 seconds to keep intermediaries from collecting idle connections, and flags stalled streams server-side. If your network still drops long-lived connections, the run status endpoint supports plain polling as a fallback.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Sep 9, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Official SDKs for Python and TypeScript</h3>
+        <p>Available now: <code>pip install futurone</code> and <code>npm i @futurone/sdk</code>. Both provide typed run creation, automatic status polling with backoff, and an events iterator that wraps the SSE stream. The SDKs are deliberately thin — everything they do is expressible against the public API, so nothing locks you in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
+    <h2>August 2025</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Aug 19, 2025</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>FuturOne private beta</h3>
+        <p>First external customers are running coding and strategy agents on real workflows. Access is by invitation and capacity-limited while we tune orchestration under production load. What exists today: the run creation API, the dashboard's run timeline, and the PR review workflow for GitHub repositories. Strategy, content, and research workflows expand over the coming months.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<section class="cta-section">
+  <h2>See what shipped, running live</h2>
+  <p>The demo runs the same platform described above — watch an agent plan, execute, and verify a real workflow.</p>
+  <div class="hero-cta">
+    <a href="/demo.html" class="btn-primary">Watch a Run</a>
+    <a href="#contact" class="btn-secondary">Start Building</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="contact.js?v=20260610"></script>
+</body>
+</html>

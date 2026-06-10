@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How we measure whether an agent's work is actually good — FuturOne Engineering</title>
+  <meta name="description" content="Rubric-based artifact scoring, confidence calibration against acceptance outcomes, escalation thresholds, and what the 91% acceptance metric actually counts — plus why 'passes tests' is the wrong bar for a code review agent." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://futurmix.one/blog/evaluating-agent-output-quality.html" />
+  <meta property="og:title" content="How we measure whether an agent's work is actually good" />
+  <meta property="og:description" content="Rubric-based artifact scoring, confidence calibration, escalation thresholds, and what the 91% acceptance metric actually counts." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta property="article:published_time" content="2026-05-07" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How we measure whether an agent's work is actually good" />
+  <meta name="twitter:description" content="Rubric-based artifact scoring, confidence calibration, escalation thresholds, and what the 91% acceptance metric actually counts." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How we measure whether an agent's work is actually good",
+    "description": "Rubric-based artifact scoring, confidence calibration against acceptance outcomes, escalation thresholds, and what the 91% acceptance metric actually counts.",
+    "url": "https://futurmix.one/blog/evaluating-agent-output-quality.html",
+    "mainEntityOfPage": "https://futurmix.one/blog/evaluating-agent-output-quality.html",
+    "datePublished": "2026-05-07",
+    "dateModified": "2026-05-07",
+    "author": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://futurmix.one/one-logo.svg"
+      }
+    },
+    "image": "https://futurmix.one/one-og-banner.png"
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/blog/evaluating-agent-output-quality.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="/styles.css?v=20260610" />
+  <style>
+    .post-wrap { max-width: 760px; margin: 0 auto; padding: 140px 24px 32px; }
+    .post-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+    .post-wrap h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .post-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--text-muted); font-size: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+    .post-meta .byline { color: var(--text-secondary); font-weight: 600; }
+    .post-meta .sep { color: var(--border-hover); }
+    .post-body p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 20px; }
+    .post-body h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text-primary); }
+    .post-body h3 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; color: var(--text-primary); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 22px; color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
+    .post-body li { margin-bottom: 10px; }
+    .post-body strong { color: var(--text-primary); }
+    .post-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; overflow-x: auto; font-size: 13px; line-height: 1.65; margin: 0 0 22px; color: var(--text-secondary); }
+    .post-body pre code { font-family: 'SF Mono', Menlo, Consolas, monospace; background: none; border: none; padding: 0; }
+    .post-body p code, .post-body li code { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13.5px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--accent-light); }
+    .post-callout { border-left: 3px solid var(--accent); background: var(--accent-glow); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 0 0 22px; }
+    .post-callout p { font-size: 15px; margin: 0; }
+    .post-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; text-align: center; margin: 52px 0 8px; }
+    .post-cta h2 { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .post-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 22px; line-height: 1.6; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 28px auto 88px; padding: 0 24px; }
+    .post-nav a { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.2s; }
+    .post-nav a:hover { border-color: var(--border-hover); }
+    .post-nav .dir { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .post-nav .t { font-size: 14.5px; font-weight: 600; color: var(--text-primary); line-height: 1.45; }
+    .post-nav a.next { text-align: right; }
+    @media (max-width: 980px) {
+      .post-wrap { padding-top: 120px; }
+    }
+    @media (max-width: 720px) {
+      .post-body pre { font-size: 12px; padding: 14px 16px; }
+      .post-nav { grid-template-columns: 1fr; }
+      .post-nav a.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<article class="post-wrap">
+  <div class="post-kicker">Evaluation</div>
+  <h1>How we measure whether an agent's work is actually good</h1>
+  <div class="post-meta">
+    <span class="byline">FuturOne Engineering</span>
+    <span class="sep">&middot;</span>
+    <span>May 7, 2026</span>
+    <span class="sep">&middot;</span>
+    <span>7 min read</span>
+  </div>
+
+  <div class="post-body">
+
+    <p>We publish one quality metric: 91% of agent deliverables are accepted without major revision. That number does a lot of work in our sales conversations, which means it deserves scrutiny — what counts, what doesn't, and how it is measured. This post is the long answer. It also explains why "passes tests" is the wrong bar for agent output, especially for a code review agent, where the tests measure the code and not the review.</p>
+
+    <p>The short version: quality measurement at FuturOne is three systems stacked on each other. Rubrics score artifacts. Calibration makes the agent's confidence mean something. Escalation thresholds decide what ships at all. The 91% only makes sense once you understand all three.</p>
+
+    <h2>Rubric-based artifact scoring</h2>
+
+    <p>Every artifact type has a rubric, versioned in our repo next to the workflow definitions, because an unversioned rubric drifts into whatever the loudest reviewer wanted last month. A code review is scored on finding correctness (is each flagged issue real?), severity calibration (does "critical" mean critical?), coverage (did it miss what a strong human reviewer would have caught?), convention adherence, and actionability of the suggested fixes. A research memo is scored on claim-source linkage, source quality, coverage of disconfirming evidence, and recency. Each dimension is scored 0–4 against anchored descriptions, not gut feel:</p>
+
+    <pre><code>dimension: finding_correctness
+weight: 0.35
+scale:
+  4: finding is real; root cause correctly identified
+  3: finding is real; root cause partially identified
+  2: finding is real; severity off by one level
+  1: finding is technically real but immaterial in context
+  0: finding is not a real issue</code></pre>
+
+    <p>Who grades matters as much as the rubric. Graders are separate model passes with fresh context: they see the artifact, the inputs, and the rubric — never the producer's reasoning. When we let the producing model grade its own work in the same context early in the beta, scores ran roughly 0.6 points hot on a 4-point scale; the grader inherits the producer's blind spots along with its context. We also route grading to a different model than the one that produced the step where practical, which the model-agnostic routing layer makes cheap.</p>
+
+    <p>Model graders are themselves audited. A sample of runs is human-graded every week, and we track model–human agreement per domain; when agreement drops below our floor, that rubric gets revised before we trust another week of its scores. Humans do not agree perfectly with each other either — inter-reviewer agreement tops out well short of 1.0 — which is worth remembering: there is a ceiling on how precise any of this can be, and pretending otherwise is its own failure mode.</p>
+
+    <h2>Confidence calibration</h2>
+
+    <p>Every deliverable ships with confidence scores — per section for research memos, per finding for code reviews. A confidence score is only information if it is calibrated: when the agent says 90%, the acceptance rate of those items should be about 90%. So we treat calibration as a measured property, not an aspiration. Stated confidence is binned, plotted against actual acceptance outcomes, and tracked per domain alongside a Brier score.</p>
+
+    <p>It drifts. Last fall, the research agent ran about twelve points overconfident on claims supported by sparse sources — it confused "I found nothing contradicting this" with "this is well supported." The fix was twofold: the source verification pass that <a href="/changelog.html">shipped this week</a> now distinguishes corroborated claims from merely uncontradicted ones, and we re-fit the calibration map (isotonic regression over rolling 90-day outcomes) per domain. Calibration is also re-fit any time model routing changes, because a confidence map tuned for one model's habits does not survive a model swap.</p>
+
+    <h2>Escalation thresholds: permission to say "I'm not sure"</h2>
+
+    <p>Below a confidence threshold, the agent does not deliver with a shrug — it escalates. An escalation names the specific sections or findings in doubt and what would resolve them: a source it could not verify, a requirement that reads two ways, a test it could not run. The reviewer starts from the doubt, not from scratch.</p>
+
+    <p>Setting the threshold is a product decision wearing a statistics costume. Too low, and junk ships with a confident face. Too high, and the agent escalates everything, saving nobody any time — an agent that always asks is a search engine with extra steps. We tune thresholds per domain to hold escalations in roughly the 7–10% band of production runs, and we revisit the band when calibration shifts.</p>
+
+    <div class="post-callout">
+      <p>This is the part most evaluations skip: the 91% acceptance number is only trustworthy <em>because</em> the agent is allowed to decline to deliver. Remove escalation and acceptance falls — you would be forcing the agent's most uncertain work into reviewers' hands stamped as done.</p>
+    </div>
+
+    <h2>What the 91% actually counts</h2>
+
+    <p>Precisely: <strong>91% of delivered artifacts are accepted without major revision</strong>, measured on production runs over a trailing quarter — not on a benchmark set we curated.</p>
+
+    <ul>
+      <li><strong>"Major revision" is defined</strong>, not vibes: the reviewer reverses a conclusion, removes findings as incorrect, or rewrites more than a quarter of the artifact's substance. Tone, formatting, and house-style edits do not count against the agent. The line is documented for customers so dispositions are comparable across teams.</li>
+      <li><strong>Dispositions come from real workflows.</strong> The dashboard records accept/revise/reject actions on each deliverable. For code review runs we also ingest GitHub signals: auto-fix PRs merged versus closed, inline comments resolved versus dismissed. Where the two disagree, the human's explicit disposition wins.</li>
+      <li><strong>Escalated runs are excluded from the denominator</strong> and reported separately. An escalation is the agent declining to deliver; counting it as either accepted or rejected would corrupt the metric in opposite directions. Customers see both numbers.</li>
+    </ul>
+
+    <p>One more honesty requirement: acceptance alone is gameable. An agent optimized purely for acceptance learns to make fewer, safer claims — short reviews full of unfalsifiable observations get accepted at wonderful rates while catching nothing. So acceptance is always read against the coverage dimensions of the rubric. Acceptance up while coverage drifts down is not improvement; it is the agent learning to flatter its graders, and we treat it as a regression.</p>
+
+    <h2>Why "passes tests" is not enough</h2>
+
+    <p>For coding agents the industry default is to lean on CI: if the tests pass, the work was good. For a code review agent this is a category error — green CI tells you about the code under review, nothing about the review itself. The failure modes that actually destroy a review agent's value are invisible to tests:</p>
+
+    <ul>
+      <li><strong>False positives.</strong> Every wrong finding spends reviewer trust. A reviewer who dismisses three bogus comments stops reading the fourth — which is the one that mattered. Comment dismissal rate is our canary metric, watched per repository, because trust erodes locally before it shows up globally.</li>
+      <li><strong>Missed criticals.</strong> No test fails when a review overlooks an authorization bypass. We measure recall the only way you can: seeded-defect benchmarks, replaying changesets with known vulnerabilities and regressions through the agent and counting what it catches. The seeded set grows every time production surfaces a miss — each one becomes a permanent regression test for the reviewer, exactly as a bug becomes a test for the code.</li>
+      <li><strong>Severity inflation.</strong> An agent that calls everything critical is as useless as one that misses everything, just more annoying. Severity calibration is scored in the rubric and audited against the human grading sample.</li>
+    </ul>
+
+    <p>The same logic generalizes. "The memo compiles" was never the bar for human analysts; "the code runs" should not be the bar for agents whose deliverable is judgment.</p>
+
+    <h2>What we still get wrong</h2>
+
+    <p>Three open problems, so this does not read like a victory lap. Our graders favored longer reviews for months before we noticed and added length-controlled scoring — verbosity bias is the most persistent grader pathology we have found. Rubric versioning makes longitudinal comparison messy: when the rubric improves, history scored under the old one is not strictly comparable, and we annotate rather than rescore. And the human-agreement ceiling means small quarter-over-quarter movements in any of these numbers are noise; we try hard not to celebrate them.</p>
+
+    <p>Every run in the dashboard shows its rubric scores and confidence next to the deliverable — the same data described here, per run, including in the demo. We think any vendor publishing an acceptance number owes you this level of detail about what it means. Ask for it.</p>
+
+  </div>
+
+  <div class="post-cta">
+    <h2>See the scores on a real run</h2>
+    <p>The live demo shows rubric scores, confidence, and verification output alongside the deliverable — the same evaluation pipeline described above.</p>
+    <a href="/demo.html" class="btn-primary">Watch a Run</a>
+  </div>
+</article>
+
+<div class="post-nav">
+  <a href="/blog/zero-retention-enterprise-ai.html">
+    <div class="dir">&#8592; Previous post</div>
+    <div class="t">Zero retention is an architecture decision, not a policy promise</div>
+  </a>
+  <div></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/contact.js?v=20260610"></script>
+</body>
+</html>
