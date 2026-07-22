@@ -26,7 +26,7 @@
   </script>
   <link rel="canonical" href="https://futurmix.one/changelog.html" />
   <link rel="icon" href="/one-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <link rel="stylesheet" href="styles.css?v=20260721" />
   <style>
     .cl-wrap { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
     .cl-intro-links { text-align: center; font-size: 14px; color: var(--text-muted); margin-top: -32px; padding: 0 24px 8px; }
@@ -90,7 +90,43 @@
 <div class="cl-wrap">
 
   <section class="cl-month">
+    <h2>July 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Jul 17, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Scheduled and recurring runs</h3>
+        <p>Workflows can now run on a schedule instead of only on demand or by webhook. A run definition takes an optional cron expression — <code>POST /v1/schedules</code> — so weekly PR-health reviews, nightly research digests, and month-end compliance sweeps fire without an external trigger. Each scheduled invocation produces a normal run with full history and artifact diffing against the previous occurrence, so what changed since last week is the first thing you see. Schedules respect per-team budget alerts and pause automatically if a workspace hits its cap, rather than silently overrunning it.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Jul 8, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag improved">Improved</span></div>
+        <h3>Faster cold starts for infrequent workflows</h3>
+        <p>Workflows that hadn't run in a while paid a warm-up penalty on their first step while plan templates and tool connections re-initialized. We now keep a small pool of pre-warmed orchestration workers and hydrate plan caches from a durable store instead of rebuilding them cold, which cut first-step latency on idle workflows from a median of 1.9s to 340ms. Frequently-run workflows are unaffected — they were already warm — and nothing changes in the API.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cl-month">
     <h2>June 2026</h2>
+    <div class="cl-entry">
+      <div class="cl-date">Jun 24, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag new">New</span></div>
+        <h3>Slack and Microsoft Teams delivery for run results</h3>
+        <p>Completed runs can now post their summary and a link to the full deliverable directly into a Slack or Teams channel, so review runs and research digests land where teams already work instead of only in the dashboard or a webhook payload. Delivery is configured per workflow and respects channel-level scoping — the message carries the run summary and artifact link, never the underlying content, consistent with the zero-retention model. Threaded replies on a run post route back as run comments visible in the dashboard timeline.</p>
+      </div>
+    </div>
+    <div class="cl-entry">
+      <div class="cl-date">Jun 17, 2026</div>
+      <div>
+        <div class="cl-tags"><span class="cl-tag fixed">Fixed</span></div>
+        <h3>Cost attribution rollups double-counting retried steps</h3>
+        <p>Following the cost attribution dashboard shipped on June 4, a small number of workspaces saw inflated per-step spend in the daily rollup when a step was automatically retried after a transient inference-provider error. The retry was billed correctly against the provider but counted twice in our rollup aggregation. The aggregation now keys on the final settled attempt per step, and we backfilled corrected rollups for the affected window so historical dashboards read true. Live spend and budget alerts were never affected — only the summarized history view.</p>
+      </div>
+    </div>
     <div class="cl-entry">
       <div class="cl-date">Jun 4, 2026</div>
       <div>
@@ -341,6 +377,6 @@
   </div>
 </footer>
 
-<script src="contact.js?v=20260610"></script>
+<script src="contact.js?v=20260721"></script>
 </body>
 </html>

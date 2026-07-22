@@ -28,10 +28,10 @@
       "name": "FuturOne",
       "url": "https://futurmix.one"
     },
-    "dateModified": "2026-06-10"
+    "dateModified": "2026-07-21"
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260610" />
+  <link rel="stylesheet" href="styles.css?v=20260721" />
   <style>
     /* ---- status page ---- */
     .status-hero { padding: 140px 24px 16px; max-width: 1000px; margin: 0 auto; }
@@ -226,6 +226,43 @@
     <p>What happened, when, and what we changed afterward.</p>
   </div>
 
+  <div class="incident-month">July 2026</div>
+  <details class="incident-item">
+    <summary>
+      <span class="incident-title">Delayed cost-attribution rollups</span>
+      <span class="tag deg">Degraded performance</span>
+      <span class="tag comp">Dashboard</span>
+      <span class="tag res">Resolved &#183; 19 min</span>
+    </summary>
+    <div class="incident-body">
+      <ul class="timeline">
+        <li>
+          <span class="tl-time">Jul 2, 06:38 UTC</span>
+          <span class="tl-label investigating">Investigating</span>
+          <span class="tl-text">Dashboard cost-attribution rollups stopped advancing for a subset of workspaces. Live run creation, execution, and spend metering were unaffected — only the summarized daily rollup view lagged.</span>
+        </li>
+        <li>
+          <span class="tl-time">Jul 2, 06:45 UTC</span>
+          <span class="tl-label identified">Identified</span>
+          <span class="tl-text">A rollup aggregation worker deadlocked while draining a larger-than-usual month-boundary backlog, and its lease was not reclaimed promptly. Downstream workspaces waited on the stalled shard rather than failing over.</span>
+        </li>
+        <li>
+          <span class="tl-time">Jul 2, 06:52 UTC</span>
+          <span class="tl-label monitoring">Monitoring</span>
+          <span class="tl-text">Stalled worker cycled and its lease reclaimed; rollup backlog draining. Watching for regression as the month-boundary batch completes.</span>
+        </li>
+        <li>
+          <span class="tl-time">Jul 2, 06:57 UTC</span>
+          <span class="tl-label resolved">Resolved</span>
+          <span class="tl-text">Rollups caught up to real time for all workspaces. Total impact 19 minutes of delayed dashboard history. No spend was mismetered and no data was lost.</span>
+        </li>
+      </ul>
+      <div class="root-cause">
+        <strong>Root cause.</strong> A rollup aggregation worker held a lease while processing an oversized month-boundary batch and deadlocked on a lock-ordering edge that only surfaced under that batch shape, and the lease reclaim timeout was long enough to be customer-visible on the dashboard. Lease reclaim now runs on a much shorter timeout with automatic failover to a standby worker, oversized batches are chunked below the size that triggered the deadlock, and the lock-ordering path was corrected. This followed the June 17 fix to rollup double-counting and closes out the aggregation-layer hardening for the cost-attribution dashboard.
+      </div>
+    </div>
+  </details>
+
   <div class="incident-month">April 2026</div>
   <details class="incident-item">
     <summary>
@@ -394,9 +431,9 @@
    * land on their canonical dates. Do NOT replace REF_UTC with the
    * live clock — only the "Last checked" label may use real time.
    * ------------------------------------------------------------------ */
-  var REF_UTC = Date.UTC(2026, 5, 10); // 2026-06-10 (months are 0-based)
+  var REF_UTC = Date.UTC(2026, 6, 21); // 2026-07-21 (months are 0-based)
   var DAYS = 90;
-  var SEED = 20260610; // fixed seed — deterministic rendering
+  var SEED = 20260721; // fixed seed — deterministic rendering
 
   /* mulberry32 — small deterministic PRNG */
   function mulberry32(a) {
@@ -426,11 +463,13 @@
     { id: 'webhooks', name: 'Webhooks' }
   ];
 
-  /* The two canonical incidents. Mapping is data-driven: a day cell
-     turns yellow only when its UTC date matches an incident date AND
-     the component is affected. (2026-02-03 predates the current
-     90-day window, so it appears in incident history only.) */
+  /* Canonical incidents. Mapping is data-driven: a day cell turns
+     yellow only when its UTC date matches an incident date AND the
+     component is affected. Incidents whose date predates the current
+     90-day window (2026-04-18, 2026-02-03) appear in incident history
+     only and paint no cell. */
   var INCIDENTS = [
+    { date: '2026-07-02', components: ['dashboard'], status: 'Degraded performance', title: 'Delayed cost-attribution rollups', duration: '19 min' },
     { date: '2026-04-18', components: ['api', 'runtime'], status: 'Degraded performance', title: 'Elevated run queue latency', duration: '38 min' },
     { date: '2026-02-03', components: ['webhooks'], status: 'Degraded performance', title: 'Webhook delivery delays', duration: '22 min' }
   ];
@@ -526,6 +565,6 @@
   renderChecked();
 })();
 </script>
-<script src="contact.js?v=20260610"></script>
+<script src="contact.js?v=20260721"></script>
 </body>
 </html>
