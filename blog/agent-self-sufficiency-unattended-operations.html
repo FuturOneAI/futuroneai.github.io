@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running agents unattended: why “it recovered” is the wrong metric — FuturOne Engineering</title>
+  <meta name="description" content="Rescues erase their own evidence. How to measure agent fleet self-sufficiency: record run provenance, count human interventions as a lower bound, and separate ran-but-failed from never-ran." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://futurmix.one/blog/agent-self-sufficiency-unattended-operations.html" />
+  <meta property="og:title" content="Running agents unattended: why “it recovered” is the wrong metric" />
+  <meta property="og:description" content="Rescues erase their own evidence. How to measure agent fleet self-sufficiency: record run provenance, count human interventions as a lower bound, and separate ran-but-failed from never-ran." />
+  <meta property="og:image" content="https://futurmix.one/one-og-banner.png" />
+  <meta property="article:published_time" content="2026-08-19" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Running agents unattended: why “it recovered” is the wrong metric" />
+  <meta name="twitter:description" content="Rescues erase their own evidence. How to measure agent fleet self-sufficiency: record run provenance, count human interventions as a lower bound, and separate ran-but-failed from never-ran." />
+  <meta name="twitter:image" content="https://futurmix.one/one-og-banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Running agents unattended: why “it recovered” is the wrong metric",
+    "description": "Rescues erase their own evidence. How to measure agent fleet self-sufficiency: record run provenance, count human interventions as a lower bound, and separate ran-but-failed from never-ran.",
+    "url": "https://futurmix.one/blog/agent-self-sufficiency-unattended-operations.html",
+    "mainEntityOfPage": "https://futurmix.one/blog/agent-self-sufficiency-unattended-operations.html",
+    "datePublished": "2026-08-19",
+    "dateModified": "2026-08-19",
+    "author": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FuturOne",
+      "url": "https://futurmix.one",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://futurmix.one/one-logo.svg"
+      }
+    },
+    "image": "https://futurmix.one/one-og-banner.png"
+  }
+  </script>
+  <link rel="canonical" href="https://futurmix.one/blog/agent-self-sufficiency-unattended-operations.html" />
+  <link rel="icon" href="/one-logo.svg" />
+  <link rel="stylesheet" href="/styles.css?v=20260721" />
+  <style>
+    .post-wrap { max-width: 760px; margin: 0 auto; padding: 140px 24px 32px; }
+    .post-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px; }
+    .post-wrap h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .post-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--text-muted); font-size: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+    .post-meta .byline { color: var(--text-secondary); font-weight: 600; }
+    .post-meta .sep { color: var(--border-hover); }
+    .post-body p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 20px; }
+    .post-body h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text-primary); }
+    .post-body h3 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; color: var(--text-primary); }
+    .post-body ul, .post-body ol { margin: 0 0 20px 22px; color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
+    .post-body li { margin-bottom: 10px; }
+    .post-body strong { color: var(--text-primary); }
+    .post-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; overflow-x: auto; font-size: 13px; line-height: 1.65; margin: 0 0 22px; color: var(--text-secondary); }
+    .post-body pre code { font-family: 'SF Mono', Menlo, Consolas, monospace; background: none; border: none; padding: 0; }
+    .post-body p code, .post-body li code { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13.5px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; color: var(--accent-light); }
+    .post-callout { border-left: 3px solid var(--accent); background: var(--accent-glow); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 0 0 22px; }
+    .post-callout p { font-size: 15px; margin: 0; }
+    .post-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; text-align: center; margin: 52px 0 8px; }
+    .post-cta h2 { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .post-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 22px; line-height: 1.6; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 28px auto 88px; padding: 0 24px; }
+    .post-nav a { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.2s; }
+    .post-nav a:hover { border-color: var(--border-hover); }
+    .post-nav .dir { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .post-nav .t { font-size: 14.5px; font-weight: 600; color: var(--text-primary); line-height: 1.45; }
+    .post-nav a.next { text-align: right; }
+    @media (max-width: 980px) {
+      .post-wrap { padding-top: 120px; }
+    }
+    @media (max-width: 720px) {
+      .post-body pre { font-size: 12px; padding: 14px 16px; }
+      .post-nav { grid-template-columns: 1fr; }
+      .post-nav a.next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+    <div class="nav-links">
+      <a href="/demo.html">Live Demo</a>
+      <a href="/use-cases.html">Use Cases</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/about.html">Company</a>
+      <a href="#contact" class="nav-cta">Start Building</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">&#9776;</button>
+  </div>
+</nav>
+
+<article class="post-wrap">
+  <div class="post-kicker">Operations</div>
+  <h1>Running agents unattended: why &ldquo;it recovered&rdquo; is the wrong metric</h1>
+  <div class="post-meta">
+    <span class="byline">FuturOne Engineering</span>
+    <span class="sep">&middot;</span>
+    <span>August 19, 2026</span>
+    <span class="sep">&middot;</span>
+    <span>8 min read</span>
+  </div>
+
+  <div class="post-body">
+    <p>Every team that runs scheduled agents eventually tells the same story. The nightly job failed, someone happened to be watching, they re-ran it by hand, and the morning dashboard showed a complete, on-time artifact. The incident ends with a green checkmark &mdash; and that checkmark is where the trouble starts.</p>
+
+    <p>The artifact is real. The pipeline "worked." But the system did not produce that result &mdash; a person did. If you record only the outcome, those two situations are indistinguishable, and every rescue silently inflates your reliability numbers. Run that loop for a month and you get a fleet that <em>looks</em> increasingly stable while its ability to operate without a human hasn't moved at all.</p>
+
+    <h2>Rescues erase their own evidence</h2>
+    <p>The core problem is structural: <strong>a successful rescue destroys the record of what it rescued.</strong> Once the retry lands, the output file, the row counts, the checksums &mdash; everything downstream consumes &mdash; are identical to what a healthy scheduled run would have produced. "The scheduled run got 1/4 of the data and a human recovered the rest" and "the scheduled run was fine" converge on the same artifact.</p>
+
+    <p>This has a nasty corollary for anyone doing a retrospective: <strong>you cannot date the onset of a defect from your artifacts.</strong> If your history looks clean, it may be because the system was healthy &mdash; or because someone was always there. The evidence for the second case is exactly nothing.</p>
+
+    <h2>Record provenance at the moment of production</h2>
+    <p>The fix is cheap but has to be done at write time, not reconstructed later: every run stamps its own origin into what it produces.</p>
+    <ul>
+      <li><strong>Origin</strong> &mdash; was this run <code>scheduled</code>, an automatic <code>retry</code>, or <code>manual</code>?</li>
+      <li><strong>Attempt</strong> &mdash; first try, or a built-in second attempt?</li>
+      <li><strong>Slot</strong> &mdash; which scheduled window does it belong to? (The moment you run twice a day, "the run" stops being a well-defined noun.)</li>
+    </ul>
+    <p>Two rules make the stamps trustworthy. First, <strong>record, don't infer</strong>: the wrapper that launches a retry knows it is a retry &mdash; let it say so, instead of guessing later from timestamps. Positional inference breaks the day your execution model changes. Second, when provenance is missing, <strong>emit null plus a note, never a plausible-looking guess</strong>. A wrong-but-reasonable number is strictly worse than an honest "cannot attribute": it will be read as fact by every layer downstream.</p>
+
+    <h2>Count human interventions &mdash; as a lower bound</h2>
+    <p>With provenance in place you can compute the number that actually matters for unattended operation. For each line of work, over a week: how many days was the output produced entirely by <code>scheduled + retry</code> runs (self-sufficient), how many days required a <code>manual</code> run (human-dependent), and how many days is it simply missing?</p>
+
+    <p>Read the three numbers together, never one alone. A falling human-intervention count is only good news if self-sufficient days rise <em>and</em> missing days don't &mdash; otherwise it may just mean nobody was around to rescue anymore, and failures moved from "saved by a person" to "lost."</p>
+
+    <p>And label the metric honestly: <strong>it is a lower bound.</strong> Origin stamps catch the intervention where a person re-ran the job. They do not catch the person who restarted a daemon, after which the automatic run succeeded. Write that limitation next to the number. A conservative self-sufficiency metric is the useful kind: if the lower bound isn't falling, things are definitely not improving; if it falls, you've earned the right to say "possibly."</p>
+
+    <h2>A safety net that requires you present is not a net</h2>
+    <p>Sorting our own monitoring against one question &mdash; <em>does this still work when nobody is watching?</em> &mdash; was uncomfortable. Most of what we called "backstops" turned out to be accelerators: checks that make an incident cheaper to diagnose <em>if</em> someone is there, and do nothing at 3 a.m. The classification we ended up with:</p>
+    <ul>
+      <li><strong>True backstops</strong> ring without anyone present &mdash; a freshness gate on the next pipeline stage, an idempotent time-delayed retry, an independent probe that alerts a phone.</li>
+      <li><strong>Triage records</strong> don't ring, but answer "which line do I debug?" the next morning.</li>
+      <li><strong>Presence-dependent checks</strong> are worth keeping &mdash; and worth refusing to count as protection.</li>
+    </ul>
+    <p>The failure mode this prevents is subtle: a team member who reliably rescues the pipeline <em>is</em> a safety net &mdash; until they're asleep, on holiday, or gone. "Someone will do it" is a fact about your roster, not a property of your system. Design reviews should treat the two differently.</p>
+
+    <h2>Separate &ldquo;ran and failed&rdquo; from &ldquo;never ran&rdquo;</h2>
+    <p>One more distinction pays for itself the first night you need it. If the morning output is missing, there are two completely different investigations: the job started and died (an engine, prompt, or upstream-API problem) or the job never started (a scheduler problem). If you only log successes, both look like the same blank space.</p>
+
+    <p>So log attempts, not just outcomes: a <code>START</code> line when the job launches, an <code>EXIT</code> line with the code when it ends, in a file that survives the run. Then a missing artifact triages itself: <code>START</code> without a clean exit means it ran and failed; no lines at all means the scheduler never fired. Ten minutes of shell script, and the 8 a.m. question changes from "what happened?" to "which of two known things happened?"</p>
+
+    <h2>What redundancy changes</h2>
+    <p>Adding a second scheduled run per day &mdash; the obvious availability move &mdash; quietly breaks every check that assumed "one run per day." A partial failure (the evening run died, the morning run's data is present) now looks exactly like success to any check that asks "is there output today?" <strong>Redundancy converts total failures into partial failures, and partial failures wear normalcy better.</strong> When you add capacity for reliability, upgrade the checks in the same change: from "does output exist" to "did every expected instance appear."</p>
+
+    <h2>A checklist</h2>
+    <ol>
+      <li>Stamp every run's <strong>origin, attempt, and slot</strong> at production time.</li>
+      <li>When provenance is missing, output <strong>null + a note</strong> &mdash; never a plausible guess.</li>
+      <li>Track weekly <strong>self-sufficient / human-dependent / missing</strong> days per pipeline; read all three together; call the middle one a lower bound.</li>
+      <li>Classify every check: <strong>rings unattended / triage / presence-dependent</strong>. Only the first kind counts as protection.</li>
+      <li>Log <strong>attempts (START/EXIT)</strong>, not just successes.</li>
+      <li>On any capacity or schedule change, re-verify <strong>every check that reads the old execution model</strong> &mdash; keep a written list of them, with the assumption each one makes.</li>
+    </ol>
+
+    <p>None of this is glamorous. But "the agent fleet ran for two weeks with zero human interventions, verified from run provenance" is a sentence you can only say if you started recording the right things &mdash; and it's the only version of "our agents are reliable" that survives the person who used to rescue them going on holiday.</p>
+  </div>
+
+  <div class="post-nav">
+  <a href="/blog/zero-retention-enterprise-ai.html">
+    <div class="dir">&#8592; Previous post</div>
+    <div class="t">Zero retention is an architecture decision, not a policy promise</div>
+  </a>
+  <div></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/one-logo.svg" alt="FuturOne" class="logo-mark">Futur<span>One</span></a>
+        <p>FuturOne builds production-grade AI agents that complete enterprise workflows end-to-end — coding, strategy, content, and research.</p>
+        <p class="footer-team">Founded in San Francisco by infrastructure engineers from cloud-native and AI systems backgrounds.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/demo.html">Live Demo</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/how-it-works.html">How It Works</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs.html">Documentation</a></li>
+          <li><a href="/changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/customers.html">Customers</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/security.html">Security</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#contact">Request Access</a></li>
+          <li><a href="#contact">Enterprise Sales</a></li>
+          <li><a href="mailto:nancy-sl@futurmix.one">nancy-sl@futurmix.one</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 FuturOne. All rights reserved.<br>Future Intelligence LLC &nbsp;|&nbsp; San Francisco, CA</div>
+      <a class="footer-status" href="/status.html" style="color:inherit;">
+        <span class="status-dot"></span>
+        All systems operational
+      </a>
+      <div class="footer-legal">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/contact.js?v=20260721"></script>
+</body>
+</html>
